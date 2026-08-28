@@ -15,3 +15,8 @@ venv/
 
 # Claude workspace settings live above the repo, but ignore them if they ever land here
 .claude/settings.local.json
+
+# NSDUH public-use files. Large, publicly distributed by SAMHSA, and individual-level.
+# Link to the source instead of committing a copy.
+NSDUH_*.txt
+*.sas7bdat

@@ -1,10 +1,169 @@
 # fisher-nsduh-analysis
 
-<!-- Replace this line with one or two sentences: what this project is and what the
-     deliverable actually is. Be concrete. "A 40-page HTML guide to X, published to
-     GitHub Pages" beats "a documentation project". -->
+**Major Depressive Episode and Substance Use in the United States**, an analysis of the
+National Survey on Drug Use and Health (NSDUH), 2022 to 2024.
+
+Three survey years were pooled to give 134,897 respondents with a usable depression
+outcome. The analysis reduces seven substance-use and demographic measures with PCA,
+finds four groups by k-means, then predicts past-year major depressive episode with
+penalised logistic regression and a classification tree, refitting for class imbalance.
 
 **Author: John Fisher.** Repo: `johnfisher-ai/fisher-nsduh-analysis`.
+
+---
+
+## 1. Name this for the subject, never for how it was produced
+
+This is the sharpest constraint on the project, sharper than in any previous study,
+because **both source documents are saturated with references that must not appear
+anywhere**.
+
+Refer to this work only as an analysis of NSDUH data, by its subject: major depressive
+episode, substance use, the survey years. No course, course code, course title, study
+guide, homework, semester, or "final project" reference belongs in the README, the About
+text, the social cards, any page, the notebook, commit messages, or file names.
+
+The source material carries these in volume. Before anything is committed, know where:
+
+- the analysis PDF's title line, and a `setwd()` call that names both a course directory
+  and a local home path
+- the plain-English report's title block, and roughly fifty in-body references: a
+  recurring "class connection" callout, dozens of study-guide section pointers, homework
+  numbers, and a whole subsection built around mapping techniques to course material
+- one source file name
+
+**Neither source document can be published as-is, or lightly edited.** The site's prose
+must be written fresh from the substance. The figures are clean R output and can be reused
+after renaming.
+
+Before committing, grep the staged tree for the course code, the course title, "study
+guide", "homework", "semester", and "final project". The answer should be nothing.
+
+---
+
+## 2. The data is not committed
+
+`../source/` holds three NSDUH public-use files, about 1.1 GB in total: roughly 59,000
+respondents and 2,650 variables per year.
+
+**Do not commit them.** Three independent reasons, any one sufficient:
+
+- **Size.** Each file is over 350 MB, well past GitHub's per-file limit, and the repository
+  would become unusable.
+- **Redundancy.** SAMHSA distributes these files publicly. Linking to the source is more
+  useful than a copy that will go stale.
+- **They are still individual-level records.** SAMHSA applies disclosure limitation before
+  release, so these are far less sensitive than the restricted files, but they remain one
+  row per respondent covering substance use, mental health and suicidality. Publishing
+  derived aggregates is the right level.
+
+Cite SAMHSA and link to the public-use file page. Note the survey year in any figure, since
+NSDUH questionnaires change between years.
+
+---
+
+## 3. The design variables are in the data and the analysis does not use them
+
+This is the most important thing to establish before repeating any number from the existing
+work.
+
+NSDUH is a complex multistage probability sample. The public-use files carry the machinery
+for handling it: an analysis weight, a variance stratum, and a variance replicate. The
+existing analysis selects ten variables and **none of the three is among them**.
+
+That has two different consequences, and conflating them would be a mistake:
+
+**For prediction, it is largely defensible.** The modelling here builds and evaluates a
+classifier. Cross-validated AUC on unweighted data answers "how well does this model rank
+these respondents", which is a coherent question.
+
+**For describing the population, it is not.** NSDUH deliberately oversamples some groups,
+so an unweighted percentage is a property of the sample, not an estimate for the country.
+Every prevalence figure in the existing work, the rates by year, and the rates by sex,
+income and age, is an unweighted sample percentage. The write-up describes these as facts
+about Americans. They are not, until they are weighted.
+
+**Pooling years needs care too.** When NSDUH years are combined, the analysis weight has to
+be divided by the number of years, or the pooled estimates imply a population several times
+too large. Check whether that was done.
+
+Recommended handling for the site: compute the descriptive figures **both ways**, weighted
+and unweighted, and show the difference. That converts a methodological problem into the
+most interesting descriptive result the site can offer. Use the `survey` package in R or
+`statsmodels`/`samplics` in Python, and always report which is which.
+
+---
+
+## 4. What the analysis does
+
+| Step | Method |
+|---|---|
+| Clean | Pool three years, select ten variables, recode to binary indicators, listwise deletion |
+| Explore | Missingness pattern, prevalence by year, MDE rate by sex, income and age |
+| Reduce | PCA on seven standardised variables |
+| Group | K-means on the principal component scores, K chosen by elbow plot |
+| Predict | LASSO and ridge penalised logistic regression, and a CART classification tree |
+| Validate | 10-fold cross-validation, accuracy, kappa, ROC and AUC |
+| Refit | Class-weighted models and threshold adjustment for the imbalanced outcome |
+
+Outcome: past-year major depressive episode. Predictors: past-month alcohol, marijuana and
+cigarette use, sex, age band, income band, self-rated health.
+
+---
+
+## 5. What it found, and what to check
+
+Reported in the existing work. Verify each against the data before repeating it.
+
+- Four groups: high-income social drinkers, young low-use, older poor-health cigarette
+  users, and a polysubstance group described as the public-health priority.
+- Self-rated health and age are the strongest predictors of depression; women are at
+  higher risk; marijuana is the strongest substance predictor, roughly three and a half
+  times alcohol or cigarettes.
+- Income adds nothing once the other variables are known, which LASSO found on its own.
+- Cross-validated AUC 0.741.
+- The outcome is imbalanced at about 7.9 to 1, and at the default threshold kappa is 0:
+  the model predicts "no depression" for essentially everyone. The existing work reports
+  this openly and refits with class weights and threshold adjustment.
+
+Worth establishing before any of it reaches the site:
+
+- **The weighting question in section 3**, which affects every descriptive claim.
+- **Kappa of 0 with 88.7% accuracy is the headline, not a footnote.** A classifier that
+  never predicts the minority class is a good illustration of why accuracy alone misleads,
+  and the site should lead with it rather than bury it.
+- **Cluster interpretation is not a finding.** K-means will return four groups from any
+  data. Whether these are real types of people or an artefact of partitioning a continuum
+  needs a stability check: refit on resamples and see whether the same structure appears.
+- **Listwise deletion dropped about 39,000 records** on the outcome alone. Establish who
+  those respondents are. If the depression question was not asked of certain age groups,
+  that is a structural gap and should be stated as a restriction on the population, not
+  treated as missing data.
+- **"Marijuana is 3.5 times alcohol" compares coefficients on binary predictors.** State
+  the scale: log-odds, odds ratio, or probability at a stated baseline. A bare ratio of
+  coefficients invites misreading.
+- Observational data throughout. No causal language.
+
+---
+
+## 6. What this repository should publish
+
+The user has asked specifically for descriptive visuals, methodology and conclusions.
+
+- **Overview** — why depression and substance use are studied together, the data, the four
+  groups, and the headline predictive result.
+- **The analysis** — descriptives shown weighted against unweighted, PCA and clustering
+  with a stability check, the models with cross-validated performance, and the imbalance
+  result treated as a finding.
+- **The code** — the R pipeline, and a Python notebook. **The notebook cannot embed the
+  data**: it is far too large. Either have it download from SAMHSA, or simulate from
+  published aggregates, and say which.
+- **The write-up** — a plain-language walkthrough, rewritten. The existing report's teaching
+  structure is genuinely good and worth keeping; its course scaffolding is not.
+
+Figures from the existing report are clean R output and can be reused after renaming, but
+prefer regenerating them in the site's own chart style where the data allows, so they
+follow the reader's light and dark setting.
 
 ---
 
