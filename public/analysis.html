@@ -75,10 +75,163 @@
   "Americans" that includes teenagers would be wrong on this evidence.</p>
   <p>Pooling three years also requires dividing each respondent's weight by three. Without
   that, the weighted totals describe a country three times too large.</p>
+
+  <h3>Where else data is missing</h3>
+  <figure><div class="figbox"><svg class="fig" viewBox="0 0 800 300" role="img" aria-label="Missing values by variable">
+<text class="ttl" x="0.0" y="16.0" text-anchor="start">Where the data is missing</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Records with no value, out of the pooled file. Two variables account for almost all of it.</text>
+<text class="lab" x="136.0" y="70.0" text-anchor="end">AMI</text>
+<rect class="m2f" x="150" y="59" width="476.2" height="14" rx="2"/>
+<text class="val" x="636.2" y="71.0" text-anchor="start">135,196</text>
+<text class="lab" x="136.0" y="94.0" text-anchor="end">MDE</text>
+<rect class="m2f" x="150" y="83" width="139.0" height="14" rx="2"/>
+<text class="val" x="299.0" y="95.0" text-anchor="start">39,477</text>
+<text class="lab" x="136.0" y="118.0" text-anchor="end">HEALTH</text>
+<rect class="m1f" x="150" y="107" width="1.0" height="14" rx="2"/>
+<text class="val" x="161.0" y="119.0" text-anchor="start">79</text>
+<text class="lab" x="136.0" y="142.0" text-anchor="end">IRSEX</text>
+<rect class="m1f" x="150" y="131" width="1.0" height="14" rx="2"/>
+<text class="val" x="161.0" y="143.0" text-anchor="start">none</text>
+<text class="lab" x="136.0" y="166.0" text-anchor="end">CATAG6</text>
+<rect class="m1f" x="150" y="155" width="1.0" height="14" rx="2"/>
+<text class="val" x="161.0" y="167.0" text-anchor="start">none</text>
+<text class="lab" x="136.0" y="190.0" text-anchor="end">INCOME</text>
+<rect class="m1f" x="150" y="179" width="1.0" height="14" rx="2"/>
+<text class="val" x="161.0" y="191.0" text-anchor="start">none</text>
+<text class="lab" x="136.0" y="214.0" text-anchor="end">ALC_PASTMO</text>
+<rect class="m1f" x="150" y="203" width="1.0" height="14" rx="2"/>
+<text class="val" x="161.0" y="215.0" text-anchor="start">none</text>
+<text class="lab" x="136.0" y="238.0" text-anchor="end">MJ_PASTMO</text>
+<rect class="m1f" x="150" y="227" width="1.0" height="14" rx="2"/>
+<text class="val" x="161.0" y="239.0" text-anchor="start">none</text>
+<text class="lab" x="136.0" y="262.0" text-anchor="end">CIG_PASTMO</text>
+<rect class="m1f" x="150" y="251" width="1.0" height="14" rx="2"/>
+<text class="val" x="161.0" y="263.0" text-anchor="start">none</text>
+<line class="axis" x1="150" y1="52" x2="150" y2="268"/>
+<text class="ax" x="400.0" y="294.0" text-anchor="middle">Records with a missing value</text>
+</svg></div>
+    <figcaption>Figure 1. Records with no value, by variable, across the pooled file.</figcaption></figure>
+  <div class="scroll"><table class="stats">
+    <caption>Missing values by variable, pooled across the three years.</caption>
+    <thead><tr><th>Variable</th><th class="num">Missing</th><th class="num">% of pooled file</th></tr></thead>
+    <tbody>
+<tr><td class="item">AMI</td><td class="num">135,196</td><td class="num">77.52%</td></tr><tr><td class="item">MDE</td><td class="num">39,477</td><td class="num">22.63%</td></tr><tr><td class="item">HEALTH</td><td class="num">79</td><td class="num">0.05%</td></tr><tr><td class="item">IRSEX</td><td class="num">0</td><td class="num">0.00%</td></tr><tr><td class="item">CATAG6</td><td class="num">0</td><td class="num">0.00%</td></tr><tr><td class="item">INCOME</td><td class="num">0</td><td class="num">0.00%</td></tr><tr><td class="item">ALC_PASTMO</td><td class="num">0</td><td class="num">0.00%</td></tr><tr><td class="item">MJ_PASTMO</td><td class="num">0</td><td class="num">0.00%</td></tr><tr><td class="item">CIG_PASTMO</td><td class="num">0</td><td class="num">0.00%</td></tr>
+    </tbody>
+  </table></div>
+  <p>Almost everything is complete. The two exceptions are the depression and mental-illness
+  measures, and as set out above, most of that is adolescents who were never asked rather
+  than adults who declined. Self-rated health is missing for a few dozen people. The
+  substance and demographic variables have no missing values at all, which is unusual and
+  reflects how much editing and imputation SAMHSA does before release.</p>
 </section>
 
 <section>
-  <h2>2. The survey design, and what ignoring it costs</h2>
+  <h2>2. Looking around first</h2>
+  <p>Before any model, the simple percentages. These are weighted, so they estimate the adult
+  population rather than describing the respondents.</p>
+  <figure><div class="figbox"><svg class="fig" viewBox="0 0 800 330" role="img" aria-label="Prevalence by year">
+<text class="ttl" x="0.0" y="16.0" text-anchor="start">Substance use and depression, by survey year</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Weighted to the population. Three years, and very little movement between them.</text>
+<rect x="580" y="7" width="10" height="10" rx="2" class="m1f"/><text class="leg" x="594.0" y="16.0" text-anchor="start">2022</text>
+<rect x="646" y="7" width="10" height="10" rx="2" class="m2f"/><text class="leg" x="660.0" y="16.0" text-anchor="start">2023</text>
+<rect x="712" y="7" width="10" height="10" rx="2" class="m3f"/><text class="leg" x="726.0" y="16.0" text-anchor="start">2024</text>
+<line class="grid" x1="60" y1="270.0" x2="780" y2="270.0"/>
+<text class="ax" x="52.0" y="274.0" text-anchor="end">0%</text>
+<line class="grid" x1="60" y1="221.0" x2="780" y2="221.0"/>
+<text class="ax" x="52.0" y="225.0" text-anchor="end">15%</text>
+<line class="grid" x1="60" y1="172.0" x2="780" y2="172.0"/>
+<text class="ax" x="52.0" y="176.0" text-anchor="end">30%</text>
+<line class="grid" x1="60" y1="123.0" x2="780" y2="123.0"/>
+<text class="ax" x="52.0" y="127.0" text-anchor="end">45%</text>
+<line class="grid" x1="60" y1="74.0" x2="780" y2="74.0"/>
+<text class="ax" x="52.0" y="78.0" text-anchor="end">60%</text>
+<rect class="m1f" x="111.0" y="96.1" width="23.0" height="173.9" rx="2"/>
+<rect class="m2f" x="137.0" y="100.4" width="23.0" height="169.6" rx="2"/>
+<rect class="m3f" x="163.0" y="105.6" width="23.0" height="164.4" rx="2"/>
+<text class="ax" x="150.0" y="290.0" text-anchor="middle">Alcohol</text>
+<text class="ax" x="150.0" y="304.0" text-anchor="middle">51.8% overall</text>
+<rect class="m1f" x="291.0" y="217.9" width="23.0" height="52.1" rx="2"/>
+<rect class="m2f" x="317.0" y="216.3" width="23.0" height="53.7" rx="2"/>
+<rect class="m3f" x="343.0" y="216.8" width="23.0" height="53.2" rx="2"/>
+<text class="ax" x="330.0" y="290.0" text-anchor="middle">Marijuana</text>
+<text class="ax" x="330.0" y="304.0" text-anchor="middle">16.2% overall</text>
+<rect class="m1f" x="471.0" y="218.7" width="23.0" height="51.3" rx="2"/>
+<rect class="m2f" x="497.0" y="222.0" width="23.0" height="48.0" rx="2"/>
+<rect class="m3f" x="523.0" y="223.6" width="23.0" height="46.4" rx="2"/>
+<text class="ax" x="510.0" y="290.0" text-anchor="middle">Cigarettes</text>
+<text class="ax" x="510.0" y="304.0" text-anchor="middle">14.9% overall</text>
+<rect class="m1f" x="651.0" y="241.8" width="23.0" height="28.2" rx="2"/>
+<rect class="m2f" x="677.0" y="242.2" width="23.0" height="27.8" rx="2"/>
+<rect class="m3f" x="703.0" y="243.2" width="23.0" height="26.8" rx="2"/>
+<text class="ax" x="690.0" y="290.0" text-anchor="middle">Major depressive episode</text>
+<text class="ax" x="690.0" y="304.0" text-anchor="middle">8.4% overall</text>
+<line class="axis" x1="60" y1="270" x2="780" y2="270"/>
+</svg></div>
+    <figcaption>Figure 2. Past-month substance use and past-year depression, by survey year.</figcaption></figure>
+  <p>The striking thing is how little moves. Across three years there is no meaningful trend
+  in any of the four measures. That is worth knowing before reading anything into
+  year-to-year differences, and it is a good reason to pool the years rather than compare
+  them.</p>
+
+  <figure><div class="figbox"><svg class="fig" viewBox="0 0 800 336" role="img" aria-label="Depression by sex and income">
+<text class="ttl" x="0.0" y="16.0" text-anchor="start">Who reports depression</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Weighted percent with a past-year major depressive episode.</text>
+<text class="lab bold" x="186.0" y="70.0" text-anchor="end">Sex</text>
+<text class="lab" x="186.0" y="100.0" text-anchor="end">Male</text>
+<rect class="m1f" x="200" y="88" width="152.0" height="16" rx="2"/>
+<text class="val" x="362.0" y="101.0" text-anchor="start">6.5%   n=60,307</text>
+<text class="lab" x="186.0" y="130.0" text-anchor="end">Female</text>
+<rect class="m1f" x="200" y="118" width="242.8" height="16" rx="2"/>
+<text class="val" x="452.8" y="131.0" text-anchor="start">10.3%   n=74,590</text>
+<text class="lab bold" x="186.0" y="160.0" text-anchor="end">Household income</text>
+<text class="lab" x="186.0" y="190.0" text-anchor="end">&lt;$20K</text>
+<rect class="m1f" x="200" y="178" width="264.1" height="16" rx="2"/>
+<text class="val" x="474.1" y="191.0" text-anchor="start">11.2%   n=22,429</text>
+<text class="lab" x="186.0" y="220.0" text-anchor="end">$20-49K</text>
+<rect class="m1f" x="200" y="208" width="224.9" height="16" rx="2"/>
+<text class="val" x="434.9" y="221.0" text-anchor="start">9.6%   n=35,669</text>
+<text class="lab" x="186.0" y="250.0" text-anchor="end">$50-74K</text>
+<rect class="m1f" x="200" y="238" width="209.4" height="16" rx="2"/>
+<text class="val" x="419.4" y="251.0" text-anchor="start">8.9%   n=20,061</text>
+<text class="lab" x="186.0" y="280.0" text-anchor="end">$75K+</text>
+<rect class="m1f" x="200" y="268" width="159.1" height="16" rx="2"/>
+<text class="val" x="369.1" y="281.0" text-anchor="start">6.8%   n=56,738</text>
+<line class="grid" x1="200.0" y1="52" x2="200.0" y2="290"/>
+<text class="ax" x="200.0" y="324.0" text-anchor="middle">0%</text>
+<line class="grid" x1="317.5" y1="52" x2="317.5" y2="290"/>
+<text class="ax" x="317.5" y="324.0" text-anchor="middle">5%</text>
+<line class="grid" x1="435.0" y1="52" x2="435.0" y2="290"/>
+<text class="ax" x="435.0" y="324.0" text-anchor="middle">10%</text>
+<line class="grid" x1="552.5" y1="52" x2="552.5" y2="290"/>
+<text class="ax" x="552.5" y="324.0" text-anchor="middle">15%</text>
+<line class="grid" x1="670.0" y1="52" x2="670.0" y2="290"/>
+<text class="ax" x="670.0" y="324.0" text-anchor="middle">20%</text>
+</svg></div>
+    <figcaption>Figure 3. Depression by sex and by household income.</figcaption></figure>
+  <p>Women report depression at roughly 1.6 times the rate of men. Income shows a gradient,
+  with the lowest bracket highest, but it is shallow compared with age or self-rated health,
+  and section 6 shows it disappears once the other variables are known.</p>
+
+  <h3>The outcome itself</h3>
+  <figure><div class="figbox"><svg class="fig" viewBox="0 0 800 210" role="img" aria-label="Outcome class balance">
+<text class="ttl" x="0.0" y="16.0" text-anchor="start">The outcome is rare, and that is the whole problem</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Adults in the analysis sample, by whether they reported a past-year episode.</text>
+<rect class="m1f" x="60" y="82" width="603.2" height="52" rx="4"/>
+<rect class="m2f" x="663.2" y="82" width="76.8" height="52" rx="4"/>
+<text class="val" x="361.6" y="113.0" text-anchor="middle">No  119,664  (88.7%)</text>
+<text class="val" x="701.6" y="113.0" text-anchor="middle">11.3%</text>
+<text class="ax" x="740.0" y="154.0" text-anchor="end">Yes: 15,233 people</text>
+<text class="ax" x="60.0" y="154.0" text-anchor="start">A model that answers “no” to everyone is right 88.7% of the time.</text>
+</svg></div>
+    <figcaption>Figure 4. The two classes of the outcome in the analysis sample.</figcaption></figure>
+  <p>119,664 adults (88.7%) reported no depressive episode; 15,233 (11.3%)
+  did. This picture is the single most important thing for understanding section 7. Any
+  classifier can score 88.7% accuracy on this outcome by never predicting the minority
+  class, and one of ours does exactly that.</p>
+</section>
+
+<section>
+  <h2>3. The survey design, and what ignoring it costs</h2>
   <p>NSDUH over-samples some groups by design. A respondent's weight says how many people
   they stand for, and the stratum and replicate identifiers describe how the sample was
   drawn. All three ship with the public-use files.</p>
@@ -133,7 +286,7 @@
 <text class="val" x="242.9" y="198.0" text-anchor="start">3.1%  /  2.9%</text>
 <line class="axis" x1="150" y1="50" x2="150" y2="206"/>
 </svg></div>
-    <figcaption>Figure 1. Depression by age band, both ways.</figcaption></figure>
+    <figcaption>Figure 5. Depression by age band, both ways.</figcaption></figure>
   <p>The mechanism is visible here. <strong>Within</strong> an age band the two figures
   almost agree. It is the mix of ages that differs between the sample and the country, so
   only the overall figure moves. That is what weighting is for, and it is why an unweighted
@@ -175,7 +328,7 @@
 <text class="ax" x="626.4" y="300.0" text-anchor="middle">2.0</text>
 <text class="ax" x="430.0" y="312.0" text-anchor="middle">Standard error, design-adjusted relative to naive</text>
 </svg></div>
-    <figcaption>Figure 2. Design-adjusted standard errors relative to naive ones, same model.</figcaption></figure>
+    <figcaption>Figure 6. Design-adjusted standard errors relative to naive ones, same model.</figcaption></figure>
   <div class="scroll"><table class="stats">
     <caption>Standard errors from the same logistic regression, with and without the design.</caption>
     <thead><tr><th>Predictor</th><th class="num">Naive SE</th><th class="num">Design SE</th><th class="num">Ratio</th></tr></thead>
@@ -194,7 +347,7 @@
 </section>
 
 <section>
-  <h2>3. Who reports depression</h2>
+  <h2>4. Who reports depression</h2>
   <div class="scroll"><table class="stats">
     <caption>Past-year major depressive episode among adults, by subgroup.</caption>
     <thead><tr><th>Group</th><th class="num">n</th><th class="num">Unweighted</th><th class="num">Weighted</th></tr></thead>
@@ -209,9 +362,59 @@
 </section>
 
 <section>
-  <h2>4. Reducing and grouping</h2>
-  <p>Seven measures were standardised and reduced by principal components. The first three
-  carry 55.6% of the variance, which is the basis for grouping respondents.</p>
+  <h2>5. Squeezing seven variables into three</h2>
+  <p>Seven measures is not many, but they overlap: age, income and health move together, and
+  so do the three substances. Principal components analysis rewrites them as a smaller set of
+  combined scores that carry most of the same information, which makes the grouping in the
+  next step tractable.</p>
+  <p>The variables are on different scales, so they are standardised first. Without that,
+  a variable coded 1 to 6 would dominate one coded 0 or 1 purely through its range.</p>
+
+  <figure><div class="figbox"><svg class="fig" viewBox="0 0 800 300" role="img" aria-label="Scree plot">
+<text class="ttl" x="0.0" y="16.0" text-anchor="start">How much each component carries</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Bars are variance per component, the line is the running total. Three reach 56%.</text>
+<line class="grid" x1="56" y1="246.0" x2="776" y2="246.0"/>
+<text class="ax" x="48.0" y="250.0" text-anchor="end">0%</text>
+<line class="grid" x1="56" y1="201.0" x2="776" y2="201.0"/>
+<text class="ax" x="48.0" y="205.0" text-anchor="end">25%</text>
+<line class="grid" x1="56" y1="156.0" x2="776" y2="156.0"/>
+<text class="ax" x="48.0" y="160.0" text-anchor="end">50%</text>
+<line class="grid" x1="56" y1="111.0" x2="776" y2="111.0"/>
+<text class="ax" x="48.0" y="115.0" text-anchor="end">75%</text>
+<line class="grid" x1="56" y1="66.0" x2="776" y2="66.0"/>
+<text class="ax" x="48.0" y="70.0" text-anchor="end">100%</text>
+<rect class="m1f" x="91.4" y="208.5" width="32" height="37.5" rx="2"/>
+<text class="val" x="107.4" y="201.5" text-anchor="middle">21%</text>
+<text class="ax" x="107.4" y="266.0" text-anchor="middle">PC1</text>
+<rect class="m1f" x="194.3" y="212.9" width="32" height="33.1" rx="2"/>
+<text class="val" x="210.3" y="205.9" text-anchor="middle">18%</text>
+<text class="ax" x="210.3" y="266.0" text-anchor="middle">PC2</text>
+<rect class="m1f" x="297.1" y="216.6" width="32" height="29.4" rx="2"/>
+<text class="val" x="313.1" y="209.6" text-anchor="middle">16%</text>
+<text class="ax" x="313.1" y="266.0" text-anchor="middle">PC3</text>
+<rect class="m1f" x="400.0" y="220.7" width="32" height="25.3" rx="2"/>
+<text class="val" x="416.0" y="213.7" text-anchor="middle">14%</text>
+<text class="ax" x="416.0" y="266.0" text-anchor="middle">PC4</text>
+<rect class="m1f" x="502.9" y="225.7" width="32" height="20.3" rx="2"/>
+<text class="val" x="518.9" y="218.7" text-anchor="middle">11%</text>
+<text class="ax" x="518.9" y="266.0" text-anchor="middle">PC5</text>
+<rect class="m1f" x="605.7" y="228.5" width="32" height="17.5" rx="2"/>
+<text class="val" x="621.7" y="221.5" text-anchor="middle">10%</text>
+<text class="ax" x="621.7" y="266.0" text-anchor="middle">PC6</text>
+<rect class="m1f" x="708.6" y="229.2" width="32" height="16.8" rx="2"/>
+<text class="val" x="724.6" y="222.2" text-anchor="middle">9%</text>
+<text class="ax" x="724.6" y="266.0" text-anchor="middle">PC7</text>
+<polyline class="ci" fill="none" points="107.4,208.5 210.3,175.4 313.1,146.0 416.0,120.7 518.9,100.4 621.7,82.8 724.6,66.0"/>
+<circle cx="107.4" cy="208.5" r="3.5" class="m3"/>
+<circle cx="210.3" cy="175.4" r="3.5" class="m3"/>
+<circle cx="313.1" cy="146.0" r="3.5" class="m3"/>
+<circle cx="416.0" cy="120.7" r="3.5" class="m3"/>
+<circle cx="518.9" cy="100.4" r="3.5" class="m3"/>
+<circle cx="621.7" cy="82.8" r="3.5" class="m3"/>
+<circle cx="724.6" cy="66.0" r="3.5" class="m3"/>
+<line class="axis" x1="56" y1="246" x2="776" y2="246"/>
+</svg></div>
+    <figcaption>Figure 7. Variance carried by each component, with the running total.</figcaption></figure>
   <div class="scroll"><table class="stats">
     <caption>Variance explained by the leading components.</caption>
     <thead><tr><th>Component</th><th class="num">Variance</th><th class="num">Cumulative</th></tr></thead>
@@ -219,9 +422,105 @@
 <tr><td class="item">PC1</td><td class="num">20.85%</td><td class="num">20.85%</td></tr><tr><td class="item">PC2</td><td class="num">18.39%</td><td class="num">39.23%</td></tr><tr><td class="item">PC3</td><td class="num">16.32%</td><td class="num">55.56%</td></tr><tr><td class="item">PC4</td><td class="num">14.05%</td><td class="num">69.61%</td></tr><tr><td class="item">PC5</td><td class="num">11.29%</td><td class="num">80.90%</td></tr>
     </tbody>
   </table></div>
-  <p>55.6% across three components is modest. These are seven fairly distinct measures, so
-  there is no dominant single dimension to find, and the components should be read as a
-  convenient summary rather than as latent traits.</p>
+  <p>The first component carries 20.9%, the second 18.4%, and three together 55.6%. That
+  is a modest reduction rather than a dramatic one. These seven measures genuinely do carry
+  distinct information, so the components should be read as a convenient summary rather than
+  as hidden traits.</p>
+
+  <h3>What the components actually mean</h3>
+  <figure><div class="figbox"><svg class="fig" viewBox="0 0 800 420" role="img" aria-label="PCA correlation circle">
+<text class="ttl" x="0.0" y="16.0" text-anchor="start">What the first two components mean</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Each arrow is one variable. Arrows pointing the same way move together; opposite ways, apart.</text>
+<circle cx="400" cy="215" r="150" fill="none" class="axis"/>
+<line class="grid" x1="250" y1="215" x2="550" y2="215"/>
+<line class="grid" x1="400" y1="65" x2="400" y2="365"/>
+<line class="ci" x1="400" y1="215" x2="410.6" y2="116.9"/>
+<circle cx="410.6" cy="116.9" r="3.5" class="m1"/>
+<text class="val" x="418.6" y="110.9" text-anchor="start">ALC_PASTMO</text>
+<line class="ci" x1="400" y1="215" x2="478.6" y2="156.1"/>
+<circle cx="478.6" cy="156.1" r="3.5" class="m1"/>
+<text class="val" x="486.6" y="150.1" text-anchor="start">MJ_PASTMO</text>
+<line class="ci" x1="400" y1="215" x2="485.5" y2="205.2"/>
+<circle cx="485.5" cy="205.2" r="3.5" class="m1"/>
+<text class="val" x="493.5" y="199.2" text-anchor="start">CIG_PASTMO</text>
+<line class="ci" x1="400" y1="215" x2="395.4" y2="264.2"/>
+<circle cx="395.4" cy="264.2" r="3.5" class="m1"/>
+<text class="val" x="387.4" y="268.2" text-anchor="end">IRSEX</text>
+<line class="ci" x1="400" y1="215" x2="375.2" y2="234.1"/>
+<circle cx="375.2" cy="234.1" r="3.5" class="m1"/>
+<text class="val" x="367.2" y="238.1" text-anchor="end">CATAG6</text>
+<line class="ci" x1="400" y1="215" x2="332.4" y2="146.4"/>
+<circle cx="332.4" cy="146.4" r="3.5" class="m1"/>
+<text class="val" x="324.4" y="140.4" text-anchor="end">INCOME</text>
+<line class="ci" x1="400" y1="215" x2="460.6" y2="257.6"/>
+<circle cx="460.6" cy="257.6" r="3.5" class="m1"/>
+<text class="val" x="468.6" y="261.6" text-anchor="start">HEALTH</text>
+<text class="ax" x="400.0" y="395.0" text-anchor="middle">PC1  (21% of variance)</text>
+<text class="ax" transform="rotate(-90 224 215)" x="224" y="215" text-anchor="middle">PC2  (18%)</text>
+</svg></div>
+    <figcaption>Figure 8. The correlation circle. Arrows in the same direction move together; opposite directions move apart.</figcaption></figure>
+  <p>This is the figure that makes PCA interpretable. Each arrow is one original variable,
+  placed by how strongly it loads on the first two components. Arrows pointing the same way
+  are variables that rise and fall together. Arrows pointing opposite ways move in opposition.
+  A long arrow is well represented by these two components; a short one is not.</p>
+  <p>Two things fall out of it. The <strong>first component</strong> contrasts cigarette and
+  marijuana use, together with poorer self-rated health, against higher income. It is close to
+  a disadvantage-and-heavy-use axis: those three rise together and run opposite to income. The
+  <strong>second component</strong> picks out alcohol and income moving together, against being
+  female and in poorer health, which separates social drinking from everything else.</p>
+  <p>Note also which arrow is short. <code>CATAG6</code>, the age band, barely registers on
+  either component, so age is poorly represented by this two-dimensional summary. That is a
+  useful warning: age is the second strongest predictor of depression in section 7, and it is
+  nearly invisible here. A variable can matter enormously for an outcome and still contribute
+  little to the main axes of variation among the predictors.</p>
+
+  <h3>Choosing how many groups</h3>
+  <figure><div class="figbox"><svg class="fig" viewBox="0 0 800 300" role="img" aria-label="K-means elbow plot">
+<text class="ttl" x="0.0" y="16.0" text-anchor="start">Choosing how many groups</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Tightness of the clusters as k increases. The bend is where extra groups stop paying.</text>
+<line class="grid" x1="70" y1="246.0" x2="770" y2="246.0"/>
+<line class="grid" x1="70" y1="201.0" x2="770" y2="201.0"/>
+<line class="grid" x1="70" y1="156.0" x2="770" y2="156.0"/>
+<line class="grid" x1="70" y1="111.0" x2="770" y2="111.0"/>
+<line class="grid" x1="70" y1="66.0" x2="770" y2="66.0"/>
+<polyline class="ci" fill="none" points="70.0,66.0 170.0,114.8 270.0,147.3 370.0,169.3 470.0,179.7 570.0,187.8 670.0,192.4 770.0,197.7"/>
+<circle cx="70.0" cy="66.0" r="4" class="m1"/>
+<text class="ax" x="70.0" y="266.0" text-anchor="middle">1</text>
+<circle cx="170.0" cy="114.8" r="4" class="m1"/>
+<text class="ax" x="170.0" y="266.0" text-anchor="middle">2</text>
+<circle cx="270.0" cy="147.3" r="4" class="m1"/>
+<text class="ax" x="270.0" y="266.0" text-anchor="middle">3</text>
+<circle cx="370.0" cy="169.3" r="6" class="m3"/>
+<text class="ax" x="370.0" y="266.0" text-anchor="middle">4</text>
+<circle cx="470.0" cy="179.7" r="4" class="m1"/>
+<text class="ax" x="470.0" y="266.0" text-anchor="middle">5</text>
+<circle cx="570.0" cy="187.8" r="4" class="m1"/>
+<text class="ax" x="570.0" y="266.0" text-anchor="middle">6</text>
+<circle cx="670.0" cy="192.4" r="4" class="m1"/>
+<text class="ax" x="670.0" y="266.0" text-anchor="middle">7</text>
+<circle cx="770.0" cy="197.7" r="4" class="m1"/>
+<text class="ax" x="770.0" y="266.0" text-anchor="middle">8</text>
+<text class="val" x="370.0" y="153.3" text-anchor="middle">k = 4 chosen</text>
+<line class="axis" x1="70" y1="246" x2="770" y2="246"/>
+<text class="ax" x="420.0" y="294.0" text-anchor="middle">Number of clusters (k)</text>
+<text class="ax" transform="rotate(-90 18 156)" x="18" y="156" text-anchor="middle">Within-cluster spread</text>
+</svg></div>
+    <figcaption>Figure 9. Cluster tightness as k increases, computed on a 25,000-row subsample.</figcaption></figure>
+  <p>K-means needs to be told how many groups to find, and there is no correct answer, only a
+  reasonable one. The elbow plot shows how tightly the groups fit as k rises. Tightness always
+  improves with more groups, so the question is where it stops improving quickly. The bend
+  here is around four, which is where extra groups stop buying much.</p>
+</section>
+
+<section>
+  <h2>6. The four groups, and what defines them</h2>
+  <p>Cluster numbers are arbitrary, so each group is named from its own profile. These are the
+  "natural types" the analysis set out to look for, and it is worth being precise about what
+  each one means rather than leaving the labels to do the work.</p>
+
+  <div class="pipe">
+<div class="step"><span class="n">20%</span><div><strong>Polysubstance users</strong><p>Very high co-use of alcohol, marijuana and cigarettes together. Alcohol 83.6%, marijuana 80.1%, cigarettes 48.5%. Depression 19.6%. n = 26,510.</p></div></div><div class="step"><span class="n">28%</span><div><strong>Younger low-use</strong><p>Low on every substance. The youngest group, and the lowest income. Alcohol 21.4%, marijuana 5.2%, cigarettes 1.5%. Depression 11.1%. n = 37,171.</p></div></div><div class="step"><span class="n">34%</span><div><strong>Higher-income drinkers</strong><p>Drink, but almost nothing else. The oldest and highest-income group, and the healthiest. Alcohol 79.9%, marijuana 4.1%, cigarettes 1.5%. Depression 6.2%. n = 45,853.</p></div></div><div class="step"><span class="n">19%</span><div><strong>Older cigarette users</strong><p>Low alcohol and marijuana, but the highest cigarette use and the poorest self-rated health. Alcohol 16.7%, marijuana 3.8%, cigarettes 20.7%. Depression 12.2%. n = 25,363.</p></div></div>
+  </div>
 
   <figure><div class="figbox"><svg class="fig" viewBox="0 0 820 300" role="img" aria-label="Substance use by cluster">
 <text class="ttl" x="0.0" y="16.0" text-anchor="start">Four groups, and what separates them</text>
@@ -265,33 +564,175 @@
 <text class="ax" x="670.0" y="284.0" text-anchor="middle">100%</text>
 <text class="ax" x="440.0" y="298.0" text-anchor="middle">Percent of cluster reporting past-month use</text>
 </svg></div>
-    <figcaption>Figure 3. Past-month use within each cluster, with the depression rate alongside.</figcaption></figure>
+    <figcaption>Figure 10. Past-month use within each group, with the depression rate alongside.</figcaption></figure>
   <div class="scroll"><table class="stats">
-    <caption>The four groups, ordered by marijuana use.</caption>
+    <caption>The four groups. Percentages are past-month use within the group.</caption>
     <thead><tr><th>Group</th><th class="num">n</th><th class="num">% of sample</th>
       <th class="num">Alcohol</th><th class="num">Marijuana</th><th class="num">Cigarettes</th>
       <th class="num">MDE</th></tr></thead>
     <tbody>
-<tr><td class="item">Cluster 1</td><td class="num">26,510</td><td class="num">19.7%</td><td class="num">83.6%</td><td class="num">80.1%</td><td class="num">48.5%</td><td class="num">19.6%</td></tr><tr><td class="item">Cluster 2</td><td class="num">37,171</td><td class="num">27.6%</td><td class="num">21.4%</td><td class="num">5.2%</td><td class="num">1.5%</td><td class="num">11.1%</td></tr><tr><td class="item">Cluster 3</td><td class="num">45,853</td><td class="num">34.0%</td><td class="num">79.9%</td><td class="num">4.1%</td><td class="num">1.5%</td><td class="num">6.2%</td></tr><tr><td class="item">Cluster 4</td><td class="num">25,363</td><td class="num">18.8%</td><td class="num">16.7%</td><td class="num">3.8%</td><td class="num">20.7%</td><td class="num">12.2%</td></tr>
+<tr><td class="item"><strong>Polysubstance users</strong></td><td class="num">26,510</td><td class="num">19.7%</td><td class="num">83.6%</td><td class="num">80.1%</td><td class="num">48.5%</td><td class="num">19.6%</td></tr><tr><td class="item"><strong>Younger low-use</strong></td><td class="num">37,171</td><td class="num">27.6%</td><td class="num">21.4%</td><td class="num">5.2%</td><td class="num">1.5%</td><td class="num">11.1%</td></tr><tr><td class="item"><strong>Higher-income drinkers</strong></td><td class="num">45,853</td><td class="num">34.0%</td><td class="num">79.9%</td><td class="num">4.1%</td><td class="num">1.5%</td><td class="num">6.2%</td></tr><tr><td class="item"><strong>Older cigarette users</strong></td><td class="num">25,363</td><td class="num">18.8%</td><td class="num">16.7%</td><td class="num">3.8%</td><td class="num">20.7%</td><td class="num">12.2%</td></tr>
     </tbody>
   </table></div>
-  <p>One group separates sharply: 19.7% of the sample with 80.1%
-  reporting past-month marijuana use, and a depression rate of 19.6%, well above
-  the others. The remaining three are distinguished more by age, income and health than by
-  substances.</p>
+
+  <p>The separation is mostly about marijuana and about how many substances travel together.
+  Drinking on its own is common and, on this evidence, unremarkable: the largest group drinks
+  at 79.9% and has the <em>lowest</em> depression rate of the four, at 6.2%. It is co-use that
+  marks out the polysubstance group, whose depression rate is more than three times as high.</p>
 
   <div class="note">
     <p><strong>Clusters are a description, not a discovery.</strong> K-means returns four
-    groups from any dataset, including one with no group structure at all. Refitting on
-    twenty random subsamples returns cluster sizes of about 19%, 20%, 28%, 34%, stable to within
-    0.96 percentage points, so the partition is reproducible. Reproducible is not the
-    same as real: these may be genuine types of people, or convenient cuts through a
-    continuum. Nothing here distinguishes the two.</p>
+    groups from any dataset, including one with no group structure at all. Refitting on twenty
+    random subsamples returns cluster sizes of about 19%, 20%, 28%, 34%, stable to within 0.96
+    percentage points, so the partition is reproducible. Reproducible is not the same as real:
+    these may be genuine types of people, or convenient cuts through a continuum. Nothing here
+    distinguishes the two, and the names above are shorthand for a profile, not claims that
+    these are natural kinds.</p>
   </div>
 </section>
 
 <section>
-  <h2>5. Predicting depression, and the trap in accuracy</h2>
+  <h2>7. Predicting depression, and the trap in accuracy</h2>
+  <h3>Which predictors matter, and what the two penalties do</h3>
+  <p>Logistic regression with a penalty term shrinks coefficients toward zero to stop the
+  model chasing noise. The two standard penalties behave differently: <strong>LASSO</strong>
+  can shrink a coefficient all the way to zero and so drops variables entirely,
+  while <strong>ridge</strong> shrinks everything but keeps all of them.</p>
+  <figure><div class="figbox"><svg class="fig" viewBox="0 0 800 342" role="img" aria-label="LASSO against ridge coefficients">
+<text class="ttl" x="0.0" y="16.0" text-anchor="start">What predicts depression, and how the two penalties compare</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Standardised coefficients. Right of the line raises risk, left lowers it.</text>
+<rect x="654" y="7" width="10" height="10" rx="2" class="m1f"/><text class="leg" x="668.0" y="16.0" text-anchor="start">LASSO</text>
+<rect x="722" y="7" width="10" height="10" rx="2" class="m2f"/><text class="leg" x="736.0" y="16.0" text-anchor="start">Ridge</text>
+<text class="lab" x="146.0" y="74.0" text-anchor="end">CATAG6</text>
+<rect class="m1f" x="192.0" y="59" width="213.0" height="10" rx="2"/>
+<rect class="m2f" x="192.0" y="71" width="213.0" height="10" rx="2"/>
+<text class="val" x="180.0" y="75.0" text-anchor="end">-0.62</text>
+<text class="lab" x="146.0" y="108.0" text-anchor="end">HEALTH</text>
+<rect class="m1f" x="405.0" y="93" width="209.4" height="10" rx="2"/>
+<rect class="m2f" x="405.0" y="105" width="209.3" height="10" rx="2"/>
+<text class="val" x="626.4" y="109.0" text-anchor="start">+0.61</text>
+<text class="lab" x="146.0" y="142.0" text-anchor="end">IRSEX</text>
+<rect class="m1f" x="405.0" y="127" width="98.4" height="10" rx="2"/>
+<rect class="m2f" x="405.0" y="139" width="98.3" height="10" rx="2"/>
+<text class="val" x="515.4" y="143.0" text-anchor="start">+0.29</text>
+<text class="lab" x="146.0" y="176.0" text-anchor="end">MJ_PASTMO</text>
+<rect class="m1f" x="405.0" y="161" width="75.6" height="10" rx="2"/>
+<rect class="m2f" x="405.0" y="173" width="75.6" height="10" rx="2"/>
+<text class="val" x="492.6" y="177.0" text-anchor="start">+0.22</text>
+<text class="lab" x="146.0" y="210.0" text-anchor="end">ALC_PASTMO</text>
+<rect class="m1f" x="405.0" y="195" width="21.5" height="10" rx="2"/>
+<rect class="m2f" x="405.0" y="207" width="21.5" height="10" rx="2"/>
+<text class="val" x="438.5" y="211.0" text-anchor="start">+0.06</text>
+<text class="lab" x="146.0" y="244.0" text-anchor="end">CIG_PASTMO</text>
+<rect class="m1f" x="405.0" y="229" width="18.8" height="10" rx="2"/>
+<rect class="m2f" x="405.0" y="241" width="18.8" height="10" rx="2"/>
+<text class="val" x="435.8" y="245.0" text-anchor="start">+0.05</text>
+<text class="lab" x="146.0" y="278.0" text-anchor="end">INCOME</text>
+<rect class="m1f" x="404.5" y="263" width="0.5" height="10" rx="2"/>
+<rect class="m2f" x="404.4" y="275" width="0.6" height="10" rx="2"/>
+<text class="val" x="392.4" y="279.0" text-anchor="end">-0.00</text>
+<line class="zero" x1="405.0" y1="54" x2="405.0" y2="290"/>
+<text class="ax" x="405.0" y="334.0" text-anchor="middle">Standardised coefficient (log-odds)</text>
+</svg></div>
+    <figcaption>Figure 11. Standardised coefficients under both penalties. Right of the line raises risk.</figcaption></figure>
+  <div class="scroll"><table class="stats">
+    <caption>Standardised coefficients, ordered by size under LASSO.</caption>
+    <thead><tr><th>Predictor</th><th class="num">LASSO</th><th class="num">Ridge</th><th class="num">Kept?</th></tr></thead>
+    <tbody>
+<tr><td class="item">CATAG6</td><td class="num">-0.619</td><td class="num">-0.619</td><td class="num">kept</td></tr><tr><td class="item">HEALTH</td><td class="num">+0.609</td><td class="num">+0.608</td><td class="num">kept</td></tr><tr><td class="item">IRSEX</td><td class="num">+0.286</td><td class="num">+0.286</td><td class="num">kept</td></tr><tr><td class="item">MJ_PASTMO</td><td class="num">+0.220</td><td class="num">+0.220</td><td class="num">kept</td></tr><tr><td class="item">ALC_PASTMO</td><td class="num">+0.062</td><td class="num">+0.063</td><td class="num">kept</td></tr><tr><td class="item">CIG_PASTMO</td><td class="num">+0.054</td><td class="num">+0.054</td><td class="num">kept</td></tr><tr><td class="item">INCOME</td><td class="num">-0.002</td><td class="num">-0.002</td><td class="num">kept</td></tr>
+    </tbody>
+  </table></div>
+  <p>The two agree closely on both order and size, which is reassuring: the result is not an
+  artefact of the penalty chosen. <strong>CATAG6</strong> and <strong>HEALTH</strong>
+  dominate, both far ahead of any substance measure. Among the substances, marijuana
+  (+0.220) is roughly three times alcohol (+0.062), which is the basis for the claim
+  that marijuana is the substance most associated with depression.</p>
+  <p>Income is the interesting case, at -0.002: close to nothing once age, sex, health
+  and substance use are known. The gradient in Figure 3 is real, but it appears to run through
+  those other variables rather than adding anything of its own.</p>
+  <div class="note">
+    <p>These are log-odds on standardised predictors, so they compare like with like. A
+    coefficient of +0.220 does not mean marijuana users are +0.220 times more likely to
+    be depressed; it means a one standard deviation change in that predictor moves the log-odds
+    by that much. The ratio between two coefficients is meaningful; the number on its own is
+    not, without a baseline.</p>
+  </div>
+
+  <h3>A tree tells the same story differently</h3>
+  <figure><div class="figbox"><svg class="fig" viewBox="0 0 860 390" role="img" aria-label="Classification tree">
+<text class="ttl" x="0.0" y="16.0" text-anchor="start">The classification tree, top three splits</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Each box shows the share of people reaching it and how many of them reported depression.</text>
+<line class="conn" x1="430.0" y1="83" x2="215.0" y2="135"/>
+<line class="conn" x1="430.0" y1="83" x2="645.0" y2="135"/>
+<line class="conn" x1="215.0" y1="169" x2="107.5" y2="227"/>
+<line class="conn" x1="215.0" y1="169" x2="322.5" y2="227"/>
+<line class="conn" x1="645.0" y1="169" x2="537.5" y2="227"/>
+<line class="conn" x1="645.0" y1="169" x2="752.5" y2="227"/>
+<line class="conn" x1="107.5" y1="261" x2="53.8" y2="319"/>
+<line class="conn" x1="107.5" y1="261" x2="161.2" y2="319"/>
+<line class="conn" x1="322.5" y1="261" x2="268.8" y2="319"/>
+<line class="conn" x1="322.5" y1="261" x2="376.2" y2="319"/>
+<line class="conn" x1="537.5" y1="261" x2="483.8" y2="319"/>
+<line class="conn" x1="537.5" y1="261" x2="591.2" y2="319"/>
+<line class="conn" x1="752.5" y1="261" x2="698.8" y2="319"/>
+<line class="conn" x1="752.5" y1="261" x2="806.2" y2="319"/>
+<rect x="374.0" y="49" width="112.0" height="34" rx="5" class="m1f" opacity="0.45" stroke="var(--fig-axis)"/>
+<text class="val" x="430.0" y="63.0" text-anchor="middle">HEALTH &lt;= 2.5</text>
+<text class="ax" x="430.0" y="77.0" text-anchor="middle">11.3% dep.</text>
+<rect x="159.0" y="135" width="112.0" height="34" rx="5" fill="none" stroke="var(--fig-axis)"/>
+<text class="val" x="215.0" y="149.0" text-anchor="middle">CATAG6 &lt;= 3.5</text>
+<text class="ax" x="215.0" y="163.0" text-anchor="middle">7.2% dep.</text>
+<rect x="589.0" y="135" width="112.0" height="34" rx="5" class="m1f" opacity="0.45" stroke="var(--fig-axis)"/>
+<text class="val" x="645.0" y="149.0" text-anchor="middle">CATAG6 &lt;= 3.5</text>
+<text class="ax" x="645.0" y="163.0" text-anchor="middle">16.5% dep.</text>
+<rect x="51.5" y="227" width="112.0" height="34" rx="5" fill="none" stroke="var(--fig-axis)"/>
+<text class="val" x="107.5" y="241.0" text-anchor="middle">HEALTH &lt;= 1.5</text>
+<text class="ax" x="107.5" y="255.0" text-anchor="middle">10.0% dep.</text>
+<rect x="266.5" y="227" width="112.0" height="34" rx="5" fill="none" stroke="var(--fig-axis)"/>
+<text class="val" x="322.5" y="241.0" text-anchor="middle">CATAG6 &lt;= 4.5</text>
+<text class="ax" x="322.5" y="255.0" text-anchor="middle">3.9% dep.</text>
+<rect x="481.5" y="227" width="112.0" height="34" rx="5" class="m2f" opacity="0.45" stroke="var(--fig-axis)"/>
+<text class="val" x="537.5" y="241.0" text-anchor="middle">HEALTH &lt;= 3.5</text>
+<text class="ax" x="537.5" y="255.0" text-anchor="middle">23.6% dep.</text>
+<rect x="696.5" y="227" width="112.0" height="34" rx="5" fill="none" stroke="var(--fig-axis)"/>
+<text class="val" x="752.5" y="241.0" text-anchor="middle">HEALTH &lt;= 3.5</text>
+<text class="ax" x="752.5" y="255.0" text-anchor="middle">10.6% dep.</text>
+<rect x="4.0" y="319" width="99.5" height="34" rx="5" fill="none" stroke="var(--fig-axis)"/>
+<text class="val" x="53.8" y="333.0" text-anchor="middle" font-size="11">11.6%</text>
+<text class="ax" x="53.8" y="347.0" text-anchor="middle" font-size="10">5.8% dep.</text>
+<rect x="111.5" y="319" width="99.5" height="34" rx="5" class="m1f" opacity="0.45" stroke="var(--fig-axis)"/>
+<text class="val" x="161.2" y="333.0" text-anchor="middle" font-size="11">18.8%</text>
+<text class="ax" x="161.2" y="347.0" text-anchor="middle" font-size="10">12.6% dep.</text>
+<rect x="219.0" y="319" width="99.5" height="34" rx="5" fill="none" stroke="var(--fig-axis)"/>
+<text class="val" x="268.8" y="333.0" text-anchor="middle" font-size="11">14.6%</text>
+<text class="ax" x="268.8" y="347.0" text-anchor="middle" font-size="10">5.2% dep.</text>
+<rect x="326.5" y="319" width="99.5" height="34" rx="5" fill="none" stroke="var(--fig-axis)"/>
+<text class="val" x="376.2" y="333.0" text-anchor="middle" font-size="11">11.1%</text>
+<text class="ax" x="376.2" y="347.0" text-anchor="middle" font-size="10">2.2% dep.</text>
+<rect x="434.0" y="319" width="99.5" height="34" rx="5" class="m2f" opacity="0.45" stroke="var(--fig-axis)"/>
+<text class="val" x="483.8" y="333.0" text-anchor="middle" font-size="11">15.1%</text>
+<text class="ax" x="483.8" y="347.0" text-anchor="middle" font-size="10">20.0% dep.</text>
+<rect x="541.5" y="319" width="99.5" height="34" rx="5" class="m2f" opacity="0.45" stroke="var(--fig-axis)"/>
+<text class="val" x="591.2" y="333.0" text-anchor="middle" font-size="11">5.0%</text>
+<text class="ax" x="591.2" y="347.0" text-anchor="middle" font-size="10">34.4% dep.</text>
+<rect x="649.0" y="319" width="99.5" height="34" rx="5" fill="none" stroke="var(--fig-axis)"/>
+<text class="val" x="698.8" y="333.0" text-anchor="middle" font-size="11">16.4%</text>
+<text class="ax" x="698.8" y="347.0" text-anchor="middle" font-size="10">8.1% dep.</text>
+<rect x="756.5" y="319" width="99.5" height="34" rx="5" class="m1f" opacity="0.45" stroke="var(--fig-axis)"/>
+<text class="val" x="806.2" y="333.0" text-anchor="middle" font-size="11">7.5%</text>
+<text class="ax" x="806.2" y="347.0" text-anchor="middle" font-size="10">16.0% dep.</text>
+<text class="ax" x="430.0" y="384.0" text-anchor="middle">Shaded boxes have above-average depression rates</text>
+</svg></div>
+    <figcaption>Figure 12. The classification tree, top three splits. Shading marks branches with higher depression rates.</figcaption></figure>
+  <p>A classification tree asks a sequence of yes-or-no questions. Its first is
+  <code>HEALTH <= 2.5</code>: is self-rated health at least "good"? That the tree independently
+  picks health as the single most useful question, when the regression also ranked it top,
+  is a stronger result than either method alone.</p>
+  <p>Reading down the branches, the highest-risk path is poor health combined with younger
+  age, and the lowest is good health with older age. The tree finds no interaction the
+  regression missed, which is itself informative: the relationships here are close to additive.</p>
+
+  <h3>Then the model is asked to make decisions</h3>
   <p>A penalised logistic regression on the seven predictors, evaluated by cross-validation,
   reaches an <strong>AUC of 0.7406</strong>. AUC is the probability that a randomly chosen
   person with depression is ranked above a randomly chosen person without it, so 0.7406 means
@@ -344,7 +785,7 @@
 <text class="ax" x="650.0" y="274.0" text-anchor="middle">100%</text>
 <text class="ax" x="390.0" y="288.0" text-anchor="middle">Percent</text>
 </svg></div>
-    <figcaption>Figure 4. The same model at different decision thresholds. AUC is identical throughout.</figcaption></figure>
+    <figcaption>Figure 13. The same model at different decision thresholds. AUC is identical throughout.</figcaption></figure>
   <div class="scroll"><table class="stats">
     <caption>One model, several cut-offs. The shaded row is the default.</caption>
     <thead><tr><th class="num">Cut-off</th><th class="num">Sensitivity</th><th class="num">Specificity</th>
@@ -363,24 +804,55 @@
 </section>
 
 <section>
-  <h2>6. What this supports, and what it does not</h2>
-  <p><strong>Supports.</strong> Among U.S. adults, past-year depression is strongly patterned
-  by age, sex and self-rated health. Marijuana use is the substance measure most associated
-  with it. A small group of heavy multi-substance users carries a markedly higher rate. These
-  associations are precise, because the sample is very large.</p>
-  <p><strong>Does not support.</strong> Any causal reading. This is a cross-sectional survey:
-  it cannot say whether substance use precedes depression, follows it, or both share a cause.
-  The measures are coarse, self-reported, and binary in this analysis: "any use in the past
-  month" treats a monthly drink and daily heavy use as the same thing.</p>
-  <p><strong>Does not address.</strong> Adolescents, who are excluded by construction.
-  Treatment, severity and duration, none of which are in these variables. And the great
-  majority of what actually drives depression: genetics, life events, social support and
-  care history are not in the model, which is why an AUC of 0.7406 is the ceiling here rather
-  than a disappointment.</p>
+  <h2>8. Bottom-line findings</h2>
+
+  <h3>What the groups look like</h3>
+  <p>Adults fall into four recognisable substance-use profiles. A third are
+  <strong>higher-income drinkers</strong> who drink and do little else, and who have the
+  lowest depression rate of the four. A quarter are <strong>younger low-use</strong> adults,
+  low on everything. About a fifth are <strong>older cigarette users</strong> with the poorest
+  self-rated health. And about a fifth are <strong>polysubstance users</strong>, combining
+  alcohol, marijuana and cigarettes, with a depression rate more than three times the
+  drinkers'. If any group is a public-health priority on this evidence, it is that last one.</p>
+
+  <h3>What predicts depression</h3>
+  <p>Self-rated health and age are the strongest predictors by a wide margin, and both a
+  penalised regression and a decision tree agree on that independently. Women report
+  substantially higher rates than men. Among substances, marijuana is the strongest signal,
+  roughly three times alcohol or cigarettes. Income adds nothing once the rest is known, and
+  LASSO shrinks it to near zero on its own.</p>
+
+  <h3>What the survey design changes</h3>
+  <p>Weighting moves the national depression estimate from 11.29% to 8.44%, because the
+  survey over-samples the young and the young report more depression. Accounting for the
+  clustering widens every standard error by 1.74 to 1.96 times. Neither changes a
+  conclusion here, but both change what may honestly be claimed about precision.</p>
+
+  <h3>What accuracy hides</h3>
+  <p>The clearest methodological result on this page: a model can be 88.7% accurate, carry
+  genuine signal at AUC 0.7406, and still be useless as a classifier, because it answers "no"
+  to almost everyone. Accuracy is the metric that conceals this, and kappa of 0.0401 is the
+  one that reveals it. Whether the model is useful depends entirely on where the decision
+  threshold is set, and that is a question about consequences, not about statistics.</p>
+
+  <h3>Honest limitations</h3>
+  <p><strong>Self-report.</strong> People under-report behaviour they expect to be judged for,
+  and both the substance and the depression measures rest on what respondents said.</p>
+  <p><strong>No causation.</strong> Cross-sectional data. Marijuana use and depression travel
+  together; nothing here shows which came first, or whether something else drives both.</p>
+  <p><strong>Coarse measurement.</strong> "Any use in the past month" treats one drink and
+  daily heavy use identically. Severity, frequency and treatment are not in these variables.</p>
+  <p><strong>Adults only.</strong> Everyone aged 12 to 17 is excluded by construction.</p>
+  <p><strong>Most of the story is missing.</strong> Genetics, life events, social support and
+  care history are not recorded here, which is why AUC 0.7406 is the ceiling rather than a
+  disappointment, and why this model should never be read as diagnostic.</p>
+  <p><strong>Scope choices.</strong> Seven of more than 2,600 available variables were used.
+  Race, education and other substances were available and left out, and a different selection
+  would give a different model.</p>
 </section>
 
 <section>
-  <h2>7. How this was computed</h2>
+  <h2>9. How this was computed</h2>
   <p>All figures are computed from the SAMHSA public-use files with pandas, scikit-learn and
   statsmodels, using only the columns needed rather than all 2,650. Random seeds are fixed at
   1; changing them moves the cluster labels and the last digits of the cross-validated

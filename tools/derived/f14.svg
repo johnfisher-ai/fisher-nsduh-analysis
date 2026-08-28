@@ -1,0 +1,64 @@
+<svg class="fig" viewBox="0 0 860 390" role="img" aria-label="Classification tree">
+<text class="ttl" x="0.0" y="16.0" text-anchor="start">The classification tree, top three splits</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Each box shows the share of people reaching it and how many of them reported depression.</text>
+<line class="conn" x1="430.0" y1="83" x2="215.0" y2="135"/>
+<line class="conn" x1="430.0" y1="83" x2="645.0" y2="135"/>
+<line class="conn" x1="215.0" y1="169" x2="107.5" y2="227"/>
+<line class="conn" x1="215.0" y1="169" x2="322.5" y2="227"/>
+<line class="conn" x1="645.0" y1="169" x2="537.5" y2="227"/>
+<line class="conn" x1="645.0" y1="169" x2="752.5" y2="227"/>
+<line class="conn" x1="107.5" y1="261" x2="53.8" y2="319"/>
+<line class="conn" x1="107.5" y1="261" x2="161.2" y2="319"/>
+<line class="conn" x1="322.5" y1="261" x2="268.8" y2="319"/>
+<line class="conn" x1="322.5" y1="261" x2="376.2" y2="319"/>
+<line class="conn" x1="537.5" y1="261" x2="483.8" y2="319"/>
+<line class="conn" x1="537.5" y1="261" x2="591.2" y2="319"/>
+<line class="conn" x1="752.5" y1="261" x2="698.8" y2="319"/>
+<line class="conn" x1="752.5" y1="261" x2="806.2" y2="319"/>
+<rect x="374.0" y="49" width="112.0" height="34" rx="5" class="m1f" opacity="0.45" stroke="var(--fig-axis)"/>
+<text class="val" x="430.0" y="63.0" text-anchor="middle">HEALTH &lt;= 2.5</text>
+<text class="ax" x="430.0" y="77.0" text-anchor="middle">11.3% dep.</text>
+<rect x="159.0" y="135" width="112.0" height="34" rx="5" fill="none" stroke="var(--fig-axis)"/>
+<text class="val" x="215.0" y="149.0" text-anchor="middle">CATAG6 &lt;= 3.5</text>
+<text class="ax" x="215.0" y="163.0" text-anchor="middle">7.2% dep.</text>
+<rect x="589.0" y="135" width="112.0" height="34" rx="5" class="m1f" opacity="0.45" stroke="var(--fig-axis)"/>
+<text class="val" x="645.0" y="149.0" text-anchor="middle">CATAG6 &lt;= 3.5</text>
+<text class="ax" x="645.0" y="163.0" text-anchor="middle">16.5% dep.</text>
+<rect x="51.5" y="227" width="112.0" height="34" rx="5" fill="none" stroke="var(--fig-axis)"/>
+<text class="val" x="107.5" y="241.0" text-anchor="middle">HEALTH &lt;= 1.5</text>
+<text class="ax" x="107.5" y="255.0" text-anchor="middle">10.0% dep.</text>
+<rect x="266.5" y="227" width="112.0" height="34" rx="5" fill="none" stroke="var(--fig-axis)"/>
+<text class="val" x="322.5" y="241.0" text-anchor="middle">CATAG6 &lt;= 4.5</text>
+<text class="ax" x="322.5" y="255.0" text-anchor="middle">3.9% dep.</text>
+<rect x="481.5" y="227" width="112.0" height="34" rx="5" class="m2f" opacity="0.45" stroke="var(--fig-axis)"/>
+<text class="val" x="537.5" y="241.0" text-anchor="middle">HEALTH &lt;= 3.5</text>
+<text class="ax" x="537.5" y="255.0" text-anchor="middle">23.6% dep.</text>
+<rect x="696.5" y="227" width="112.0" height="34" rx="5" fill="none" stroke="var(--fig-axis)"/>
+<text class="val" x="752.5" y="241.0" text-anchor="middle">HEALTH &lt;= 3.5</text>
+<text class="ax" x="752.5" y="255.0" text-anchor="middle">10.6% dep.</text>
+<rect x="4.0" y="319" width="99.5" height="34" rx="5" fill="none" stroke="var(--fig-axis)"/>
+<text class="val" x="53.8" y="333.0" text-anchor="middle" font-size="11">11.6%</text>
+<text class="ax" x="53.8" y="347.0" text-anchor="middle" font-size="10">5.8% dep.</text>
+<rect x="111.5" y="319" width="99.5" height="34" rx="5" class="m1f" opacity="0.45" stroke="var(--fig-axis)"/>
+<text class="val" x="161.2" y="333.0" text-anchor="middle" font-size="11">18.8%</text>
+<text class="ax" x="161.2" y="347.0" text-anchor="middle" font-size="10">12.6% dep.</text>
+<rect x="219.0" y="319" width="99.5" height="34" rx="5" fill="none" stroke="var(--fig-axis)"/>
+<text class="val" x="268.8" y="333.0" text-anchor="middle" font-size="11">14.6%</text>
+<text class="ax" x="268.8" y="347.0" text-anchor="middle" font-size="10">5.2% dep.</text>
+<rect x="326.5" y="319" width="99.5" height="34" rx="5" fill="none" stroke="var(--fig-axis)"/>
+<text class="val" x="376.2" y="333.0" text-anchor="middle" font-size="11">11.1%</text>
+<text class="ax" x="376.2" y="347.0" text-anchor="middle" font-size="10">2.2% dep.</text>
+<rect x="434.0" y="319" width="99.5" height="34" rx="5" class="m2f" opacity="0.45" stroke="var(--fig-axis)"/>
+<text class="val" x="483.8" y="333.0" text-anchor="middle" font-size="11">15.1%</text>
+<text class="ax" x="483.8" y="347.0" text-anchor="middle" font-size="10">20.0% dep.</text>
+<rect x="541.5" y="319" width="99.5" height="34" rx="5" class="m2f" opacity="0.45" stroke="var(--fig-axis)"/>
+<text class="val" x="591.2" y="333.0" text-anchor="middle" font-size="11">5.0%</text>
+<text class="ax" x="591.2" y="347.0" text-anchor="middle" font-size="10">34.4% dep.</text>
+<rect x="649.0" y="319" width="99.5" height="34" rx="5" fill="none" stroke="var(--fig-axis)"/>
+<text class="val" x="698.8" y="333.0" text-anchor="middle" font-size="11">16.4%</text>
+<text class="ax" x="698.8" y="347.0" text-anchor="middle" font-size="10">8.1% dep.</text>
+<rect x="756.5" y="319" width="99.5" height="34" rx="5" class="m1f" opacity="0.45" stroke="var(--fig-axis)"/>
+<text class="val" x="806.2" y="333.0" text-anchor="middle" font-size="11">7.5%</text>
+<text class="ax" x="806.2" y="347.0" text-anchor="middle" font-size="10">16.0% dep.</text>
+<text class="ax" x="430.0" y="384.0" text-anchor="middle">Shaded boxes have above-average depression rates</text>
+</svg>

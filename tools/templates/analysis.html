@@ -56,10 +56,52 @@
   "Americans" that includes teenagers would be wrong on this evidence.</p>
   <p>Pooling three years also requires dividing each respondent's weight by three. Without
   that, the weighted totals describe a country three times too large.</p>
+
+  <h3>Where else data is missing</h3>
+  <figure><div class="figbox">{f6}</div>
+    <figcaption>Figure 1. Records with no value, by variable, across the pooled file.</figcaption></figure>
+  <div class="scroll"><table class="stats">
+    <caption>Missing values by variable, pooled across the three years.</caption>
+    <thead><tr><th>Variable</th><th class="num">Missing</th><th class="num">% of pooled file</th></tr></thead>
+    <tbody>
+{missing_rows}
+    </tbody>
+  </table></div>
+  <p>Almost everything is complete. The two exceptions are the depression and mental-illness
+  measures, and as set out above, most of that is adolescents who were never asked rather
+  than adults who declined. Self-rated health is missing for a few dozen people. The
+  substance and demographic variables have no missing values at all, which is unusual and
+  reflects how much editing and imputation SAMHSA does before release.</p>
 </section>
 
 <section>
-  <h2>2. The survey design, and what ignoring it costs</h2>
+  <h2>2. Looking around first</h2>
+  <p>Before any model, the simple percentages. These are weighted, so they estimate the adult
+  population rather than describing the respondents.</p>
+  <figure><div class="figbox">{f7}</div>
+    <figcaption>Figure 2. Past-month substance use and past-year depression, by survey year.</figcaption></figure>
+  <p>The striking thing is how little moves. Across three years there is no meaningful trend
+  in any of the four measures. That is worth knowing before reading anything into
+  year-to-year differences, and it is a good reason to pool the years rather than compare
+  them.</p>
+
+  <figure><div class="figbox">{f8}</div>
+    <figcaption>Figure 3. Depression by sex and by household income.</figcaption></figure>
+  <p>Women report depression at roughly 1.6 times the rate of men. Income shows a gradient,
+  with the lowest bracket highest, but it is shallow compared with age or self-rated health,
+  and section 6 shows it disappears once the other variables are known.</p>
+
+  <h3>The outcome itself</h3>
+  <figure><div class="figbox">{f9}</div>
+    <figcaption>Figure 4. The two classes of the outcome in the analysis sample.</figcaption></figure>
+  <p>{bal_no} adults ({bal_pct_no}%) reported no depressive episode; {bal_yes} ({bal_pct_yes}%)
+  did. This picture is the single most important thing for understanding section 7. Any
+  classifier can score {bal_pct_no}% accuracy on this outcome by never predicting the minority
+  class, and one of ours does exactly that.</p>
+</section>
+
+<section>
+  <h2>3. The survey design, and what ignoring it costs</h2>
   <p>NSDUH over-samples some groups by design. A respondent's weight says how many people
   they stand for, and the stratum and replicate identifiers describe how the sample was
   drawn. All three ship with the public-use files.</p>
@@ -77,7 +119,7 @@
   over-represented among respondents.</p>
 
   <figure><div class="figbox">{f2}</div>
-    <figcaption>Figure 1. Depression by age band, both ways.</figcaption></figure>
+    <figcaption>Figure 5. Depression by age band, both ways.</figcaption></figure>
   <p>The mechanism is visible here. <strong>Within</strong> an age band the two figures
   almost agree. It is the mix of ages that differs between the sample and the country, so
   only the overall figure moves. That is what weighting is for, and it is why an unweighted
@@ -88,7 +130,7 @@
   information than the same number of independent draws would. A model that ignores this
   reports standard errors that are too small.</p>
   <figure><div class="figbox">{f5}</div>
-    <figcaption>Figure 2. Design-adjusted standard errors relative to naive ones, same model.</figcaption></figure>
+    <figcaption>Figure 6. Design-adjusted standard errors relative to naive ones, same model.</figcaption></figure>
   <div class="scroll"><table class="stats">
     <caption>Standard errors from the same logistic regression, with and without the design.</caption>
     <thead><tr><th>Predictor</th><th class="num">Naive SE</th><th class="num">Design SE</th><th class="num">Ratio</th></tr></thead>
@@ -107,7 +149,7 @@
 </section>
 
 <section>
-  <h2>3. Who reports depression</h2>
+  <h2>4. Who reports depression</h2>
   <div class="scroll"><table class="stats">
     <caption>Past-year major depressive episode among adults, by subgroup.</caption>
     <thead><tr><th>Group</th><th class="num">n</th><th class="num">Unweighted</th><th class="num">Weighted</th></tr></thead>
@@ -122,9 +164,16 @@
 </section>
 
 <section>
-  <h2>4. Reducing and grouping</h2>
-  <p>Seven measures were standardised and reduced by principal components. The first three
-  carry {pca3}% of the variance, which is the basis for grouping respondents.</p>
+  <h2>5. Squeezing seven variables into three</h2>
+  <p>Seven measures is not many, but they overlap: age, income and health move together, and
+  so do the three substances. Principal components analysis rewrites them as a smaller set of
+  combined scores that carry most of the same information, which makes the grouping in the
+  next step tractable.</p>
+  <p>The variables are on different scales, so they are standardised first. Without that,
+  a variable coded 1 to 6 would dominate one coded 0 or 1 purely through its range.</p>
+
+  <figure><div class="figbox">{f10}</div>
+    <figcaption>Figure 7. Variance carried by each component, with the running total.</figcaption></figure>
   <div class="scroll"><table class="stats">
     <caption>Variance explained by the leading components.</caption>
     <thead><tr><th>Component</th><th class="num">Variance</th><th class="num">Cumulative</th></tr></thead>
@@ -132,14 +181,52 @@
 {pca_rows}
     </tbody>
   </table></div>
-  <p>{pca3}% across three components is modest. These are seven fairly distinct measures, so
-  there is no dominant single dimension to find, and the components should be read as a
-  convenient summary rather than as latent traits.</p>
+  <p>The first component carries {pc1}%, the second {pc2}%, and three together {pca3}%. That
+  is a modest reduction rather than a dramatic one. These seven measures genuinely do carry
+  distinct information, so the components should be read as a convenient summary rather than
+  as hidden traits.</p>
+
+  <h3>What the components actually mean</h3>
+  <figure><div class="figbox">{f11}</div>
+    <figcaption>Figure 8. The correlation circle. Arrows in the same direction move together; opposite directions move apart.</figcaption></figure>
+  <p>This is the figure that makes PCA interpretable. Each arrow is one original variable,
+  placed by how strongly it loads on the first two components. Arrows pointing the same way
+  are variables that rise and fall together. Arrows pointing opposite ways move in opposition.
+  A long arrow is well represented by these two components; a short one is not.</p>
+  <p>Two things fall out of it. The <strong>first component</strong> contrasts cigarette and
+  marijuana use, together with poorer self-rated health, against higher income. It is close to
+  a disadvantage-and-heavy-use axis: those three rise together and run opposite to income. The
+  <strong>second component</strong> picks out alcohol and income moving together, against being
+  female and in poorer health, which separates social drinking from everything else.</p>
+  <p>Note also which arrow is short. <code>CATAG6</code>, the age band, barely registers on
+  either component, so age is poorly represented by this two-dimensional summary. That is a
+  useful warning: age is the second strongest predictor of depression in section 7, and it is
+  nearly invisible here. A variable can matter enormously for an outcome and still contribute
+  little to the main axes of variation among the predictors.</p>
+
+  <h3>Choosing how many groups</h3>
+  <figure><div class="figbox">{f12}</div>
+    <figcaption>Figure 9. Cluster tightness as k increases, computed on a 25,000-row subsample.</figcaption></figure>
+  <p>K-means needs to be told how many groups to find, and there is no correct answer, only a
+  reasonable one. The elbow plot shows how tightly the groups fit as k rises. Tightness always
+  improves with more groups, so the question is where it stops improving quickly. The bend
+  here is around four, which is where extra groups stop buying much.</p>
+</section>
+
+<section>
+  <h2>6. The four groups, and what defines them</h2>
+  <p>Cluster numbers are arbitrary, so each group is named from its own profile. These are the
+  "natural types" the analysis set out to look for, and it is worth being precise about what
+  each one means rather than leaving the labels to do the work.</p>
+
+  <div class="pipe">
+{cluster_defs}
+  </div>
 
   <figure><div class="figbox">{f3}</div>
-    <figcaption>Figure 3. Past-month use within each cluster, with the depression rate alongside.</figcaption></figure>
+    <figcaption>Figure 10. Past-month use within each group, with the depression rate alongside.</figcaption></figure>
   <div class="scroll"><table class="stats">
-    <caption>The four groups, ordered by marijuana use.</caption>
+    <caption>The four groups. Percentages are past-month use within the group.</caption>
     <thead><tr><th>Group</th><th class="num">n</th><th class="num">% of sample</th>
       <th class="num">Alcohol</th><th class="num">Marijuana</th><th class="num">Cigarettes</th>
       <th class="num">MDE</th></tr></thead>
@@ -147,23 +234,67 @@
 {cluster_rows}
     </tbody>
   </table></div>
-  <p>One group separates sharply: {mj_cluster_pct}% of the sample with {mj_cluster_mj}%
-  reporting past-month marijuana use, and a depression rate of {mj_cluster_mde}%, well above
-  the others. The remaining three are distinguished more by age, income and health than by
-  substances.</p>
+
+  <p>The separation is mostly about marijuana and about how many substances travel together.
+  Drinking on its own is common and, on this evidence, unremarkable: the largest group drinks
+  at 79.9% and has the <em>lowest</em> depression rate of the four, at 6.2%. It is co-use that
+  marks out the polysubstance group, whose depression rate is more than three times as high.</p>
 
   <div class="note">
     <p><strong>Clusters are a description, not a discovery.</strong> K-means returns four
-    groups from any dataset, including one with no group structure at all. Refitting on
-    twenty random subsamples returns cluster sizes of about {stab}, stable to within
-    {stab_sd} percentage points, so the partition is reproducible. Reproducible is not the
-    same as real: these may be genuine types of people, or convenient cuts through a
-    continuum. Nothing here distinguishes the two.</p>
+    groups from any dataset, including one with no group structure at all. Refitting on twenty
+    random subsamples returns cluster sizes of about {stab}, stable to within {stab_sd}
+    percentage points, so the partition is reproducible. Reproducible is not the same as real:
+    these may be genuine types of people, or convenient cuts through a continuum. Nothing here
+    distinguishes the two, and the names above are shorthand for a profile, not claims that
+    these are natural kinds.</p>
   </div>
 </section>
 
 <section>
-  <h2>5. Predicting depression, and the trap in accuracy</h2>
+  <h2>7. Predicting depression, and the trap in accuracy</h2>
+  <h3>Which predictors matter, and what the two penalties do</h3>
+  <p>Logistic regression with a penalty term shrinks coefficients toward zero to stop the
+  model chasing noise. The two standard penalties behave differently: <strong>LASSO</strong>
+  can shrink a coefficient all the way to zero and so drops variables entirely,
+  while <strong>ridge</strong> shrinks everything but keeps all of them.</p>
+  <figure><div class="figbox">{f13}</div>
+    <figcaption>Figure 11. Standardised coefficients under both penalties. Right of the line raises risk.</figcaption></figure>
+  <div class="scroll"><table class="stats">
+    <caption>Standardised coefficients, ordered by size under LASSO.</caption>
+    <thead><tr><th>Predictor</th><th class="num">LASSO</th><th class="num">Ridge</th><th class="num">Kept?</th></tr></thead>
+    <tbody>
+{penalised_rows}
+    </tbody>
+  </table></div>
+  <p>The two agree closely on both order and size, which is reassuring: the result is not an
+  artefact of the penalty chosen. <strong>{top_pred}</strong> and <strong>{top_pred2}</strong>
+  dominate, both far ahead of any substance measure. Among the substances, marijuana
+  ({mj_coef}) is roughly three times alcohol ({alc_coef}), which is the basis for the claim
+  that marijuana is the substance most associated with depression.</p>
+  <p>Income is the interesting case, at {income_lasso}: close to nothing once age, sex, health
+  and substance use are known. The gradient in Figure 3 is real, but it appears to run through
+  those other variables rather than adding anything of its own.</p>
+  <div class="note">
+    <p>These are log-odds on standardised predictors, so they compare like with like. A
+    coefficient of {mj_coef} does not mean marijuana users are {mj_coef} times more likely to
+    be depressed; it means a one standard deviation change in that predictor moves the log-odds
+    by that much. The ratio between two coefficients is meaningful; the number on its own is
+    not, without a baseline.</p>
+  </div>
+
+  <h3>A tree tells the same story differently</h3>
+  <figure><div class="figbox">{f14}</div>
+    <figcaption>Figure 12. The classification tree, top three splits. Shading marks branches with higher depression rates.</figcaption></figure>
+  <p>A classification tree asks a sequence of yes-or-no questions. Its first is
+  <code>{tree_split}</code>: is self-rated health at least "good"? That the tree independently
+  picks health as the single most useful question, when the regression also ranked it top,
+  is a stronger result than either method alone.</p>
+  <p>Reading down the branches, the highest-risk path is poor health combined with younger
+  age, and the lowest is good health with older age. The tree finds no interaction the
+  regression missed, which is itself informative: the relationships here are close to additive.</p>
+
+  <h3>Then the model is asked to make decisions</h3>
   <p>A penalised logistic regression on the seven predictors, evaluated by cross-validation,
   reaches an <strong>AUC of {auc}</strong>. AUC is the probability that a randomly chosen
   person with depression is ranked above a randomly chosen person without it, so {auc} means
@@ -180,7 +311,7 @@
   <p>The failure is in the decision rule, not the model. The ranking is good; the default
   0.50 cut-off is simply far above where the probabilities live for an outcome this rare.</p>
   <figure><div class="figbox">{f4}</div>
-    <figcaption>Figure 4. The same model at different decision thresholds. AUC is identical throughout.</figcaption></figure>
+    <figcaption>Figure 13. The same model at different decision thresholds. AUC is identical throughout.</figcaption></figure>
   <div class="scroll"><table class="stats">
     <caption>One model, several cut-offs. The shaded row is the default.</caption>
     <thead><tr><th class="num">Cut-off</th><th class="num">Sensitivity</th><th class="num">Specificity</th>
@@ -199,24 +330,55 @@
 </section>
 
 <section>
-  <h2>6. What this supports, and what it does not</h2>
-  <p><strong>Supports.</strong> Among U.S. adults, past-year depression is strongly patterned
-  by age, sex and self-rated health. Marijuana use is the substance measure most associated
-  with it. A small group of heavy multi-substance users carries a markedly higher rate. These
-  associations are precise, because the sample is very large.</p>
-  <p><strong>Does not support.</strong> Any causal reading. This is a cross-sectional survey:
-  it cannot say whether substance use precedes depression, follows it, or both share a cause.
-  The measures are coarse, self-reported, and binary in this analysis: "any use in the past
-  month" treats a monthly drink and daily heavy use as the same thing.</p>
-  <p><strong>Does not address.</strong> Adolescents, who are excluded by construction.
-  Treatment, severity and duration, none of which are in these variables. And the great
-  majority of what actually drives depression: genetics, life events, social support and
-  care history are not in the model, which is why an AUC of {auc} is the ceiling here rather
-  than a disappointment.</p>
+  <h2>8. Bottom-line findings</h2>
+
+  <h3>What the groups look like</h3>
+  <p>Adults fall into four recognisable substance-use profiles. A third are
+  <strong>higher-income drinkers</strong> who drink and do little else, and who have the
+  lowest depression rate of the four. A quarter are <strong>younger low-use</strong> adults,
+  low on everything. About a fifth are <strong>older cigarette users</strong> with the poorest
+  self-rated health. And about a fifth are <strong>polysubstance users</strong>, combining
+  alcohol, marijuana and cigarettes, with a depression rate more than three times the
+  drinkers'. If any group is a public-health priority on this evidence, it is that last one.</p>
+
+  <h3>What predicts depression</h3>
+  <p>Self-rated health and age are the strongest predictors by a wide margin, and both a
+  penalised regression and a decision tree agree on that independently. Women report
+  substantially higher rates than men. Among substances, marijuana is the strongest signal,
+  roughly three times alcohol or cigarettes. Income adds nothing once the rest is known, and
+  LASSO shrinks it to near zero on its own.</p>
+
+  <h3>What the survey design changes</h3>
+  <p>Weighting moves the national depression estimate from {mde_u}% to {mde_w}%, because the
+  survey over-samples the young and the young report more depression. Accounting for the
+  clustering widens every standard error by {se_min} to {se_max} times. Neither changes a
+  conclusion here, but both change what may honestly be claimed about precision.</p>
+
+  <h3>What accuracy hides</h3>
+  <p>The clearest methodological result on this page: a model can be {acc}% accurate, carry
+  genuine signal at AUC {auc}, and still be useless as a classifier, because it answers "no"
+  to almost everyone. Accuracy is the metric that conceals this, and kappa of {kappa} is the
+  one that reveals it. Whether the model is useful depends entirely on where the decision
+  threshold is set, and that is a question about consequences, not about statistics.</p>
+
+  <h3>Honest limitations</h3>
+  <p><strong>Self-report.</strong> People under-report behaviour they expect to be judged for,
+  and both the substance and the depression measures rest on what respondents said.</p>
+  <p><strong>No causation.</strong> Cross-sectional data. Marijuana use and depression travel
+  together; nothing here shows which came first, or whether something else drives both.</p>
+  <p><strong>Coarse measurement.</strong> "Any use in the past month" treats one drink and
+  daily heavy use identically. Severity, frequency and treatment are not in these variables.</p>
+  <p><strong>Adults only.</strong> Everyone aged 12 to 17 is excluded by construction.</p>
+  <p><strong>Most of the story is missing.</strong> Genetics, life events, social support and
+  care history are not recorded here, which is why AUC {auc} is the ceiling rather than a
+  disappointment, and why this model should never be read as diagnostic.</p>
+  <p><strong>Scope choices.</strong> Seven of more than 2,600 available variables were used.
+  Race, education and other substances were available and left out, and a different selection
+  would give a different model.</p>
 </section>
 
 <section>
-  <h2>7. How this was computed</h2>
+  <h2>9. How this was computed</h2>
   <p>All figures are computed from the SAMHSA public-use files with pandas, scikit-learn and
   statsmodels, using only the columns needed rather than all 2,650. Random seeds are fixed at
   1; changing them moves the cluster labels and the last digits of the cross-validated

@@ -1,0 +1,33 @@
+<svg class="fig" viewBox="0 0 800 300" role="img" aria-label="Missing values by variable">
+<text class="ttl" x="0.0" y="16.0" text-anchor="start">Where the data is missing</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Records with no value, out of the pooled file. Two variables account for almost all of it.</text>
+<text class="lab" x="136.0" y="70.0" text-anchor="end">AMI</text>
+<rect class="m2f" x="150" y="59" width="476.2" height="14" rx="2"/>
+<text class="val" x="636.2" y="71.0" text-anchor="start">135,196</text>
+<text class="lab" x="136.0" y="94.0" text-anchor="end">MDE</text>
+<rect class="m2f" x="150" y="83" width="139.0" height="14" rx="2"/>
+<text class="val" x="299.0" y="95.0" text-anchor="start">39,477</text>
+<text class="lab" x="136.0" y="118.0" text-anchor="end">HEALTH</text>
+<rect class="m1f" x="150" y="107" width="1.0" height="14" rx="2"/>
+<text class="val" x="161.0" y="119.0" text-anchor="start">79</text>
+<text class="lab" x="136.0" y="142.0" text-anchor="end">IRSEX</text>
+<rect class="m1f" x="150" y="131" width="1.0" height="14" rx="2"/>
+<text class="val" x="161.0" y="143.0" text-anchor="start">none</text>
+<text class="lab" x="136.0" y="166.0" text-anchor="end">CATAG6</text>
+<rect class="m1f" x="150" y="155" width="1.0" height="14" rx="2"/>
+<text class="val" x="161.0" y="167.0" text-anchor="start">none</text>
+<text class="lab" x="136.0" y="190.0" text-anchor="end">INCOME</text>
+<rect class="m1f" x="150" y="179" width="1.0" height="14" rx="2"/>
+<text class="val" x="161.0" y="191.0" text-anchor="start">none</text>
+<text class="lab" x="136.0" y="214.0" text-anchor="end">ALC_PASTMO</text>
+<rect class="m1f" x="150" y="203" width="1.0" height="14" rx="2"/>
+<text class="val" x="161.0" y="215.0" text-anchor="start">none</text>
+<text class="lab" x="136.0" y="238.0" text-anchor="end">MJ_PASTMO</text>
+<rect class="m1f" x="150" y="227" width="1.0" height="14" rx="2"/>
+<text class="val" x="161.0" y="239.0" text-anchor="start">none</text>
+<text class="lab" x="136.0" y="262.0" text-anchor="end">CIG_PASTMO</text>
+<rect class="m1f" x="150" y="251" width="1.0" height="14" rx="2"/>
+<text class="val" x="161.0" y="263.0" text-anchor="start">none</text>
+<line class="axis" x1="150" y1="52" x2="150" y2="268"/>
+<text class="ax" x="400.0" y="294.0" text-anchor="middle">Records with a missing value</text>
+</svg>

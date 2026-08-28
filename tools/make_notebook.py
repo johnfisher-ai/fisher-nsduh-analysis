@@ -149,6 +149,40 @@ df["cluster"] = km.labels_
 print()
 print(df.groupby("cluster")[["ALC_PASTMO","MJ_PASTMO","CIG_PASTMO","MDE"]].mean().mul(100).round(1))""")
 
+    md("""### The scree plot, the correlation circle, and the elbow
+
+Three standard PCA and clustering diagnostics. The correlation circle is the one that makes
+the components interpretable: each arrow is a variable, and arrows pointing the same way are
+variables that move together.""")
+    co("""fig, ax = plt.subplots(1, 3, figsize=(14, 4.2))
+
+# scree
+ev = pca.explained_variance_ratio_*100
+ax[0].bar(range(1, len(ev)+1), ev, color="#2a78d6")
+ax[0].plot(range(1, len(ev)+1), np.cumsum(ev), "o-", color="#1baf7a")
+ax[0].set_xlabel("component"); ax[0].set_ylabel("% variance"); ax[0].set_title("Scree plot")
+ax[0].grid(axis="y", alpha=.3)
+
+# correlation circle
+ax[1].add_patch(plt.Circle((0,0), 1, fill=False, color="#8b95a6"))
+ax[1].axhline(0, color="#d8dee8", lw=1); ax[1].axvline(0, color="#d8dee8", lw=1)
+for i, v in enumerate(VARS):
+    x, y = pca.components_[0, i], pca.components_[1, i]
+    ax[1].arrow(0, 0, x, y, head_width=.03, color="#2a78d6", length_includes_head=True)
+    ax[1].text(x*1.12, y*1.12, v, fontsize=8, ha="center")
+ax[1].set_xlim(-1.3, 1.3); ax[1].set_ylim(-1.3, 1.3); ax[1].set_aspect("equal")
+ax[1].set_xlabel(f"PC1 ({ev[0]:.0f}%)"); ax[1].set_ylabel(f"PC2 ({ev[1]:.0f}%)")
+ax[1].set_title("Correlation circle")
+
+# elbow
+sub = scores[np.random.default_rng(SEED).choice(len(scores), min(25000, len(scores)), replace=False)]
+wss = [KMeans(n_clusters=k, n_init=5, random_state=SEED).fit(sub).inertia_ for k in range(1, 9)]
+ax[2].plot(range(1, 9), wss, "o-", color="#2a78d6")
+ax[2].plot(4, wss[3], "o", ms=11, color="#1baf7a")
+ax[2].set_xlabel("k"); ax[2].set_ylabel("within-cluster spread"); ax[2].set_title("Elbow plot")
+ax[2].grid(alpha=.3)
+plt.tight_layout(); plt.show()""")
+
     md("""**A caution.** K-means returns four groups whether or not four groups exist. Before
 reading anything into them, check that the same structure comes back on resamples.""")
     co("""rng = np.random.default_rng(SEED)
@@ -199,6 +233,38 @@ ax.plot(thr.cutoff, thr.flagged_pct, "o-", label="% flagged", color="#eb6834")
 ax.set_xlabel("decision threshold"); ax.set_ylabel("percent"); ax.legend(); ax.grid(alpha=.3)
 ax.set_title("Lowering the cut-off finds more cases, at the cost of flagging more people")
 plt.tight_layout(); plt.show()""")
+
+    md("""### LASSO against ridge, and a tree
+
+Two penalties, two different behaviours. LASSO can shrink a coefficient to exactly zero and
+so drops variables; ridge shrinks everything but keeps it. If they agree, the result is not
+an artefact of the penalty.""")
+    co("""from sklearn.tree import DecisionTreeClassifier, plot_tree
+
+Xstd = StandardScaler().fit_transform(df[VARS].astype(float))
+coefs = {}
+for tag, kw in (("LASSO", dict(solver="liblinear", l1_ratio=1)),
+                ("Ridge", dict(solver="lbfgs", l1_ratio=0))):
+    coefs[tag] = LogisticRegression(C=1.0, max_iter=2000, **kw).fit(Xstd, y).coef_[0]
+
+comp = pd.DataFrame(coefs, index=VARS).sort_values("LASSO", key=abs, ascending=False)
+print(comp.round(3).to_string())
+print("\\nVariables LASSO dropped entirely:", [v for v in VARS if abs(comp.loc[v,"LASSO"]) < 1e-6] or "none")
+
+fig, ax = plt.subplots(1, 2, figsize=(13, 4.5))
+yv = np.arange(len(comp))
+ax[0].barh(yv-0.2, comp.LASSO, 0.4, label="LASSO", color="#2a78d6")
+ax[0].barh(yv+0.2, comp.Ridge, 0.4, label="Ridge", color="#eb6834")
+ax[0].set_yticks(yv); ax[0].set_yticklabels(comp.index, fontsize=8); ax[0].invert_yaxis()
+ax[0].axvline(0, color="#8b95a6", lw=1); ax[0].legend(); ax[0].set_xlabel("standardised coefficient")
+ax[0].set_title("What predicts depression")
+
+tree = DecisionTreeClassifier(max_depth=3, min_samples_leaf=500, random_state=SEED).fit(df[VARS], y)
+plot_tree(tree, feature_names=VARS, class_names=["No","Yes"], filled=True,
+          impurity=False, proportion=True, fontsize=6, ax=ax[1])
+ax[1].set_title("Classification tree (depth 3)")
+plt.tight_layout(); plt.show()
+print("\\nFirst split:", VARS[tree.tree_.feature[0]], "<=", round(tree.tree_.threshold[0], 2))""")
 
     md("""## Part 5. What the design does to the standard errors
 

@@ -1,0 +1,10 @@
+<svg class="fig" viewBox="0 0 800 210" role="img" aria-label="Outcome class balance">
+<text class="ttl" x="0.0" y="16.0" text-anchor="start">The outcome is rare, and that is the whole problem</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Adults in the analysis sample, by whether they reported a past-year episode.</text>
+<rect class="m1f" x="60" y="82" width="603.2" height="52" rx="4"/>
+<rect class="m2f" x="663.2" y="82" width="76.8" height="52" rx="4"/>
+<text class="val" x="361.6" y="113.0" text-anchor="middle">No  119,664  (88.7%)</text>
+<text class="val" x="701.6" y="113.0" text-anchor="middle">11.3%</text>
+<text class="ax" x="740.0" y="154.0" text-anchor="end">Yes: 15,233 people</text>
+<text class="ax" x="60.0" y="154.0" text-anchor="start">A model that answers “no” to everyone is right 88.7% of the time.</text>
+</svg>

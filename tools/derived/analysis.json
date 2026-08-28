@@ -323,7 +323,9 @@
    "mde": 19.6,
    "age": 3.03,
    "income": 2.57,
-   "health": 2.64
+   "health": 2.64,
+   "name": "Polysubstance users",
+   "definition": "Very high co-use of alcohol, marijuana and cigarettes together."
   },
   {
    "cluster": 0,
@@ -336,7 +338,9 @@
    "mde": 11.1,
    "age": 2.45,
    "income": 2.33,
-   "health": 1.94
+   "health": 1.94,
+   "name": "Younger low-use",
+   "definition": "Low on every substance. The youngest group, and the lowest income."
   },
   {
    "cluster": 1,
@@ -349,7 +353,9 @@
    "mde": 6.2,
    "age": 4.13,
    "income": 3.73,
-   "health": 2.08
+   "health": 2.08,
+   "name": "Higher-income drinkers",
+   "definition": "Drink, but almost nothing else. The oldest and highest-income group, and the healthiest."
   },
   {
    "cluster": 3,
@@ -362,7 +368,9 @@
    "mde": 12.2,
    "age": 4.56,
    "income": 2.17,
-   "health": 3.25
+   "health": 3.25,
+   "name": "Older cigarette users",
+   "definition": "Low alcohol and marijuana, but the highest cigarette use and the poorest self-rated health."
   }
  ],
  "cluster_stability": {
@@ -538,6 +546,227 @@
     "importance": 0.0
    }
   ],
-  "first_split": "HEALTH"
- }
+  "first_split": "HEALTH",
+  "structure": {
+   "pct": 100.0,
+   "p_yes": 11.3,
+   "predicts": "No",
+   "depth": 0,
+   "split": "HEALTH <= 2.5",
+   "left": {
+    "pct": 56.1,
+    "p_yes": 7.2,
+    "predicts": "No",
+    "depth": 1,
+    "split": "CATAG6 <= 3.5",
+    "left": {
+     "pct": 30.4,
+     "p_yes": 10.0,
+     "predicts": "No",
+     "depth": 2,
+     "split": "HEALTH <= 1.5",
+     "left": {
+      "pct": 11.6,
+      "p_yes": 5.8,
+      "predicts": "No",
+      "depth": 3
+     },
+     "right": {
+      "pct": 18.8,
+      "p_yes": 12.6,
+      "predicts": "No",
+      "depth": 3
+     }
+    },
+    "right": {
+     "pct": 25.7,
+     "p_yes": 3.9,
+     "predicts": "No",
+     "depth": 2,
+     "split": "CATAG6 <= 4.5",
+     "left": {
+      "pct": 14.6,
+      "p_yes": 5.2,
+      "predicts": "No",
+      "depth": 3
+     },
+     "right": {
+      "pct": 11.1,
+      "p_yes": 2.2,
+      "predicts": "No",
+      "depth": 3
+     }
+    }
+   },
+   "right": {
+    "pct": 43.9,
+    "p_yes": 16.5,
+    "predicts": "No",
+    "depth": 1,
+    "split": "CATAG6 <= 3.5",
+    "left": {
+     "pct": 20.0,
+     "p_yes": 23.6,
+     "predicts": "No",
+     "depth": 2,
+     "split": "HEALTH <= 3.5",
+     "left": {
+      "pct": 15.1,
+      "p_yes": 20.0,
+      "predicts": "No",
+      "depth": 3
+     },
+     "right": {
+      "pct": 5.0,
+      "p_yes": 34.4,
+      "predicts": "No",
+      "depth": 3
+     }
+    },
+    "right": {
+     "pct": 23.9,
+     "p_yes": 10.6,
+     "predicts": "No",
+     "depth": 2,
+     "split": "HEALTH <= 3.5",
+     "left": {
+      "pct": 16.4,
+      "p_yes": 8.1,
+      "predicts": "No",
+      "depth": 3
+     },
+     "right": {
+      "pct": 7.5,
+      "p_yes": 16.0,
+      "predicts": "No",
+      "depth": 3
+     }
+    }
+   }
+  }
+ },
+ "missing": [
+  {
+   "var": "AMI",
+   "missing": 135196,
+   "pct": 77.52
+  },
+  {
+   "var": "MDE",
+   "missing": 39477,
+   "pct": 22.63
+  },
+  {
+   "var": "HEALTH",
+   "missing": 79,
+   "pct": 0.05
+  },
+  {
+   "var": "IRSEX",
+   "missing": 0,
+   "pct": 0.0
+  },
+  {
+   "var": "CATAG6",
+   "missing": 0,
+   "pct": 0.0
+  },
+  {
+   "var": "INCOME",
+   "missing": 0,
+   "pct": 0.0
+  },
+  {
+   "var": "ALC_PASTMO",
+   "missing": 0,
+   "pct": 0.0
+  },
+  {
+   "var": "MJ_PASTMO",
+   "missing": 0,
+   "pct": 0.0
+  },
+  {
+   "var": "CIG_PASTMO",
+   "missing": 0,
+   "pct": 0.0
+  }
+ ],
+ "balance": {
+  "no": 119664,
+  "yes": 15233,
+  "pct_no": 88.7,
+  "pct_yes": 11.3
+ },
+ "elbow": [
+  {
+   "k": 1,
+   "wss": 97124.0
+  },
+  {
+   "k": 2,
+   "wss": 70774.5
+  },
+  {
+   "k": 3,
+   "wss": 53256.5
+  },
+  {
+   "k": 4,
+   "wss": 41381.1
+  },
+  {
+   "k": 5,
+   "wss": 35799.7
+  },
+  {
+   "k": 6,
+   "wss": 31391.9
+  },
+  {
+   "k": 7,
+   "wss": 28919.0
+  },
+  {
+   "k": 8,
+   "wss": 26071.5
+  }
+ ],
+ "penalised": [
+  {
+   "var": "CATAG6",
+   "lasso": -0.6191,
+   "ridge": -0.6192
+  },
+  {
+   "var": "HEALTH",
+   "lasso": 0.6087,
+   "ridge": 0.6084
+  },
+  {
+   "var": "IRSEX",
+   "lasso": 0.2859,
+   "ridge": 0.2858
+  },
+  {
+   "var": "MJ_PASTMO",
+   "lasso": 0.2196,
+   "ridge": 0.2198
+  },
+  {
+   "var": "ALC_PASTMO",
+   "lasso": 0.0624,
+   "ridge": 0.0626
+  },
+  {
+   "var": "CIG_PASTMO",
+   "lasso": 0.0545,
+   "ridge": 0.0545
+  },
+  {
+   "var": "INCOME",
+   "lasso": -0.0015,
+   "ridge": -0.0018
+  }
+ ]
 }

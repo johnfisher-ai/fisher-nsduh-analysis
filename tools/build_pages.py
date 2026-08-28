@@ -6,7 +6,7 @@ from rhl import highlight
 e = html.escape
 
 A = json.load(open(DERIVED / "analysis.json"))
-F = {n: (DERIVED / f"{n}.svg").read_text() for n in ["f1","f2","f3","f4","f5"]}
+F = {n: (DERIVED / f"{n}.svg").read_text() for n in [f"f{i}" for i in range(1,15)]}
 REPO = "https://github.com/johnfisher-ai/fisher-nsduh-analysis"
 S, M = A["sample"], A["model"]
 
@@ -53,13 +53,38 @@ def mde_rows():
                     f'<td class="num">{r["unweighted"]:.2f}%</td><td class="num">{r["weighted"]:.2f}%</td></tr>')
     return out
 
+AGEC = {2:"18-25",3:"26-34",4:"35-49",5:"50-64",6:"65+"}
 def cluster_rows():
     out=""
-    for i,c in enumerate(A["clusters"],1):
-        out += (f'<tr><td class="item">Cluster {i}</td><td class="num">{c["n"]:,}</td>'
+    for c in A["clusters"]:
+        out += (f'<tr><td class="item"><strong>{e(c["name"])}</strong></td><td class="num">{c["n"]:,}</td>'
                 f'<td class="num">{c["pct"]}%</td><td class="num">{c["alc"]}%</td>'
                 f'<td class="num">{c["mj"]}%</td><td class="num">{c["cig"]}%</td>'
                 f'<td class="num">{c["mde"]}%</td></tr>')
+    return out
+
+def cluster_defs():
+    out=""
+    for c in A["clusters"]:
+        out += (f'<div class="step"><span class="n">{c["pct"]:.0f}%</span><div>'
+                f'<strong>{e(c["name"])}</strong>'
+                f'<p>{e(c["definition"])} Alcohol {c["alc"]}%, marijuana {c["mj"]}%, '
+                f'cigarettes {c["cig"]}%. Depression {c["mde"]}%. n = {c["n"]:,}.</p></div></div>')
+    return out
+
+def penalised_rows():
+    out=""
+    for p in A["penalised"]:
+        out += (f'<tr><td class="item">{e(p["var"])}</td><td class="num">{p["lasso"]:+.3f}</td>'
+                f'<td class="num">{p["ridge"]:+.3f}</td>'
+                f'<td class="num">{"dropped" if abs(p["lasso"])<1e-6 else "kept"}</td></tr>')
+    return out
+
+def missing_rows():
+    out=""
+    for m in A["missing"]:
+        out += (f'<tr><td class="item">{e(m["var"])}</td><td class="num">{m["missing"]:,}</td>'
+                f'<td class="num">{m["pct"]:.2f}%</td></tr>')
     return out
 
 def thresh_rows():
@@ -91,8 +116,17 @@ def pca_rows():
     return out
 
 CTX = dict(
-    f1=F["f1"], f2=F["f2"], f3=F["f3"], f4=F["f4"], f5=F["f5"], repo=REPO, samhsa=SAMHSA,
+    **{k: v for k, v in F.items()}, repo=REPO, samhsa=SAMHSA,
     prev_rows=prev_rows(), mde_rows=mde_rows(), cluster_rows=cluster_rows(),
+    cluster_defs=cluster_defs(), penalised_rows=penalised_rows(), missing_rows=missing_rows(),
+    bal_no=f'{A["balance"]["no"]:,}', bal_yes=f'{A["balance"]["yes"]:,}',
+    bal_pct_no=A["balance"]["pct_no"], bal_pct_yes=A["balance"]["pct_yes"],
+    pc1=f'{A["pca"]["explained"][0]:.1f}', pc2=f'{A["pca"]["explained"][1]:.1f}',
+    tree_split=A["tree"]["structure"]["split"],
+    top_pred=A["penalised"][0]["var"], top_pred2=A["penalised"][1]["var"],
+    income_lasso=f'{[p for p in A["penalised"] if p["var"]=="INCOME"][0]["lasso"]:+.3f}',
+    mj_coef=f'{[p for p in A["penalised"] if p["var"]=="MJ_PASTMO"][0]["lasso"]:+.3f}',
+    alc_coef=f'{[p for p in A["penalised"] if p["var"]=="ALC_PASTMO"][0]["lasso"]:+.3f}',
     thresh_rows=thresh_rows(), se_rows=se_rows(), pca_rows=pca_rows(),
     n=f'{A["n"]:,}', pooled=f'{S["pooled"]:,}', adolescents=f'{S["adolescents_excluded"]:,}',
     adults_missing=f'{S["adults_missing_outcome"]:,}',

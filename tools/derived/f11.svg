@@ -1,0 +1,30 @@
+<svg class="fig" viewBox="0 0 800 420" role="img" aria-label="PCA correlation circle">
+<text class="ttl" x="0.0" y="16.0" text-anchor="start">What the first two components mean</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Each arrow is one variable. Arrows pointing the same way move together; opposite ways, apart.</text>
+<circle cx="400" cy="215" r="150" fill="none" class="axis"/>
+<line class="grid" x1="250" y1="215" x2="550" y2="215"/>
+<line class="grid" x1="400" y1="65" x2="400" y2="365"/>
+<line class="ci" x1="400" y1="215" x2="410.6" y2="116.9"/>
+<circle cx="410.6" cy="116.9" r="3.5" class="m1"/>
+<text class="val" x="418.6" y="110.9" text-anchor="start">ALC_PASTMO</text>
+<line class="ci" x1="400" y1="215" x2="478.6" y2="156.1"/>
+<circle cx="478.6" cy="156.1" r="3.5" class="m1"/>
+<text class="val" x="486.6" y="150.1" text-anchor="start">MJ_PASTMO</text>
+<line class="ci" x1="400" y1="215" x2="485.5" y2="205.2"/>
+<circle cx="485.5" cy="205.2" r="3.5" class="m1"/>
+<text class="val" x="493.5" y="199.2" text-anchor="start">CIG_PASTMO</text>
+<line class="ci" x1="400" y1="215" x2="395.4" y2="264.2"/>
+<circle cx="395.4" cy="264.2" r="3.5" class="m1"/>
+<text class="val" x="387.4" y="268.2" text-anchor="end">IRSEX</text>
+<line class="ci" x1="400" y1="215" x2="375.2" y2="234.1"/>
+<circle cx="375.2" cy="234.1" r="3.5" class="m1"/>
+<text class="val" x="367.2" y="238.1" text-anchor="end">CATAG6</text>
+<line class="ci" x1="400" y1="215" x2="332.4" y2="146.4"/>
+<circle cx="332.4" cy="146.4" r="3.5" class="m1"/>
+<text class="val" x="324.4" y="140.4" text-anchor="end">INCOME</text>
+<line class="ci" x1="400" y1="215" x2="460.6" y2="257.6"/>
+<circle cx="460.6" cy="257.6" r="3.5" class="m1"/>
+<text class="val" x="468.6" y="261.6" text-anchor="start">HEALTH</text>
+<text class="ax" x="400.0" y="395.0" text-anchor="middle">PC1  (21% of variance)</text>
+<text class="ax" transform="rotate(-90 224 215)" x="224" y="215" text-anchor="middle">PC2  (18%)</text>
+</svg>

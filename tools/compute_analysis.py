@@ -96,6 +96,18 @@ def main():
                          age=round(float(g.CATAG6.mean()), 2),
                          income=round(float(g.INCOME.mean()), 2),
                          health=round(float(g.HEALTH.mean()), 2)))
+    # Name each group from its own profile rather than by cluster number, which is
+    # arbitrary and changes with the seed.
+    def name_cluster(c, rest):
+        if c["mj"] > 50:  return ("Polysubstance users",
+            "Very high co-use of alcohol, marijuana and cigarettes together.")
+        if c["cig"] > 15: return ("Older cigarette users",
+            "Low alcohol and marijuana, but the highest cigarette use and the poorest self-rated health.")
+        if c["alc"] > 50: return ("Higher-income drinkers",
+            "Drink, but almost nothing else. The oldest and highest-income group, and the healthiest.")
+        return ("Younger low-use", "Low on every substance. The youngest group, and the lowest income.")
+    for c in prof:
+        c["name"], c["definition"] = name_cluster(c, prof)
     prof.sort(key=lambda r: -r["mj"])
     R["clusters"] = prof
 
@@ -167,6 +179,50 @@ def main():
     R["tree"] = dict(depth=4,
                      importance=[dict(var=v, importance=round(float(i), 4)) for v, i in imp],
                      first_split=MODEL_VARS[int(tree.tree_.feature[0])])
+
+    # ---- missingness, as the original reported it ----
+    miss_cols = ["IRSEX","CATAG6","INCOME","HEALTH","ALC_PASTMO","MJ_PASTMO","CIG_PASTMO","MDE","AMI"]
+    R["missing"] = [dict(var=c, missing=int(df[c].isna().sum()),
+                         pct=round(100 * df[c].isna().mean(), 2)) for c in miss_cols]
+    R["missing"].sort(key=lambda r: -r["missing"])
+
+    # ---- the outcome's class balance ----
+    R["balance"] = dict(no=int((a.MDE == 0).sum()), yes=int((a.MDE == 1).sum()),
+                        pct_no=round(100 * (a.MDE == 0).mean(), 1),
+                        pct_yes=round(100 * (a.MDE == 1).mean(), 1))
+
+    # ---- elbow: within-cluster sum of squares by k ----
+    sub = scores[np.random.default_rng(SEED).choice(len(scores), 25000, replace=False)]
+    R["elbow"] = [dict(k=k, wss=round(float(KMeans(n_clusters=k, n_init=5,
+                                                   random_state=SEED).fit(sub).inertia_), 1))
+                  for k in range(1, 9)]
+
+    # ---- LASSO against ridge, on standardised predictors ----
+    Xstd = StandardScaler().fit_transform(Xm)
+    coefs = {}
+    for tag, kw in (("lasso", dict(solver="liblinear", l1_ratio=1)),
+                    ("ridge", dict(solver="lbfgs", l1_ratio=0))):
+        f = LogisticRegression(C=1.0, max_iter=2000, **kw).fit(Xstd, y)
+        coefs[tag] = f.coef_[0]
+    R["penalised"] = [dict(var=v, lasso=round(float(coefs["lasso"][i]), 4),
+                           ridge=round(float(coefs["ridge"][i]), 4))
+                      for i, v in enumerate(MODEL_VARS)]
+    R["penalised"].sort(key=lambda r: -abs(r["lasso"]))
+
+    # ---- the classification tree, as a structure the site can draw ----
+    t = tree.tree_
+    def node(i, depth=0):
+        n_here = int(t.n_node_samples[i])
+        val = t.value[i][0]
+        p_yes = float(val[1] / val.sum())
+        d = dict(pct=round(100 * n_here / len(y), 1), p_yes=round(p_yes * 100, 1),
+                 predicts="Yes" if p_yes >= .5 else "No", depth=depth)
+        if t.children_left[i] != -1 and depth < 3:
+            d["split"] = f"{MODEL_VARS[t.feature[i]]} <= {t.threshold[i]:.1f}"
+            d["left"]  = node(int(t.children_left[i]), depth + 1)
+            d["right"] = node(int(t.children_right[i]), depth + 1)
+        return d
+    R["tree"]["structure"] = node(0)
 
     DERIVED.mkdir(parents=True, exist_ok=True)
     json.dump(R, open(DERIVED / "analysis.json", "w"), indent=1)
