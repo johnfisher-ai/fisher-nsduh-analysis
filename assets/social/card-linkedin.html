@@ -1,0 +1,36 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@page { margin:0 }
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1200px;height:627px}
+body{font:16px/1.5 -apple-system,"Helvetica Neue",Arial,sans-serif;background:#ffffff;color:#16202e;
+  display:flex;flex-direction:column;position:relative;overflow:hidden}
+.bar{height:10px;background:linear-gradient(90deg,#2f5d94 0%,#2f5d94 62%,#eb6834 62%,#eb6834 100%)}
+.body{flex:1;padding:56px 68px 0;display:flex;flex-direction:column}
+.kicker{font-size:17px;font-weight:800;letter-spacing:.19em;text-transform:uppercase;color:#2f5d94;margin-bottom:26px}
+h1{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-weight:600;
+  font-size:59px;line-height:1.11;letter-spacing:-.015em;max-width:1010px}
+.sub{margin-top:22px;font-size:25px;color:#5a6577;line-height:1.42;max-width:930px}
+.stats{margin-top:auto;display:flex;gap:0;border-top:1px solid #e2e7ef}
+.stat{padding:26px 44px 30px 0;margin-right:44px;border-right:1px solid #e2e7ef}
+.stat:last-child{border-right:none}
+.n{font-family:"Iowan Old Style",Palatino,Georgia,serif;font-size:40px;line-height:1;color:#16202e}
+.l{font-size:16px;color:#5a6577;margin-top:9px;letter-spacing:.02em}
+.foot{background:#f7f9fc;border-top:1px solid #e2e7ef;padding:20px 68px;display:flex;
+  justify-content:space-between;align-items:center;font-size:18px;color:#5a6577}
+.foot b{color:#16202e;font-weight:600}
+.url{font-family:ui-monospace,Menlo,monospace;font-size:16px;color:#2f5d94}
+</style></head><body>
+<div class="bar"></div>
+<div class="body">
+  <div class="kicker">{{KICKER}}</div>
+  <h1>{{TITLE}}</h1>
+  <div class="sub">{{SUBTITLE}}</div>
+  <div class="stats">
+    <div class="stat"><div class="n">{{STAT1_N}}</div><div class="l">{{STAT1_L}}</div></div>
+    <div class="stat"><div class="n">{{STAT2_N}}</div><div class="l">{{STAT2_L}}</div></div>
+    <div class="stat"><div class="n">{{STAT3_N}}</div><div class="l">{{STAT3_L}}</div></div>
+  </div>
+</div>
+<div class="foot"><span>{{FOOTNOTE}}</span>
+<span class="url">johnfisher-ai.github.io/fisher-nsduh-analysis</span></div>
+</body></html>

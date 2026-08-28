@@ -1,0 +1,60 @@
+name: Deploy site to GitHub Pages
+
+# Publishes the contents of public/ and nothing else. Everything outside that folder
+# (source PDFs, data, notes, CLAUDE.md) stays reachable through the repository but is
+# never served from the site host. Publishing the repo root instead is how private
+# material ends up on a public URL by accident.
+#
+# RECOVERY NOTE: if a run fails, do NOT use "Re-run jobs". A re-run executes
+# upload-pages-artifact again inside the same run, leaving two artifacts named
+# github-pages, and deploy-pages then fails with "Multiple artifacts named
+# github-pages were unexpectedly found". Start a fresh run instead:
+#     gh workflow run pages.yml --ref main
+# or push a new commit.
+#
+# If a run fails with "due to in progress deployment. Please cancel <id> first", a
+# previous deployment is wedged and is blocking all new ones. Clear it with:
+#     gh api -X POST repos/<owner>/<repo>/pages/deployments/<id>/cancel
+# If that returns 204 but the block persists, disable and re-enable Pages:
+#     gh api -X DELETE repos/<owner>/<repo>/pages
+#     gh api -X POST   repos/<owner>/<repo>/pages -f build_type=workflow
+#
+# Pages must already be enabled with source "GitHub Actions". The default GITHUB_TOKEN
+# cannot create the Pages site, so enablement is not attempted here; `enablement: true`
+# fails with "Resource not accessible by integration".
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  # false, not true: cancelling a Pages deployment mid-flight is how it gets wedged.
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          # 600000 ms (10 min) is the action's maximum; larger values are clamped
+          # with a warning. If the backend stalls past this, cancel the wedged
+          # deployment (see above) rather than reaching for a longer timeout.
+          timeout: 600000
+          error_count: 10
