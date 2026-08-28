@@ -131,7 +131,8 @@ svg.fig .mean { stroke:var(--s2); stroke-width:2; }
 svg.fig .conn { stroke:var(--fig-axis); stroke-width:2.5; }
 svg.fig .ci   { stroke:var(--s1); stroke-width:2; }
 svg.fig .m1 { fill:var(--s1); } svg.fig .m2 { fill:var(--s2); } svg.fig .m3 { fill:var(--s3); }
-svg.fig .m1f{ fill:var(--s1); } svg.fig .m2f{ fill:var(--s2); } svg.fig .m4f{ fill:var(--s3); }
+svg.fig .m1f{ fill:var(--s1); } svg.fig .m2f{ fill:var(--s2); }
+svg.fig .m3f{ fill:var(--s3); } svg.fig .m4f{ fill:var(--s3); }
 svg.fig .bar{ fill:var(--s1); }
 
 /* original SAS output images */

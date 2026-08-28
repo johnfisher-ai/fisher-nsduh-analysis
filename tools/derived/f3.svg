@@ -1,0 +1,42 @@
+<svg class="fig" viewBox="0 0 820 300" role="img" aria-label="Substance use by cluster">
+<text class="ttl" x="0.0" y="16.0" text-anchor="start">Four groups, and what separates them</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Past-month use within each cluster. One group is defined almost entirely by marijuana.</text>
+<rect x="420" y="7" width="10" height="10" rx="2" class="m1f"/><text class="leg" x="434.0" y="16.0" text-anchor="start">Alcohol</text>
+<rect x="508" y="7" width="10" height="10" rx="2" class="m2f"/><text class="leg" x="522.0" y="16.0" text-anchor="start">Marijuana</text>
+<rect x="596" y="7" width="10" height="10" rx="2" class="m3f"/><text class="leg" x="610.0" y="16.0" text-anchor="start">Cigarettes</text>
+<text class="lab bold" x="196.0" y="76.0" text-anchor="end">Cluster 1</text>
+<text class="ax" x="196.0" y="89.0" text-anchor="end">19.7% of sample, n=26,510</text>
+<rect class="m1f" x="210" y="65" width="384.6" height="7" rx="2"/>
+<rect class="m2f" x="210" y="74" width="368.5" height="7" rx="2"/>
+<rect class="m3f" x="210" y="83" width="223.1" height="7" rx="2"/>
+<text class="val" x="680.0" y="80.0" text-anchor="start">MDE 19.6%</text>
+<text class="lab bold" x="196.0" y="120.0" text-anchor="end">Cluster 2</text>
+<text class="ax" x="196.0" y="133.0" text-anchor="end">27.6% of sample, n=37,171</text>
+<rect class="m1f" x="210" y="109" width="98.4" height="7" rx="2"/>
+<rect class="m2f" x="210" y="118" width="23.9" height="7" rx="2"/>
+<rect class="m3f" x="210" y="127" width="6.9" height="7" rx="2"/>
+<text class="val" x="680.0" y="124.0" text-anchor="start">MDE 11.1%</text>
+<text class="lab bold" x="196.0" y="164.0" text-anchor="end">Cluster 3</text>
+<text class="ax" x="196.0" y="177.0" text-anchor="end">34.0% of sample, n=45,853</text>
+<rect class="m1f" x="210" y="153" width="367.5" height="7" rx="2"/>
+<rect class="m2f" x="210" y="162" width="18.9" height="7" rx="2"/>
+<rect class="m3f" x="210" y="171" width="6.9" height="7" rx="2"/>
+<text class="val" x="680.0" y="168.0" text-anchor="start">MDE 6.2%</text>
+<text class="lab bold" x="196.0" y="208.0" text-anchor="end">Cluster 4</text>
+<text class="ax" x="196.0" y="221.0" text-anchor="end">18.8% of sample, n=25,363</text>
+<rect class="m1f" x="210" y="197" width="76.8" height="7" rx="2"/>
+<rect class="m2f" x="210" y="206" width="17.5" height="7" rx="2"/>
+<rect class="m3f" x="210" y="215" width="95.2" height="7" rx="2"/>
+<text class="val" x="680.0" y="212.0" text-anchor="start">MDE 12.2%</text>
+<line class="grid" x1="210.0" y1="58" x2="210.0" y2="220"/>
+<text class="ax" x="210.0" y="284.0" text-anchor="middle">0%</text>
+<line class="grid" x1="325.0" y1="58" x2="325.0" y2="220"/>
+<text class="ax" x="325.0" y="284.0" text-anchor="middle">25%</text>
+<line class="grid" x1="440.0" y1="58" x2="440.0" y2="220"/>
+<text class="ax" x="440.0" y="284.0" text-anchor="middle">50%</text>
+<line class="grid" x1="555.0" y1="58" x2="555.0" y2="220"/>
+<text class="ax" x="555.0" y="284.0" text-anchor="middle">75%</text>
+<line class="grid" x1="670.0" y1="58" x2="670.0" y2="220"/>
+<text class="ax" x="670.0" y="284.0" text-anchor="middle">100%</text>
+<text class="ax" x="440.0" y="298.0" text-anchor="middle">Percent of cluster reporting past-month use</text>
+</svg>

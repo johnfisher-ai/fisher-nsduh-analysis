@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Code &middot; Depression and Substance Use in the NSDUH</title>
+<meta name="description" content="The R pipeline behind the analysis, with a Python notebook that reproduces it.">
+{meta}
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <p class="kicker">R and Python</p>
+  <h1>The code</h1>
+  <p class="byline">The pipeline in R, and a Python notebook that reproduces every figure on
+     the site.</p>
+</div></header>
+<nav class="site"><div class="wrap">
+{nav}
+</div></nav>
+<main><div class="wrap">
+
+<section>
+  <h2>Run it in the browser</h2>
+  <p>The notebook works through the whole analysis: pooling the survey years, the weighted
+  against unweighted comparison, PCA and clustering with the stability check, the classifier,
+  and the threshold trade-off.</p>
+  <p>
+    <a class="cta" href="{colab}">Open in Colab</a>
+    <a class="cta" href="{repo}/blob/main/notebooks/nsduh_mde_analysis.ipynb">View on GitHub</a>
+  </p>
+  <div class="note">
+    <p><strong>The notebook cannot ship the data.</strong> The three public-use files total
+    about 1.1 GB, far past what a repository or a notebook can carry. It therefore runs on a
+    synthetic dataset built from this study's published aggregates, so every cell executes
+    with no setup, and a flag at the top switches it onto the real files once you have
+    downloaded them from <a href="{samhsa}">SAMHSA</a>.</p>
+    <p>Numbers produced from the synthetic data are simulated. The real figures are on the
+    <a href="analysis.html">analysis page</a>.</p>
+  </div>
+</section>
+
+<section>
+  <h2>The pipeline</h2>
+  <div class="pipe">
+    <div class="step"><span class="n">1</span><div><strong>Read and pool</strong>
+      <p>Three tab-separated files, one per year, about 2,650 columns each. Only twelve are
+      read: nine analysis variables and the three that describe the survey design. Pooling
+      requires dividing each weight by the number of years.</p></div></div>
+    <div class="step"><span class="n">2</span><div><strong>Recode and restrict</strong>
+      <p>Binary indicators for past-month use and past-year depression. Dropping missing
+      outcomes removes all adolescents, because they are asked a different instrument, so the
+      population is adults 18 and over.</p></div></div>
+    <div class="step"><span class="n">3</span><div><strong>Describe, twice</strong>
+      <p>Every prevalence computed with and without the weights, so the difference is
+      visible rather than assumed away.</p></div></div>
+    <div class="step"><span class="n">4</span><div><strong>Reduce and group</strong>
+      <p>Standardise, principal components, k-means on the leading three, then refit on
+      subsamples to see whether the groups are reproducible.</p></div></div>
+    <div class="step"><span class="n">5</span><div><strong>Predict</strong>
+      <p>Penalised logistic regression and a classification tree, cross-validated, then the
+      threshold sweep that shows what the default cut-off costs.</p></div></div>
+    <div class="step"><span class="n">6</span><div><strong>Apply the design</strong>
+      <p>Refit with the weights and the cluster structure, and compare the standard errors
+      against the naive ones.</p></div></div>
+  </div>
+</section>
+
+<section>
+  <h2>The R pipeline</h2>
+  <p class="mono-name"><code>nsduh_mde_analysis.R</code>, {r_lines} lines.</p>
+  <p>
+    <a class="cta" href="{repo}/blob/main/R/nsduh_mde_analysis.R">Source on GitHub</a>
+    <a class="cta" href="analysis.html">The results it produces</a>
+  </p>
+  <details class="src">
+    <summary>Show the full script ({r_lines} lines)</summary>
+    <div class="codewrap">
+      <div class="head"><code>nsduh_mde_analysis.R</code><span>R</span></div>
+      <pre class="code clip">{r_source}</pre>
+    </div>
+  </details>
+</section>
+
+<section>
+  <h2>R to Python</h2>
+  <div class="scroll"><table class="stats">
+    <caption>The equivalences the notebook relies on.</caption>
+    <thead><tr><th>R</th><th>Python</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td><code>read.delim(path)[, vars]</code></td><td><code>pd.read_csv(path, sep="\t", usecols=...)</code></td><td>Read only the needed columns; the files are very wide</td></tr>
+      <tr><td><code>scale(x)</code></td><td><code>StandardScaler().fit_transform(x)</code></td><td>PCA needs standardised inputs</td></tr>
+      <tr><td><code>prcomp(x)</code></td><td><code>sklearn.decomposition.PCA</code></td><td></td></tr>
+      <tr><td><code>kmeans(x, centers = 4)</code></td><td><code>KMeans(n_clusters=4)</code></td><td>Set the seed in both; labels are arbitrary</td></tr>
+      <tr><td><code>caret::train(method = "glmnet")</code></td><td><code>LogisticRegression(l1_ratio=1)</code></td><td>caret tunes lambda by cross-validation; set C explicitly in Python</td></tr>
+      <tr><td><code>rpart(...)</code></td><td><code>DecisionTreeClassifier</code></td><td>Different pruning defaults; set depth and leaf size explicitly</td></tr>
+      <tr><td><code>caret::thresholder()</code></td><td>sweep the cut-off manually</td><td>No direct equivalent</td></tr>
+      <tr><td><code>survey::svydesign / svyglm</code></td><td>no full equivalent</td><td>The notebook uses weighted fits with cluster-robust errors as an approximation. For production survey work, R's <code>survey</code> package is the better tool.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Rebuilding this site</h2>
+  <p>Stages needing the survey files write aggregate results into <code>tools/derived/</code>,
+  which is committed, so the pages rebuild on any checkout without the 1.1 GB of data.</p>
+  <div class="codewrap">
+    <div class="head"><span>From the repository root</span><span>shell</span></div>
+    <pre class="code">bash tools/build.sh          # rebuild the pages from committed data
+bash tools/build.sh --all    # also recompute from the NSDUH files</pre>
+  </div>
+</section>
+
+</div></main>
+<footer class="site"><div class="wrap">
+  <p>Analysis and site by John Fisher. Data: SAMHSA, National Survey on Drug Use and Health.</p>
+</div></footer>
+</body>
+</html>

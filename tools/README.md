@@ -1,40 +1,45 @@
 # tools
 
-Everything needed to rebuild the site.
-
 ```bash
-bash tools/build.sh          # rebuild generated pages
-bash tools/build.sh --all    # also recompute from raw material
+bash tools/build.sh          # rebuild the pages
+bash tools/build.sh --all    # also recompute from the NSDUH files
 ```
-
-**Keep build scripts here, never in `scratch/`.** `scratch/` is throwaway and outside git,
-so anything that lives there makes the site unreproducible on any other checkout.
 
 ## The two halves
 
-Split the build so stages that need uncommitted raw material write **aggregate**
-intermediates into `derived/`, and commit those. Then every page rebuilds on a fresh
-checkout, including CI, without the raw material ever being present.
+**[raw]** stages need the three NSDUH public-use files in `../source/`, about 1.1 GB. They
+are not committed: too large, publicly distributed by SAMHSA, and individual-level. What
+those stages produce lands in `derived/` as aggregates, and `derived/` **is** committed, so
+the pages rebuild on any checkout without the data.
 
-| | Reads | Writes | Committed |
-|---|---|---|---|
-| `[raw]` stages | `../source/` | `derived/*.json` | the outputs, yes |
-| page builders | `derived/`, `templates/` | `public/*.html` | yes |
+| Stage | Reads | Writes |
+|---|---|---|
+| `compute_analysis.py` **[raw]** | NSDUH files | `derived/analysis.json`, `derived/sim_params.json` |
+| `make_figures.py` **[raw]** | derived | `derived/f1..f5.svg` |
+| `make_notebook.py` | `derived/sim_params.json` | `notebooks/*.ipynb` |
+| `build_pages.py` | derived, templates | `public/*.html` |
 
-## Files
+## Things that will bite you
 
-- `paths.py` — every location, plus `require_raw()`. Import from here; do not hard-code paths.
-- `chart.py` — SVG chart primitives and the validated colour palette.
-- `redact_pdf.py` — removes text objects from a PDF and paints the area black. A black
-  box alone is not redaction; the text stays underneath.
+**Read only the columns you need.** Each file has about 2,650. `load_pooled()` passes a
+`usecols` predicate; reading everything is slow and memory hungry for no benefit.
 
-## Rules that save time later
+**Pooling years divides the weight by the number of years.** Without that the weighted totals
+describe a population three times too large. `load_pooled()` does it; do not remove it.
 
-**Seed anything randomised** and say so in a comment. A bootstrap interval or a
-cross-validated estimate changes if the split changes, and if the number is published,
-an unseeded rebuild silently contradicts the page.
+**The design variables are not optional.** `ANALWT2_C`, `VESTR_C` and `VEREP` are what make
+an estimate a statement about the country rather than about the respondents. Every
+descriptive figure on the site is computed both ways deliberately.
 
-**Never write identifiers into `derived/`.** It is committed. Report counts, not keys.
+**Dropping missing MDE removes every 12-17 year old**, because they are asked a different
+instrument. That is a population restriction, not missingness. The analysis is of adults.
 
-**Verify a rebuild reproduces what is deployed** before trusting a refactor: rebuild and
-diff against the live files.
+**Seeds are fixed at 1.** Changing them relabels clusters and moves the last digits of the
+cross-validated figures, several of which are published.
+
+**Never write respondent-level anything into `derived/`.** It is committed. Aggregates only;
+`sim_params.json` holds marginals and coefficients, and must stay that way.
+
+**The notebook's synthetic data has no correlation structure**, so its PCA step is
+degenerate by construction. The notebook says so. Do not "fix" it by tuning the generator
+until the PCA looks good; that would fake structure the aggregates do not contain.

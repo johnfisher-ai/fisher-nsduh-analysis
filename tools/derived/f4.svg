@@ -1,0 +1,37 @@
+<svg class="fig" viewBox="0 0 800 290" role="img" aria-label="Sensitivity by decision threshold">
+<text class="ttl" x="0.0" y="16.0" text-anchor="start">The model ranks well; the default cut-off throws that away</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Same model, same AUC. Only the probability at which a case is flagged changes.</text>
+<rect x="464" y="7" width="10" height="10" rx="2" class="m1f"/><text class="leg" x="478.0" y="16.0" text-anchor="start">Sensitivity</text>
+<rect x="564" y="7" width="10" height="10" rx="2" class="m2f"/><text class="leg" x="578.0" y="16.0" text-anchor="start">% flagged</text>
+<text class="lab" x="116.0" y="74.0" text-anchor="end">cut at 0.50</text>
+<rect class="m1f" x="130" y="59" width="14.0" height="10" rx="2"/>
+<rect class="m2f" x="130" y="72" width="3.1" height="10" rx="2"/>
+<text class="val" x="660.0" y="76.0" text-anchor="start">sens 3%, flags 1%</text>
+<text class="lab" x="116.0" y="110.0" text-anchor="end">cut at 0.30</text>
+<rect class="m1f" x="130" y="95" width="82.2" height="10" rx="2"/>
+<rect class="m2f" x="130" y="108" width="25.0" height="10" rx="2"/>
+<text class="val" x="660.0" y="112.0" text-anchor="start">sens 16%, flags 5%</text>
+<text class="lab" x="116.0" y="146.0" text-anchor="end">cut at 0.20</text>
+<rect class="m1f" x="130" y="131" width="202.8" height="10" rx="2"/>
+<rect class="m2f" x="130" y="144" width="79.0" height="10" rx="2"/>
+<text class="val" x="660.0" y="148.0" text-anchor="start">sens 39%, flags 15%</text>
+<text class="lab" x="116.0" y="182.0" text-anchor="end">cut at 0.15</text>
+<rect class="m1f" x="130" y="167" width="281.8" height="10" rx="2"/>
+<rect class="m2f" x="130" y="180" width="131.6" height="10" rx="2"/>
+<text class="val" x="660.0" y="184.0" text-anchor="start">sens 54%, flags 25%</text>
+<text class="lab" x="116.0" y="218.0" text-anchor="end">cut at 0.10</text>
+<rect class="m1f" x="130" y="203" width="382.2" height="10" rx="2"/>
+<rect class="m2f" x="130" y="216" width="219.4" height="10" rx="2"/>
+<text class="val" x="660.0" y="220.0" text-anchor="start">sens 74%, flags 42%</text>
+<line class="grid" x1="130.0" y1="54" x2="130.0" y2="228"/>
+<text class="ax" x="130.0" y="274.0" text-anchor="middle">0%</text>
+<line class="grid" x1="260.0" y1="54" x2="260.0" y2="228"/>
+<text class="ax" x="260.0" y="274.0" text-anchor="middle">25%</text>
+<line class="grid" x1="390.0" y1="54" x2="390.0" y2="228"/>
+<text class="ax" x="390.0" y="274.0" text-anchor="middle">50%</text>
+<line class="grid" x1="520.0" y1="54" x2="520.0" y2="228"/>
+<text class="ax" x="520.0" y="274.0" text-anchor="middle">75%</text>
+<line class="grid" x1="650.0" y1="54" x2="650.0" y2="228"/>
+<text class="ax" x="650.0" y="274.0" text-anchor="middle">100%</text>
+<text class="ax" x="390.0" y="288.0" text-anchor="middle">Percent</text>
+</svg>

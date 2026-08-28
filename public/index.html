@@ -3,90 +3,160 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>fisher-nsduh-analysis</title>
-<meta name="description" content="One sentence, under 155 characters, describing what this is. This is what Google shows.">
-
+<title>Depression and Substance Use in the NSDUH</title>
+<meta name="description" content="Three years of the National Survey on Drug Use and Health, 134,897 adults, analysed for the link between substance use and major depressive episode.">
 <link rel="canonical" href="https://johnfisher-ai.github.io/fisher-nsduh-analysis/">
 <meta name="author" content="John Fisher">
 <meta name="theme-color" content="#2f5d94">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="fisher-nsduh-analysis">
-<meta property="og:title" content="Title as it should appear on a shared card. Keep under 70 characters or LinkedIn truncates it.">
-<meta property="og:description" content="One or two sentences for the shared card. This is what LinkedIn, Slack and Facebook show under the image.">
+<meta property="og:site_name" content="Depression and Substance Use in the NSDUH">
+<meta property="og:title" content="Depression and Substance Use in the NSDUH">
+<meta property="og:description" content="Three years of the National Survey on Drug Use and Health, 134,897 adults, analysed for the link between substance use and major depressive episode.">
 <meta property="og:url" content="https://johnfisher-ai.github.io/fisher-nsduh-analysis/">
 <meta property="og:image" content="https://johnfisher-ai.github.io/fisher-nsduh-analysis/assets/img/social-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="627">
-<meta property="og:image:alt" content="Describe the card for someone who cannot see it.">
+<meta property="og:image:alt" content="Depression and substance use in the National Survey on Drug Use and Health, 2022 to 2024. 134,897 adults.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Same as og:title.">
-<meta name="twitter:description" content="Same as og:description.">
+<meta name="twitter:title" content="Depression and Substance Use in the NSDUH">
+<meta name="twitter:description" content="Three years of the National Survey on Drug Use and Health, 134,897 adults, analysed for the link between substance use and major depressive episode.">
 <meta name="twitter:image" content="https://johnfisher-ai.github.io/fisher-nsduh-analysis/assets/img/social-card.png">
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
-
-<header class="top">
-  <div class="wrap">
-    <p class="kicker">Kicker: institution or context</p>
-    <h1>The title of the thing</h1>
-    <p class="byline">Who made it, and its current status.</p>
-  </div>
-</header>
-
-<nav class="site">
-  <div class="wrap">
+<header class="top"><div class="wrap">
+  <p class="kicker">National Survey on Drug Use and Health &middot; 2022&ndash;2024</p>
+  <h1>Depression and Substance Use in the United States</h1>
+  <p class="byline">Three survey years pooled to 134,897 adults. Who reports a major depressive
+     episode, which substances travel with it, and what the survey design changes.
+     Analysis by <strong>John Fisher</strong>.</p>
+</div></header>
+<nav class="site"><div class="wrap">
     <a href="./" aria-current="page">Overview</a>
+    <a href="analysis.html">The analysis</a>
+    <a href="code.html">The code</a>
+    <a href="writeup.html">The write-up</a>
     <a href="https://github.com/johnfisher-ai/fisher-nsduh-analysis">Repository</a>
+</div></nav>
+<main><div class="wrap">
+
+<section>
+  <p class="lede">Pooling three years of a large national survey gives enough respondents to
+  split the population finely. It also makes it easy to forget that the survey is not a
+  simple random sample. Both halves of that sentence turned out to matter here.</p>
+  <div class="figures">
+    <div><span class="n">134,897</span><span class="l">adults analysed</span></div>
+    <div><span class="n">3</span><span class="l">survey years</span></div>
+    <div><span class="n">8.44%</span><span class="l">had a depressive episode</span></div>
+    <div><span class="n">0.7406</span><span class="l">model AUC</span></div>
   </div>
-</nav>
+</section>
 
-<main>
-<div class="wrap">
-
-  <section>
-    <p class="lede">The one-paragraph version. What was done, and what came of it.</p>
-
-    <div class="figures">
-      <div><span class="n">00</span><span class="l">a key figure</span></div>
-      <div><span class="n">00</span><span class="l">another</span></div>
-      <div><span class="n">00</span><span class="l">another</span></div>
-    </div>
-  </section>
-
-  <section>
-    <h2>A section</h2>
-    <p>Body text. Plain declarative sentences. American English, no prose em-dashes.</p>
-
-    <div class="note">
-      <p>A callout, for a caveat or a definition the reader needs before the next section.</p>
-    </div>
-  </section>
-
-  <section>
-    <h2>Links</h2>
-    <div class="cards">
-      <div class="card">
-        <h3><a href="https://github.com/johnfisher-ai/fisher-nsduh-analysis">Repository</a></h3>
-        <p>What is in it.</p>
-        <span class="tag">Open</span>
-      </div>
-      <div class="card">
-        <h3><a href="#">Another page</a></h3>
-        <p>What it holds.</p>
-        <span class="tag soon">Coming soon</span>
-      </div>
-    </div>
-  </section>
-
-</div>
-</main>
-
-<footer class="site">
-  <div class="wrap">
-    <p>By John Fisher.</p>
+<section>
+  <h2>The data</h2>
+  <p>NSDUH is run every year by the U.S. government and asks tens of thousands of people
+  about substance use, mental health and their circumstances. It is a
+  <strong>stratified multistage probability sample</strong>, not a simple random draw:
+  some groups are deliberately over-sampled so that estimates for them are precise enough
+  to publish.</p>
+  <p>That design is the reason the survey works, and it is also the thing an analysis has to
+  respect. Every respondent carries a weight saying how many people they represent. Ignore
+  the weights and you describe the respondents rather than the country.</p>
+  <div class="note">
+    <p>The public-use files for 2022 to 2024 total about 1.1 GB, roughly 59,000 respondents
+    and 2,650 variables each year. They are not republished here. Download them from
+    <a href="https://www.samhsa.gov/data/data-we-collect/nsduh-national-survey-drug-use-and-health">SAMHSA</a>.</p>
   </div>
-</footer>
+</section>
 
+<section>
+  <h2>What the design changes</h2>
+  <p>Every descriptive figure on this site is computed twice from the same respondents:
+  once ignoring the survey design, and once using it. The difference is not cosmetic.</p>
+  <figure><div class="figbox"><svg class="fig" viewBox="0 0 800 234" role="img" aria-label="What the survey design changes">
+<text class="ttl" x="0.0" y="16.0" text-anchor="start">What the survey design changes</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Every estimate computed two ways from the same respondents. Weighted is the population estimate.</text>
+<rect x="570" y="7" width="10" height="10" rx="2" class="m2f"/><text class="leg" x="584.0" y="16.0" text-anchor="start">Unweighted (sample)</text>
+<rect x="650" y="7" width="10" height="10" rx="2" class="m1f"/><text class="leg" x="664.0" y="16.0" text-anchor="start">Weighted (population)</text>
+<line class="grid" x1="250.0" y1="50" x2="250.0" y2="182"/>
+<text class="ax" x="250.0" y="218.0" text-anchor="middle">0%</text>
+<line class="grid" x1="323.3" y1="50" x2="323.3" y2="182"/>
+<text class="ax" x="323.3" y="218.0" text-anchor="middle">10%</text>
+<line class="grid" x1="396.7" y1="50" x2="396.7" y2="182"/>
+<text class="ax" x="396.7" y="218.0" text-anchor="middle">20%</text>
+<line class="grid" x1="470.0" y1="50" x2="470.0" y2="182"/>
+<text class="ax" x="470.0" y="218.0" text-anchor="middle">30%</text>
+<line class="grid" x1="543.3" y1="50" x2="543.3" y2="182"/>
+<text class="ax" x="543.3" y="218.0" text-anchor="middle">40%</text>
+<line class="grid" x1="616.7" y1="50" x2="616.7" y2="182"/>
+<text class="ax" x="616.7" y="218.0" text-anchor="middle">50%</text>
+<line class="grid" x1="690.0" y1="50" x2="690.0" y2="182"/>
+<text class="ax" x="690.0" y="218.0" text-anchor="middle">60%</text>
+<text class="ax" x="470.0" y="232.0" text-anchor="middle">Percent</text>
+<text class="lab" x="236.0" y="68.0" text-anchor="end">Alcohol</text>
+<rect class="m2f" x="250" y="53" width="386.1" height="10" rx="2"/>
+<rect class="m1f" x="250" y="66" width="379.9" height="10" rx="2"/>
+<text class="val" x="646.1" y="70.0" text-anchor="start">52.6%  /  51.8%</text>
+<text class="lab" x="236.0" y="102.0" text-anchor="end">Marijuana</text>
+<rect class="m2f" x="250" y="87" width="141.7" height="10" rx="2"/>
+<rect class="m1f" x="250" y="100" width="118.9" height="10" rx="2"/>
+<text class="val" x="401.7" y="104.0" text-anchor="start">19.3%  /  16.2%</text>
+<text class="lab" x="236.0" y="136.0" text-anchor="end">Cigarettes</text>
+<rect class="m2f" x="250" y="121" width="105.2" height="10" rx="2"/>
+<rect class="m1f" x="250" y="134" width="109.0" height="10" rx="2"/>
+<text class="val" x="369.0" y="138.0" text-anchor="start">14.3%  /  14.9%</text>
+<text class="lab" x="236.0" y="170.0" text-anchor="end">Major depressive episode</text>
+<rect class="m2f" x="250" y="155" width="82.8" height="10" rx="2"/>
+<rect class="m1f" x="250" y="168" width="61.9" height="10" rx="2"/>
+<text class="val" x="342.8" y="172.0" text-anchor="start">11.3%  /  8.4%</text>
+<line class="axis" x1="250" y1="50" x2="250" y2="182"/>
+</svg></div>
+    <figcaption>Figure 1. The same four measures, computed both ways.</figcaption></figure>
+  <p>Depression is the clearest case. Unweighted, 11.29% of respondents report a past-year
+  depressive episode. Weighted to the population, it is 8.44%. The unweighted figure
+  overstates it by about a third, because the survey deliberately over-samples young adults
+  and young adults report depression at much higher rates.</p>
+</section>
+
+<section>
+  <h2>What was found</h2>
+  <p><strong>Depression falls steeply with age.</strong> Around one in six adults aged 18 to
+  25 report a past-year episode; among those 65 and over it is closer to one in thirty-four.
+  Women report roughly 1.6 times the rate of men, and self-rated health tracks it more
+  strongly than any substance measure.</p>
+  <p><strong>Substance use clusters into recognisable groups.</strong> Reducing seven
+  measures to their main components and grouping respondents produces four types, one of
+  which stands out: about 19.7% of the sample, defined by very high
+  marijuana use (80.1%), and reporting depression at 19.6%.</p>
+  <p><strong>A model can rank people by risk but not usefully label them.</strong> A
+  penalised logistic regression reaches an AUC of 0.7406, which is a real signal. At the
+  default cut-off it is also 88.7% accurate while flagging only 805 people as depressed
+  out of 134,897. That is the most instructive result on the site, and it is explained on the
+  <a href="analysis.html">analysis page</a>.</p>
+</section>
+
+<section>
+  <h2>Where to go next</h2>
+  <div class="cards">
+    <div class="card"><h3><a href="analysis.html">The analysis</a></h3>
+      <p>Descriptives both ways, PCA and clustering with a stability check, and the classifier in full.</p>
+      <span class="tag">Live</span></div>
+    <div class="card"><h3><a href="code.html">The code</a></h3>
+      <p>The R pipeline, and a Python notebook that reproduces it.</p>
+      <span class="tag">Live</span></div>
+    <div class="card"><h3><a href="writeup.html">The write-up</a></h3>
+      <p>A plain-language walkthrough for readers without a statistics background.</p>
+      <span class="tag">Live</span></div>
+    <div class="card"><h3><a href="https://github.com/johnfisher-ai/fisher-nsduh-analysis">Repository</a></h3>
+      <p>The code and the rebuild pipeline.</p>
+      <span class="tag">Open</span></div>
+  </div>
+</section>
+
+</div></main>
+<footer class="site"><div class="wrap">
+  <p>Analysis and site by John Fisher. Data: Substance Abuse and Mental Health Services
+     Administration, National Survey on Drug Use and Health, 2022&ndash;2024 public-use files.</p>
+</div></footer>
 </body>
 </html>

@@ -6,9 +6,9 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-REMOTE_URL="REPLACE_WITH_REPO_URL"
+REMOTE_URL="https://github.com/johnfisher-ai/fisher-nsduh-analysis.git"
 
-if [ "$REMOTE_URL" = "REPLACE_WITH_REPO_URL" ]; then
+if [ "$REMOTE_URL" = "https://github.com/johnfisher-ai/fisher-nsduh-analysis.git" ]; then
   if git remote get-url origin >/dev/null 2>&1; then
     REMOTE_URL="$(git remote get-url origin)"
   else

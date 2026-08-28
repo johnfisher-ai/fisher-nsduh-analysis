@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Write-Up &middot; Depression and Substance Use in the NSDUH</title>
+<meta name="description" content="A plain-language walkthrough of what was done, why, and what the results support.">
+<link rel="canonical" href="https://johnfisher-ai.github.io/fisher-nsduh-analysis/writeup.html">
+<meta name="author" content="John Fisher">
+<meta name="theme-color" content="#2f5d94">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Depression and Substance Use in the NSDUH">
+<meta property="og:title" content="The Write-Up">
+<meta property="og:description" content="A plain-language walkthrough of what was done, why, and what the results support.">
+<meta property="og:url" content="https://johnfisher-ai.github.io/fisher-nsduh-analysis/writeup.html">
+<meta property="og:image" content="https://johnfisher-ai.github.io/fisher-nsduh-analysis/assets/img/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="Depression and substance use in the National Survey on Drug Use and Health, 2022 to 2024. 134,897 adults.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Write-Up">
+<meta name="twitter:description" content="A plain-language walkthrough of what was done, why, and what the results support.">
+<meta name="twitter:image" content="https://johnfisher-ai.github.io/fisher-nsduh-analysis/assets/img/social-card.png">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <p class="kicker">Plain-language walkthrough</p>
+  <h1>What we did, and what it means</h1>
+  <p class="byline">Written for readers without a statistics background. No prior knowledge
+     assumed.</p>
+</div></header>
+<nav class="site"><div class="wrap">
+    <a href="./">Overview</a>
+    <a href="analysis.html">The analysis</a>
+    <a href="code.html">The code</a>
+    <a href="writeup.html" aria-current="page">The write-up</a>
+    <a href="https://github.com/johnfisher-ai/fisher-nsduh-analysis">Repository</a>
+</div></nav>
+<main><div class="wrap">
+
+<section>
+  <h2>The question</h2>
+  <p>Two questions, really. First: are there natural types of people when it comes to
+  substance use, or is everyone spread along a continuum? Second: among the things this
+  survey records, which are most associated with having had a period of serious depression
+  in the past year?</p>
+  <p>The first is a grouping problem: nobody tells the method what the groups are, and it
+  has to find them. The second is a prediction problem: we know who reported depression, and
+  we ask which characteristics would have let us guess.</p>
+</section>
+
+<section>
+  <h2>The survey, and why its design matters</h2>
+  <p>NSDUH asks tens of thousands of people every year about alcohol, marijuana, cigarettes,
+  their health, their income and their mental health. Three years pooled gives 134,897 adults,
+  which is large enough to look at small subgroups.</p>
+  <p>The survey is not a simple lottery. It deliberately interviews more young people than
+  their share of the population, because that is the only way to say anything precise about
+  them. To compensate, everyone carries a <strong>weight</strong>: a number saying how many
+  people in the country they stand for. A young adult might count for fewer people than an
+  older one.</p>
+  <div class="note">
+    <p>Get this wrong and your answer describes the people in the room rather than the
+    country. Unweighted, 11.29% of respondents had a depressive episode. Weighted,
+    8.44%. The first is a fact about the survey; the second is an estimate about America.
+    This site reports both, every time.</p>
+  </div>
+</section>
+
+<section>
+  <h2>What we found</h2>
+  <h3>Depression is strongly patterned by age</h3>
+  <p>Roughly one adult in six aged 18 to 25 reported a depressive episode in the past year.
+  Among adults 65 and over it is closer to one in thirty-four. Women reported about 1.6
+  times the rate of men. How people rate their own health tracks depression more closely
+  than any of the substance measures.</p>
+
+  <h3>There are four recognisable groups</h3>
+  <p>Grouping people on their substance use and circumstances produces four types. One
+  stands out: about 19.7% of the sample, nearly all of whom used marijuana in
+  the past month, reporting depression at 19.6%. The other three are separated
+  more by age, income and health than by what they use.</p>
+  <p>Worth saying plainly: this method <em>always</em> returns four groups if you ask it for
+  four. We checked that the same groups come back when the analysis is repeated on random
+  parts of the data, and they do. That means the pattern is reproducible. It does not prove
+  these are real categories of people rather than convenient lines drawn through a
+  continuum.</p>
+
+  <h3>A model can rank people, but a naive cut-off is useless</h3>
+  <p>The prediction model is genuinely informative: given two people, one depressed and one
+  not, it ranks them correctly about 0.7406 of the time. But asked to label individuals using
+  the standard rule, it declares almost everyone not depressed, and is 88.7% accurate for
+  doing so.</p>
+  <div class="note">
+    <p>This is the most useful thing on the site. Because only about one adult in nine had an
+    episode, a model that says "no" to everybody is right most of the time. High accuracy can
+    mean a model has learned nothing. Lower the bar for flagging someone and it finds far
+    more of the people who were actually depressed, at the cost of flagging more people
+    overall. Which is right depends on what a flag leads to.</p>
+  </div>
+</section>
+
+<section>
+  <h2>What this cannot tell you</h2>
+  <p>Everyone was asked about substance use and depression at the same moment, so nothing
+  here shows what came first. Marijuana use and depression travel together; whether one leads
+  to the other, or something else drives both, is outside what this survey can answer.</p>
+  <p>The measures are coarse. "Used in the past month" counts one drink and daily heavy use
+  identically. Everything is self-reported, and people under-report behaviour they expect to
+  be judged for. Adolescents are not included at all: they are asked a different set of
+  questions and were excluded from this analysis.</p>
+  <p>Most of what drives depression is simply not in this dataset. Genetics, life events,
+  social support, treatment history: none are recorded here. That is why a model built on
+  these seven variables ranks people only moderately well, and why it would be a mistake to
+  read it as a diagnostic tool.</p>
+</section>
+
+<section>
+  <h2>Read further</h2>
+  <div class="cards">
+    <div class="card"><h3><a href="analysis.html">The analysis</a></h3>
+      <p>Every figure, with the methods and the caveats stated in full.</p>
+      <span class="tag">Live</span></div>
+    <div class="card"><h3><a href="code.html">The code</a></h3>
+      <p>The R pipeline and a runnable Python notebook.</p>
+      <span class="tag">Live</span></div>
+  </div>
+</section>
+
+</div></main>
+<footer class="site"><div class="wrap">
+  <p>Analysis and site by John Fisher. Data: SAMHSA, National Survey on Drug Use and Health,
+     2022&ndash;2024 public-use files.</p>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Code &middot; Depression and Substance Use in the NSDUH</title>
+<meta name="description" content="The R pipeline behind the analysis, with a Python notebook that reproduces it.">
+<link rel="canonical" href="https://johnfisher-ai.github.io/fisher-nsduh-analysis/code.html">
+<meta name="author" content="John Fisher">
+<meta name="theme-color" content="#2f5d94">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Depression and Substance Use in the NSDUH">
+<meta property="og:title" content="The Code">
+<meta property="og:description" content="The R pipeline behind the analysis, with a Python notebook that reproduces it.">
+<meta property="og:url" content="https://johnfisher-ai.github.io/fisher-nsduh-analysis/code.html">
+<meta property="og:image" content="https://johnfisher-ai.github.io/fisher-nsduh-analysis/assets/img/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="Depression and substance use in the National Survey on Drug Use and Health, 2022 to 2024. 134,897 adults.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Code">
+<meta name="twitter:description" content="The R pipeline behind the analysis, with a Python notebook that reproduces it.">
+<meta name="twitter:image" content="https://johnfisher-ai.github.io/fisher-nsduh-analysis/assets/img/social-card.png">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <p class="kicker">R and Python</p>
+  <h1>The code</h1>
+  <p class="byline">The pipeline in R, and a Python notebook that reproduces every figure on
+     the site.</p>
+</div></header>
+<nav class="site"><div class="wrap">
+    <a href="./">Overview</a>
+    <a href="analysis.html">The analysis</a>
+    <a href="code.html" aria-current="page">The code</a>
+    <a href="writeup.html">The write-up</a>
+    <a href="https://github.com/johnfisher-ai/fisher-nsduh-analysis">Repository</a>
+</div></nav>
+<main><div class="wrap">
+
+<section>
+  <h2>Run it in the browser</h2>
+  <p>The notebook works through the whole analysis: pooling the survey years, the weighted
+  against unweighted comparison, PCA and clustering with the stability check, the classifier,
+  and the threshold trade-off.</p>
+  <p>
+    <a class="cta" href="https://colab.research.google.com/github/johnfisher-ai/fisher-nsduh-analysis/blob/main/notebooks/nsduh_mde_analysis.ipynb">Open in Colab</a>
+    <a class="cta" href="https://github.com/johnfisher-ai/fisher-nsduh-analysis/blob/main/notebooks/nsduh_mde_analysis.ipynb">View on GitHub</a>
+  </p>
+  <div class="note">
+    <p><strong>The notebook cannot ship the data.</strong> The three public-use files total
+    about 1.1 GB, far past what a repository or a notebook can carry. It therefore runs on a
+    synthetic dataset built from this study's published aggregates, so every cell executes
+    with no setup, and a flag at the top switches it onto the real files once you have
+    downloaded them from <a href="https://www.samhsa.gov/data/data-we-collect/nsduh-national-survey-drug-use-and-health">SAMHSA</a>.</p>
+    <p>Numbers produced from the synthetic data are simulated. The real figures are on the
+    <a href="analysis.html">analysis page</a>.</p>
+  </div>
+</section>
+
+<section>
+  <h2>The pipeline</h2>
+  <div class="pipe">
+    <div class="step"><span class="n">1</span><div><strong>Read and pool</strong>
+      <p>Three tab-separated files, one per year, about 2,650 columns each. Only twelve are
+      read: nine analysis variables and the three that describe the survey design. Pooling
+      requires dividing each weight by the number of years.</p></div></div>
+    <div class="step"><span class="n">2</span><div><strong>Recode and restrict</strong>
+      <p>Binary indicators for past-month use and past-year depression. Dropping missing
+      outcomes removes all adolescents, because they are asked a different instrument, so the
+      population is adults 18 and over.</p></div></div>
+    <div class="step"><span class="n">3</span><div><strong>Describe, twice</strong>
+      <p>Every prevalence computed with and without the weights, so the difference is
+      visible rather than assumed away.</p></div></div>
+    <div class="step"><span class="n">4</span><div><strong>Reduce and group</strong>
+      <p>Standardise, principal components, k-means on the leading three, then refit on
+      subsamples to see whether the groups are reproducible.</p></div></div>
+    <div class="step"><span class="n">5</span><div><strong>Predict</strong>
+      <p>Penalised logistic regression and a classification tree, cross-validated, then the
+      threshold sweep that shows what the default cut-off costs.</p></div></div>
+    <div class="step"><span class="n">6</span><div><strong>Apply the design</strong>
+      <p>Refit with the weights and the cluster structure, and compare the standard errors
+      against the naive ones.</p></div></div>
+  </div>
+</section>
+
+<section>
+  <h2>The R pipeline</h2>
+  <p class="mono-name"><code>nsduh_mde_analysis.R</code>, 134 lines.</p>
+  <p>
+    <a class="cta" href="https://github.com/johnfisher-ai/fisher-nsduh-analysis/blob/main/R/nsduh_mde_analysis.R">Source on GitHub</a>
+    <a class="cta" href="analysis.html">The results it produces</a>
+  </p>
+  <details class="src">
+    <summary>Show the full script (134 lines)</summary>
+    <div class="codewrap">
+      <div class="head"><code>nsduh_mde_analysis.R</code><span>R</span></div>
+      <pre class="code clip"><span class="sas-c"># Major Depressive Episode and Substance Use in the United States</span>
+<span class="sas-c"># National Survey on Drug Use and Health (NSDUH), 2022-2024</span>
+<span class="sas-c">#</span>
+<span class="sas-c"># The analysis pipeline in R. The original was written as an R Markdown document;</span>
+<span class="sas-c"># this is the same code path, cleaned for publication and with the survey design</span>
+<span class="sas-c"># added in Part 6.</span>
+<span class="sas-c">#</span>
+<span class="sas-c"># The NSDUH public-use files are about 1.1 GB and are not distributed with this</span>
+<span class="sas-c"># repository. Download them from SAMHSA and set DATA_DIR:</span>
+<span class="sas-c">#   https://www.samhsa.gov/data/data-we-collect/nsduh-national-survey-drug-use-and-health</span>
+
+DATA_DIR &lt;- <span class="sas-s">&quot;path/to/nsduh&quot;</span>
+
+<span class="sas-k">library</span>(tidyverse)
+<span class="sas-k">library</span>(VIM)          <span class="sas-c"># missingness visualisation</span>
+<span class="sas-k">library</span>(factoextra)   <span class="sas-c"># PCA and clustering plots</span>
+<span class="sas-k">library</span>(caret)        <span class="sas-c"># cross-validation and tuning</span>
+<span class="sas-k">library</span>(<span class="sas-k">rpart</span>)        <span class="sas-c"># classification tree</span>
+<span class="sas-k">library</span>(<span class="sas-k">rpart</span>.<span class="sas-k">plot</span>)
+<span class="sas-k">library</span>(survey)       <span class="sas-c"># complex survey design, Part 6</span>
+
+<span class="sas-c"># ---------------------------------------------------------------------------</span>
+<span class="sas-c"># Part 1. Read and pool the survey years</span>
+<span class="sas-c"># ---------------------------------------------------------------------------</span>
+<span class="sas-c"># Each file is one year, tab separated, roughly 2,650 columns. Only a handful are</span>
+<span class="sas-c"># needed, and the three design variables matter as much as the analysis ones:</span>
+<span class="sas-c">#   ANALWT2_C  the analysis weight</span>
+<span class="sas-c">#   VESTR_C    the variance estimation stratum</span>
+<span class="sas-c">#   VEREP      the variance estimation replicate</span>
+vars &lt;- <span class="sas-k">c</span>(<span class="sas-s">&quot;IRSEX&quot;</span>, <span class="sas-s">&quot;CATAG6&quot;</span>, <span class="sas-s">&quot;INCOME&quot;</span>, <span class="sas-s">&quot;HEALTH2&quot;</span>,
+          <span class="sas-s">&quot;IRALCRC&quot;</span>, <span class="sas-s">&quot;IRMJRC&quot;</span>, <span class="sas-s">&quot;CIGMON&quot;</span>, <span class="sas-s">&quot;AMDEYR&quot;</span>, <span class="sas-s">&quot;AMIPY&quot;</span>,
+          <span class="sas-s">&quot;ANALWT2_C&quot;</span>, <span class="sas-s">&quot;VESTR_C&quot;</span>, <span class="sas-s">&quot;VEREP&quot;</span>)
+
+read_year &lt;- <span class="sas-k">function</span>(year) {
+  path &lt;- file.<span class="sas-p">path</span>(DATA_DIR, <span class="sas-p">sprintf</span>(<span class="sas-s">&quot;NSDUH_%d_Tab.txt&quot;</span>, year))
+  d &lt;- read.<span class="sas-p">delim</span>(path)[, vars]
+  d$YEAR &lt;- year
+  d
+}
+df &lt;- <span class="sas-k">bind_rows</span>(<span class="sas-k">lapply</span>(<span class="sas-k">c</span>(<span class="sas-n">2022</span>, <span class="sas-n">2023</span>, <span class="sas-n">2024</span>), read_year))
+
+<span class="sas-c"># Pooling years: the weight must be divided by the number of years, or the pooled</span>
+<span class="sas-c"># estimates describe a population three times too large.</span>
+df$WT &lt;- df$ANALWT2_C / <span class="sas-n">3</span>
+
+<span class="sas-c"># ---------------------------------------------------------------------------</span>
+<span class="sas-c"># Part 2. Recode</span>
+<span class="sas-c"># ---------------------------------------------------------------------------</span>
+df &lt;- df %&gt;% <span class="sas-k">mutate</span>(
+  ALC_PASTMO = as.<span class="sas-p">integer</span>(IRALCRC == <span class="sas-n">1</span>),
+  MJ_PASTMO  = as.<span class="sas-p">integer</span>(IRMJRC  == <span class="sas-n">1</span>),
+  CIG_PASTMO = as.<span class="sas-p">integer</span>(CIGMON  == <span class="sas-n">1</span>),
+  MDE        = <span class="sas-k">ifelse</span>(AMDEYR %<span class="sas-k">in</span>% <span class="sas-k">c</span>(<span class="sas-n">1</span>, <span class="sas-n">2</span>), as.<span class="sas-p">integer</span>(AMDEYR == <span class="sas-n">1</span>), <span class="sas-k">NA</span>),
+  AMI        = <span class="sas-k">ifelse</span>(AMIPY  %<span class="sas-k">in</span>% <span class="sas-k">c</span>(<span class="sas-n">1</span>, <span class="sas-n">2</span>), as.<span class="sas-p">integer</span>(AMIPY  == <span class="sas-n">1</span>), <span class="sas-k">NA</span>),
+  HEALTH     = <span class="sas-k">ifelse</span>(HEALTH2 %<span class="sas-k">in</span>% <span class="sas-n">1</span>:<span class="sas-n">4</span>, HEALTH2, <span class="sas-k">NA</span>)
+)
+
+<span class="sas-c"># The adult depression question is not asked of 12-17 year olds (CATAG6 == 1), so</span>
+<span class="sas-c"># dropping missing MDE removes them entirely. That is a restriction on the</span>
+<span class="sas-c"># population, not missing data: the analysis is of adults 18 and over.</span>
+<span class="sas-k">cat</span>(<span class="sas-s">&quot;adolescents in the pooled file:&quot;</span>, <span class="sas-k">sum</span>(df$CATAG6 == <span class="sas-n">1</span>), <span class="sas-s">&quot;\n&quot;</span>)
+nsduh &lt;- df %&gt;% <span class="sas-k">filter</span>(!is.<span class="sas-k">na</span>(MDE), !is.<span class="sas-k">na</span>(HEALTH))
+<span class="sas-k">cat</span>(<span class="sas-s">&quot;analysis sample:&quot;</span>, <span class="sas-k">nrow</span>(nsduh), <span class="sas-s">&quot;\n&quot;</span>)
+
+<span class="sas-c"># ---------------------------------------------------------------------------</span>
+<span class="sas-c"># Part 3. Missingness and descriptives</span>
+<span class="sas-c"># ---------------------------------------------------------------------------</span>
+VIM::<span class="sas-p">aggr</span>(df[, <span class="sas-k">c</span>(<span class="sas-s">&quot;IRSEX&quot;</span>,<span class="sas-s">&quot;CATAG6&quot;</span>,<span class="sas-s">&quot;INCOME&quot;</span>,<span class="sas-s">&quot;HEALTH&quot;</span>,<span class="sas-s">&quot;ALC_PASTMO&quot;</span>,
+                 <span class="sas-s">&quot;MJ_PASTMO&quot;</span>,<span class="sas-s">&quot;CIG_PASTMO&quot;</span>,<span class="sas-s">&quot;MDE&quot;</span>,<span class="sas-s">&quot;AMI&quot;</span>)],
+          numbers = <span class="sas-k">TRUE</span>, prop = <span class="sas-k">FALSE</span>, sortVars = <span class="sas-k">TRUE</span>)
+
+<span class="sas-c"># Unweighted prevalence: a property of the sample, not of the country.</span>
+nsduh %&gt;% <span class="sas-k">group_by</span>(YEAR) %&gt;%
+  <span class="sas-k">summarise</span>(<span class="sas-k">across</span>(<span class="sas-k">c</span>(ALC_PASTMO, MJ_PASTMO, CIG_PASTMO, MDE), ~ <span class="sas-k">mean</span>(.) * <span class="sas-n">100</span>))
+
+<span class="sas-c"># ---------------------------------------------------------------------------</span>
+<span class="sas-c"># Part 4. PCA and k-means</span>
+<span class="sas-c"># ---------------------------------------------------------------------------</span>
+pca_vars &lt;- <span class="sas-k">c</span>(<span class="sas-s">&quot;ALC_PASTMO&quot;</span>,<span class="sas-s">&quot;MJ_PASTMO&quot;</span>,<span class="sas-s">&quot;CIG_PASTMO&quot;</span>,<span class="sas-s">&quot;IRSEX&quot;</span>,<span class="sas-s">&quot;CATAG6&quot;</span>,<span class="sas-s">&quot;INCOME&quot;</span>,<span class="sas-s">&quot;HEALTH&quot;</span>)
+X  &lt;- <span class="sas-k">scale</span>(nsduh[, pca_vars])          <span class="sas-c"># standardise: the variables are on different scales</span>
+pc &lt;- <span class="sas-k">prcomp</span>(X)
+<span class="sas-p">fviz_eig</span>(pc)                            <span class="sas-c"># scree plot</span>
+scores &lt;- pc$x[, <span class="sas-n">1</span>:<span class="sas-n">3</span>]
+
+set.<span class="sas-p">seed</span>(<span class="sas-n">1</span>)
+<span class="sas-p">fviz_nbclust</span>(scores[<span class="sas-p">sample</span>(<span class="sas-k">nrow</span>(scores), <span class="sas-n">25000</span>), ], <span class="sas-k">kmeans</span>, method = <span class="sas-s">&quot;wss&quot;</span>, k.max = <span class="sas-n">8</span>)
+km &lt;- <span class="sas-k">kmeans</span>(scores, centers = <span class="sas-n">4</span>, nstart = <span class="sas-n">10</span>)
+nsduh$cluster &lt;- km$cluster
+
+nsduh %&gt;% <span class="sas-k">group_by</span>(cluster) %&gt;%
+  <span class="sas-k">summarise</span>(n = <span class="sas-p">n</span>(), <span class="sas-k">across</span>(<span class="sas-k">c</span>(ALC_PASTMO, MJ_PASTMO, CIG_PASTMO, MDE), ~ <span class="sas-k">mean</span>(.) * <span class="sas-n">100</span>))
+
+<span class="sas-c"># ---------------------------------------------------------------------------</span>
+<span class="sas-c"># Part 5. Predicting MDE</span>
+<span class="sas-c"># ---------------------------------------------------------------------------</span>
+model_vars &lt;- pca_vars
+glm_data &lt;- nsduh[, <span class="sas-k">c</span>(model_vars, <span class="sas-s">&quot;MDE&quot;</span>)]
+glm_data$MDE &lt;- <span class="sas-k">factor</span>(<span class="sas-k">ifelse</span>(glm_data$MDE == <span class="sas-n">1</span>, <span class="sas-s">&quot;Yes&quot;</span>, <span class="sas-s">&quot;No&quot;</span>), levels = <span class="sas-k">c</span>(<span class="sas-s">&quot;No&quot;</span>, <span class="sas-s">&quot;Yes&quot;</span>))
+
+set.<span class="sas-p">seed</span>(<span class="sas-n">1</span>)
+ctrl &lt;- <span class="sas-p">trainControl</span>(method = <span class="sas-s">&quot;cv&quot;</span>, number = <span class="sas-n">10</span>, classProbs = <span class="sas-k">TRUE</span>,
+                     summaryFunction = twoClassSummary)
+lasso_fit &lt;- <span class="sas-k">train</span>(x = glm_data[, model_vars], y = glm_data$MDE,
+                   method = <span class="sas-s">&quot;glmnet&quot;</span>, metric = <span class="sas-s">&quot;ROC&quot;</span>, trControl = ctrl,
+                   tuneGrid = expand.<span class="sas-p">grid</span>(alpha = <span class="sas-n">1</span>, lambda = <span class="sas-n">10</span>^<span class="sas-k">seq</span>(-<span class="sas-n">4</span>, <span class="sas-n">0</span>, length = <span class="sas-n">20</span>)))
+
+<span class="sas-c"># The outcome is imbalanced at roughly 7.9 to 1. At the default 0.50 cut-off the</span>
+<span class="sas-c"># model almost never predicts the minority class, so accuracy looks high and kappa</span>
+<span class="sas-c"># is near zero. Inspect the trade-off rather than reporting accuracy alone.</span>
+<span class="sas-p">thresholder</span>(lasso_fit, threshold = <span class="sas-k">seq</span>(<span class="sas-n">0.05</span>, <span class="sas-n">0.5</span>, by = <span class="sas-n">0.05</span>),
+            final = <span class="sas-k">TRUE</span>, statistics = <span class="sas-s">&quot;all&quot;</span>)
+
+tree &lt;- <span class="sas-k">rpart</span>(MDE ~ ., data = glm_data, method = <span class="sas-s">&quot;class&quot;</span>,
+              cp = <span class="sas-n">0.001</span>, control = <span class="sas-k">rpart</span>.<span class="sas-p">control</span>(maxdepth = <span class="sas-n">4</span>))
+<span class="sas-k">rpart</span>.<span class="sas-k">plot</span>(tree, type = <span class="sas-n">2</span>, extra = <span class="sas-n">104</span>)
+
+<span class="sas-c"># ---------------------------------------------------------------------------</span>
+<span class="sas-c"># Part 6. The survey design</span>
+<span class="sas-c"># ---------------------------------------------------------------------------</span>
+<span class="sas-c"># Everything above treats the data as a simple random sample. NSDUH is a stratified</span>
+<span class="sas-c"># multistage sample, so unweighted percentages describe the respondents rather than</span>
+<span class="sas-c"># the population, and standard errors computed without the design are too small.</span>
+<span class="sas-p">options</span>(survey.lonely.psu = <span class="sas-s">&quot;adjust&quot;</span>)
+des &lt;- <span class="sas-p">svydesign</span>(ids = ~VEREP, strata = ~VESTR_C, weights = ~WT,
+                 data = nsduh, nest = <span class="sas-k">TRUE</span>)
+
+<span class="sas-c"># Population estimates, with design-correct standard errors.</span>
+<span class="sas-p">svymean</span>(~ALC_PASTMO + MJ_PASTMO + CIG_PASTMO + MDE, des)
+<span class="sas-p">svyby</span>(~MDE, ~CATAG6, des, svymean)
+
+<span class="sas-c"># The same logistic regression, design aware. Compare these standard errors with</span>
+<span class="sas-c"># the naive ones: they are substantially larger.</span>
+<span class="sas-p">svyglm</span>(MDE ~ ALC_PASTMO + MJ_PASTMO + CIG_PASTMO + IRSEX + CATAG6 + INCOME + HEALTH,
+       design = des, family = <span class="sas-p">quasibinomial</span>())
+</pre>
+    </div>
+  </details>
+</section>
+
+<section>
+  <h2>R to Python</h2>
+  <div class="scroll"><table class="stats">
+    <caption>The equivalences the notebook relies on.</caption>
+    <thead><tr><th>R</th><th>Python</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td><code>read.delim(path)[, vars]</code></td><td><code>pd.read_csv(path, sep="\t", usecols=...)</code></td><td>Read only the needed columns; the files are very wide</td></tr>
+      <tr><td><code>scale(x)</code></td><td><code>StandardScaler().fit_transform(x)</code></td><td>PCA needs standardised inputs</td></tr>
+      <tr><td><code>prcomp(x)</code></td><td><code>sklearn.decomposition.PCA</code></td><td></td></tr>
+      <tr><td><code>kmeans(x, centers = 4)</code></td><td><code>KMeans(n_clusters=4)</code></td><td>Set the seed in both; labels are arbitrary</td></tr>
+      <tr><td><code>caret::train(method = "glmnet")</code></td><td><code>LogisticRegression(l1_ratio=1)</code></td><td>caret tunes lambda by cross-validation; set C explicitly in Python</td></tr>
+      <tr><td><code>rpart(...)</code></td><td><code>DecisionTreeClassifier</code></td><td>Different pruning defaults; set depth and leaf size explicitly</td></tr>
+      <tr><td><code>caret::thresholder()</code></td><td>sweep the cut-off manually</td><td>No direct equivalent</td></tr>
+      <tr><td><code>survey::svydesign / svyglm</code></td><td>no full equivalent</td><td>The notebook uses weighted fits with cluster-robust errors as an approximation. For production survey work, R's <code>survey</code> package is the better tool.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Rebuilding this site</h2>
+  <p>Stages needing the survey files write aggregate results into <code>tools/derived/</code>,
+  which is committed, so the pages rebuild on any checkout without the 1.1 GB of data.</p>
+  <div class="codewrap">
+    <div class="head"><span>From the repository root</span><span>shell</span></div>
+    <pre class="code">bash tools/build.sh          # rebuild the pages from committed data
+bash tools/build.sh --all    # also recompute from the NSDUH files</pre>
+  </div>
+</section>
+
+</div></main>
+<footer class="site"><div class="wrap">
+  <p>Analysis and site by John Fisher. Data: SAMHSA, National Survey on Drug Use and Health.</p>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Statistical Analysis &middot; Depression and Substance Use in the NSDUH</title>
+<meta name="description" content="Descriptives computed weighted and unweighted, PCA and clustering with a stability check, and a classifier whose accuracy hides that it never predicts the outcome.">
+{meta}
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <p class="kicker">Statistical analysis</p>
+  <h1>Depression and Substance Use in the NSDUH</h1>
+  <p class="byline">John Fisher. Every figure computed from the public-use files, with the
+     survey design applied and the difference shown.</p>
+</div></header>
+<nav class="site"><div class="wrap">
+{nav}
+</div></nav>
+<main><div class="wrap">
+
+<section>
+  <h2>Summary</h2>
+  <div class="note">
+    <p>Three survey years pooled give {pooled} records, of which {n} adults have a usable
+    depression outcome. Weighted to the population, {mde_w}% report a past-year major
+    depressive episode; the unweighted figure is {mde_u}%.</p>
+    <p>A penalised logistic regression on seven predictors reaches AUC {auc}. At the default
+    cut-off it is {acc}% accurate and flags {pos} people out of {n}, which is the clearest
+    demonstration on this site of why accuracy alone is not a useful measure.</p>
+    <p>Ignoring the survey design also understates standard errors by a factor of roughly
+    {se_min} to {se_max}, so confidence intervals computed without it are around half as wide
+    as they should be.</p>
+  </div>
+</section>
+
+<section>
+  <h2>1. Who is in the analysis</h2>
+  <p>Pooling 2022, 2023 and 2024 gives {pooled} records. The analysis sample is {n}. The
+  {adolescents} difference is worth stating precisely, because it is not what it first looks
+  like.</p>
+  <div class="scroll"><table class="stats">
+    <caption>How the analysis sample is arrived at.</caption>
+    <thead><tr><th>Stage</th><th class="num">Records</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td class="item">Pooled, three years</td><td class="num">{pooled}</td><td>All respondents, all ages</td></tr>
+      <tr><td class="item">Aged 12&ndash;17</td><td class="num">&minus;{adolescents}</td><td><strong>Never asked the adult depression question.</strong> Adolescents answer a different instrument.</td></tr>
+      <tr><td class="item">Adults missing the outcome</td><td class="num">&minus;{adults_missing}</td><td>Genuine item non-response</td></tr>
+      <tr class="tag-row"><td class="item">Analysis sample</td><td class="num">{n}</td><td>Adults 18 and over</td></tr>
+    </tbody>
+  </table></div>
+  <p>Nearly nine in ten of the dropped records are adolescents who were never eligible to
+  answer. Treating that as missing data would be a mistake: it is a <strong>restriction on
+  the population</strong>. Every result here describes adults, and any statement about
+  "Americans" that includes teenagers would be wrong on this evidence.</p>
+  <p>Pooling three years also requires dividing each respondent's weight by three. Without
+  that, the weighted totals describe a country three times too large.</p>
+</section>
+
+<section>
+  <h2>2. The survey design, and what ignoring it costs</h2>
+  <p>NSDUH over-samples some groups by design. A respondent's weight says how many people
+  they stand for, and the stratum and replicate identifiers describe how the sample was
+  drawn. All three ship with the public-use files.</p>
+
+  <h3>It moves the estimates</h3>
+  <div class="scroll"><table class="stats">
+    <caption>Prevalence among adults, computed two ways from the same respondents.</caption>
+    <thead><tr><th>Measure</th><th class="num">Unweighted</th><th class="num">Weighted</th><th class="num">Difference</th></tr></thead>
+    <tbody>
+{prev_rows}
+    </tbody>
+  </table></div>
+  <p>Depression and marijuana move most, both downward: {mde_u}% to {mde_w}% and {mj_u}% to
+  {mj_w}%. Both are behaviours concentrated in younger adults, and younger adults are
+  over-represented among respondents.</p>
+
+  <figure><div class="figbox">{f2}</div>
+    <figcaption>Figure 1. Depression by age band, both ways.</figcaption></figure>
+  <p>The mechanism is visible here. <strong>Within</strong> an age band the two figures
+  almost agree. It is the mix of ages that differs between the sample and the country, so
+  only the overall figure moves. That is what weighting is for, and it is why an unweighted
+  national rate can be wrong even when every subgroup rate is nearly right.</p>
+
+  <h3>It changes how precise the estimates are</h3>
+  <p>Respondents are drawn in clusters rather than independently, so they carry less
+  information than the same number of independent draws would. A model that ignores this
+  reports standard errors that are too small.</p>
+  <figure><div class="figbox">{f5}</div>
+    <figcaption>Figure 2. Design-adjusted standard errors relative to naive ones, same model.</figcaption></figure>
+  <div class="scroll"><table class="stats">
+    <caption>Standard errors from the same logistic regression, with and without the design.</caption>
+    <thead><tr><th>Predictor</th><th class="num">Naive SE</th><th class="num">Design SE</th><th class="num">Ratio</th></tr></thead>
+    <tbody>
+{se_rows}
+    </tbody>
+  </table></div>
+  <p>Every standard error grows by between {se_min} and {se_max} times. A confidence interval
+  built on the naive figures is roughly half the width it should be, and a p-value computed
+  from them is correspondingly optimistic. Nothing here reverses a conclusion, because the
+  effects are large and the sample is enormous, but the reported precision would be wrong.</p>
+  <p class="mono-name"><small>The design-adjusted figures use the stratum and replicate
+  identifiers as the clustering unit. This captures the clustering and the weighting but not
+  the gain from stratification, so it is approximate and tends to be conservative. Read the
+  ratio as the rough scale of the error, not an exact design effect.</small></p>
+</section>
+
+<section>
+  <h2>3. Who reports depression</h2>
+  <div class="scroll"><table class="stats">
+    <caption>Past-year major depressive episode among adults, by subgroup.</caption>
+    <thead><tr><th>Group</th><th class="num">n</th><th class="num">Unweighted</th><th class="num">Weighted</th></tr></thead>
+    <tbody>
+{mde_rows}
+    </tbody>
+  </table></div>
+  <p>The age gradient is the strongest pattern in the data, and self-rated health is the
+  strongest single correlate of all. Both are far more informative than any individual
+  substance measure. Income shows a gradient too, but a shallow one, and it turns out to add
+  nothing once the other variables are known.</p>
+</section>
+
+<section>
+  <h2>4. Reducing and grouping</h2>
+  <p>Seven measures were standardised and reduced by principal components. The first three
+  carry {pca3}% of the variance, which is the basis for grouping respondents.</p>
+  <div class="scroll"><table class="stats">
+    <caption>Variance explained by the leading components.</caption>
+    <thead><tr><th>Component</th><th class="num">Variance</th><th class="num">Cumulative</th></tr></thead>
+    <tbody>
+{pca_rows}
+    </tbody>
+  </table></div>
+  <p>{pca3}% across three components is modest. These are seven fairly distinct measures, so
+  there is no dominant single dimension to find, and the components should be read as a
+  convenient summary rather than as latent traits.</p>
+
+  <figure><div class="figbox">{f3}</div>
+    <figcaption>Figure 3. Past-month use within each cluster, with the depression rate alongside.</figcaption></figure>
+  <div class="scroll"><table class="stats">
+    <caption>The four groups, ordered by marijuana use.</caption>
+    <thead><tr><th>Group</th><th class="num">n</th><th class="num">% of sample</th>
+      <th class="num">Alcohol</th><th class="num">Marijuana</th><th class="num">Cigarettes</th>
+      <th class="num">MDE</th></tr></thead>
+    <tbody>
+{cluster_rows}
+    </tbody>
+  </table></div>
+  <p>One group separates sharply: {mj_cluster_pct}% of the sample with {mj_cluster_mj}%
+  reporting past-month marijuana use, and a depression rate of {mj_cluster_mde}%, well above
+  the others. The remaining three are distinguished more by age, income and health than by
+  substances.</p>
+
+  <div class="note">
+    <p><strong>Clusters are a description, not a discovery.</strong> K-means returns four
+    groups from any dataset, including one with no group structure at all. Refitting on
+    twenty random subsamples returns cluster sizes of about {stab}, stable to within
+    {stab_sd} percentage points, so the partition is reproducible. Reproducible is not the
+    same as real: these may be genuine types of people, or convenient cuts through a
+    continuum. Nothing here distinguishes the two.</p>
+  </div>
+</section>
+
+<section>
+  <h2>5. Predicting depression, and the trap in accuracy</h2>
+  <p>A penalised logistic regression on the seven predictors, evaluated by cross-validation,
+  reaches an <strong>AUC of {auc}</strong>. AUC is the probability that a randomly chosen
+  person with depression is ranked above a randomly chosen person without it, so {auc} means
+  the model carries real signal.</p>
+  <p>Now the same model, judged by accuracy. It is <strong>{acc}% accurate</strong>. It also
+  flags <strong>{pos} people out of {n}</strong> as depressed, when {mde_u}% of the sample
+  actually report an episode. Cohen's kappa is {kappa}, effectively zero.</p>
+  <div class="note">
+    <p>The model achieves {acc}% accuracy by predicting "not depressed" for almost everyone.
+    With an outcome that occurs in about one in nine adults, always guessing "no" is right
+    about eight times out of nine. Accuracy rewards that. It is not a useful model at this
+    cut-off, and accuracy is the metric that hides it.</p>
+  </div>
+  <p>The failure is in the decision rule, not the model. The ranking is good; the default
+  0.50 cut-off is simply far above where the probabilities live for an outcome this rare.</p>
+  <figure><div class="figbox">{f4}</div>
+    <figcaption>Figure 4. The same model at different decision thresholds. AUC is identical throughout.</figcaption></figure>
+  <div class="scroll"><table class="stats">
+    <caption>One model, several cut-offs. The shaded row is the default.</caption>
+    <thead><tr><th class="num">Cut-off</th><th class="num">Sensitivity</th><th class="num">Specificity</th>
+      <th class="num">Precision</th><th class="num">Kappa</th><th class="num">Flagged</th></tr></thead>
+    <tbody>
+{thresh_rows}
+    </tbody>
+  </table></div>
+  <p>At 0.50 the model finds {sens50}% of people with depression. Lowering the cut-off to
+  0.20 finds {sens20}% of them, at the cost of flagging {flag20}% of everyone for a closer
+  look. Which trade-off is right depends entirely on what happens to a flagged person: a
+  cheap follow-up question justifies a low threshold, a costly intervention does not.</p>
+  <p>The imbalance is {imb} to 1. Class weighting and resampling are the other standard
+  responses, and they move the same trade-off along the same curve rather than creating new
+  information.</p>
+</section>
+
+<section>
+  <h2>6. What this supports, and what it does not</h2>
+  <p><strong>Supports.</strong> Among U.S. adults, past-year depression is strongly patterned
+  by age, sex and self-rated health. Marijuana use is the substance measure most associated
+  with it. A small group of heavy multi-substance users carries a markedly higher rate. These
+  associations are precise, because the sample is very large.</p>
+  <p><strong>Does not support.</strong> Any causal reading. This is a cross-sectional survey:
+  it cannot say whether substance use precedes depression, follows it, or both share a cause.
+  The measures are coarse, self-reported, and binary in this analysis: "any use in the past
+  month" treats a monthly drink and daily heavy use as the same thing.</p>
+  <p><strong>Does not address.</strong> Adolescents, who are excluded by construction.
+  Treatment, severity and duration, none of which are in these variables. And the great
+  majority of what actually drives depression: genetics, life events, social support and
+  care history are not in the model, which is why an AUC of {auc} is the ceiling here rather
+  than a disappointment.</p>
+</section>
+
+<section>
+  <h2>7. How this was computed</h2>
+  <p>All figures are computed from the SAMHSA public-use files with pandas, scikit-learn and
+  statsmodels, using only the columns needed rather than all 2,650. Random seeds are fixed at
+  1; changing them moves the cluster labels and the last digits of the cross-validated
+  figures.</p>
+  <p>The data is not in the repository. Aggregate results are written to
+  <code>tools/derived/</code>, which is committed, so every page rebuilds without it. See the
+  <a href="code.html">code page</a>.</p>
+</section>
+
+</div></main>
+<footer class="site"><div class="wrap">
+  <p>Analysis and site by John Fisher. Data: SAMHSA, National Survey on Drug Use and Health,
+     2022&ndash;2024 public-use files.</p>
+</div></footer>
+</body>
+</html>

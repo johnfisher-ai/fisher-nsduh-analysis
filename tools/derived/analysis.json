@@ -1,0 +1,543 @@
+{
+ "years": [
+  2022,
+  2023,
+  2024
+ ],
+ "pooled_rows": 174407,
+ "n": 134897,
+ "seed": 1,
+ "sample": {
+  "pooled": 174407,
+  "analysed": 134897,
+  "adolescents_excluded": 34875,
+  "adults_missing_outcome": 4635,
+  "population_note": "adults 18 and over",
+  "weight_sum": 251659673.08151898,
+  "by_year": [
+   {
+    "year": 2022,
+    "pooled": 59069,
+    "analysed": 45569
+   },
+   {
+    "year": 2023,
+    "pooled": 56705,
+    "analysed": 43687
+   },
+   {
+    "year": 2024,
+    "pooled": 58633,
+    "analysed": 45641
+   }
+  ]
+ },
+ "prevalence": [
+  {
+   "measure": "Alcohol, past month",
+   "var": "ALC_PASTMO",
+   "unweighted": 52.65,
+   "weighted": 51.8,
+   "by_year": [
+    {
+     "year": 2022,
+     "unweighted": 54.25,
+     "weighted": 53.22
+    },
+    {
+     "year": 2023,
+     "unweighted": 52.73,
+     "weighted": 51.91
+    },
+    {
+     "year": 2024,
+     "unweighted": 50.97,
+     "weighted": 50.32
+    }
+   ]
+  },
+  {
+   "measure": "Marijuana, past month",
+   "var": "MJ_PASTMO",
+   "unweighted": 19.32,
+   "weighted": 16.22,
+   "by_year": [
+    {
+     "year": 2022,
+     "unweighted": 18.71,
+     "weighted": 15.94
+    },
+    {
+     "year": 2023,
+     "unweighted": 19.89,
+     "weighted": 16.44
+    },
+    {
+     "year": 2024,
+     "unweighted": 19.38,
+     "weighted": 16.28
+    }
+   ]
+  },
+  {
+   "measure": "Cigarettes, past month",
+   "var": "CIG_PASTMO",
+   "unweighted": 14.34,
+   "weighted": 14.86,
+   "by_year": [
+    {
+     "year": 2022,
+     "unweighted": 14.67,
+     "weighted": 15.69
+    },
+    {
+     "year": 2023,
+     "unweighted": 14.65,
+     "weighted": 14.7
+    },
+    {
+     "year": 2024,
+     "unweighted": 13.7,
+     "weighted": 14.2
+    }
+   ]
+  },
+  {
+   "measure": "Major depressive episode, past year",
+   "var": "MDE",
+   "unweighted": 11.29,
+   "weighted": 8.44,
+   "by_year": [
+    {
+     "year": 2022,
+     "unweighted": 11.51,
+     "weighted": 8.63
+    },
+    {
+     "year": 2023,
+     "unweighted": 11.42,
+     "weighted": 8.5
+    },
+    {
+     "year": 2024,
+     "unweighted": 10.96,
+     "weighted": 8.21
+    }
+   ]
+  }
+ ],
+ "mde_by": [
+  {
+   "name": "Sex",
+   "rows": [
+    {
+     "level": "Male",
+     "n": 60307,
+     "unweighted": 8.44,
+     "weighted": 6.47
+    },
+    {
+     "level": "Female",
+     "n": 74590,
+     "unweighted": 13.6,
+     "weighted": 10.33
+    }
+   ]
+  },
+  {
+   "name": "Age band",
+   "rows": [
+    {
+     "level": "18-25",
+     "n": 40600,
+     "unweighted": 17.34,
+     "weighted": 17.76
+    },
+    {
+     "level": "26-34",
+     "n": 27414,
+     "unweighted": 12.49,
+     "weighted": 12.62
+    },
+    {
+     "level": "35-49",
+     "n": 36513,
+     "unweighted": 9.17,
+     "weighted": 8.22
+    },
+    {
+     "level": "50-64",
+     "n": 15069,
+     "unweighted": 6.3,
+     "weighted": 5.94
+    },
+    {
+     "level": "65+",
+     "n": 15301,
+     "unweighted": 3.07,
+     "weighted": 2.91
+    }
+   ]
+  },
+  {
+   "name": "Household income",
+   "rows": [
+    {
+     "level": "<$20K",
+     "n": 22429,
+     "unweighted": 14.21,
+     "weighted": 11.24
+    },
+    {
+     "level": "$20-49K",
+     "n": 35669,
+     "unweighted": 12.7,
+     "weighted": 9.57
+    },
+    {
+     "level": "$50-74K",
+     "n": 20061,
+     "unweighted": 11.85,
+     "weighted": 8.91
+    },
+    {
+     "level": "$75K+",
+     "n": 56738,
+     "unweighted": 9.05,
+     "weighted": 6.77
+    }
+   ]
+  },
+  {
+   "name": "Self-rated health",
+   "rows": [
+    {
+     "level": "Excellent",
+     "n": 25957,
+     "unweighted": 4.52,
+     "weighted": 3.66
+    },
+    {
+     "level": "Very good",
+     "n": 49703,
+     "unweighted": 8.62,
+     "weighted": 6.01
+    },
+    {
+     "level": "Good",
+     "n": 42495,
+     "unweighted": 13.79,
+     "weighted": 9.95
+    },
+    {
+     "level": "Fair or poor",
+     "n": 16742,
+     "unweighted": 23.37,
+     "weighted": 16.6
+    }
+   ]
+  }
+ ],
+ "pca": {
+  "vars": [
+   "ALC_PASTMO",
+   "MJ_PASTMO",
+   "CIG_PASTMO",
+   "IRSEX",
+   "CATAG6",
+   "INCOME",
+   "HEALTH"
+  ],
+  "explained": [
+   20.85,
+   18.39,
+   16.32,
+   14.05,
+   11.29,
+   9.74,
+   9.36
+  ],
+  "cumulative": [
+   20.85,
+   39.23,
+   55.56,
+   69.61,
+   80.9,
+   90.64,
+   100.0
+  ],
+  "loadings": [
+   {
+    "var": "ALC_PASTMO",
+    "pc1": 0.071,
+    "pc2": 0.654,
+    "pc3": 0.208
+   },
+   {
+    "var": "MJ_PASTMO",
+    "pc1": 0.524,
+    "pc2": 0.393,
+    "pc3": -0.091
+   },
+   {
+    "var": "CIG_PASTMO",
+    "pc1": 0.57,
+    "pc2": 0.065,
+    "pc3": 0.178
+   },
+   {
+    "var": "IRSEX",
+    "pc1": -0.031,
+    "pc2": -0.328,
+    "pc3": 0.023
+   },
+   {
+    "var": "CATAG6",
+    "pc1": -0.165,
+    "pc2": -0.127,
+    "pc3": 0.787
+   },
+   {
+    "var": "INCOME",
+    "pc1": -0.451,
+    "pc2": 0.457,
+    "pc3": 0.281
+   },
+   {
+    "var": "HEALTH",
+    "pc1": 0.404,
+    "pc2": -0.284,
+    "pc3": 0.467
+   }
+  ]
+ },
+ "clusters": [
+  {
+   "cluster": 2,
+   "n": 26510,
+   "pct": 19.7,
+   "pct_weighted": 15.9,
+   "alc": 83.6,
+   "mj": 80.1,
+   "cig": 48.5,
+   "mde": 19.6,
+   "age": 3.03,
+   "income": 2.57,
+   "health": 2.64
+  },
+  {
+   "cluster": 0,
+   "n": 37171,
+   "pct": 27.6,
+   "pct_weighted": 15.5,
+   "alc": 21.4,
+   "mj": 5.2,
+   "cig": 1.5,
+   "mde": 11.1,
+   "age": 2.45,
+   "income": 2.33,
+   "health": 1.94
+  },
+  {
+   "cluster": 1,
+   "n": 45853,
+   "pct": 34.0,
+   "pct_weighted": 41.2,
+   "alc": 79.9,
+   "mj": 4.1,
+   "cig": 1.5,
+   "mde": 6.2,
+   "age": 4.13,
+   "income": 3.73,
+   "health": 2.08
+  },
+  {
+   "cluster": 3,
+   "n": 25363,
+   "pct": 18.8,
+   "pct_weighted": 27.4,
+   "alc": 16.7,
+   "mj": 3.8,
+   "cig": 20.7,
+   "mde": 12.2,
+   "age": 4.56,
+   "income": 2.17,
+   "health": 3.25
+  }
+ ],
+ "cluster_stability": {
+  "runs": 20,
+  "sorted_sizes_mean": [
+   19.0,
+   19.7,
+   27.6,
+   33.7
+  ],
+  "sorted_sizes_sd": [
+   0.58,
+   0.52,
+   0.96,
+   0.74
+  ]
+ },
+ "model": {
+  "auc": 0.7406,
+  "accuracy": 0.8872,
+  "kappa": 0.0401,
+  "predicted_positive": 805,
+  "imbalance_ratio": 7.86,
+  "confusion": {
+   "tn": 119268,
+   "fp": 396,
+   "fn": 14824,
+   "tp": 409
+  }
+ },
+ "thresholds": [
+  {
+   "t": 0.5,
+   "sensitivity": 0.027,
+   "specificity": 0.997,
+   "precision": 0.508,
+   "kappa": 0.04,
+   "flagged": 805,
+   "flagged_pct": 0.6
+  },
+  {
+   "t": 0.3,
+   "sensitivity": 0.158,
+   "specificity": 0.966,
+   "precision": 0.375,
+   "kappa": 0.167,
+   "flagged": 6421,
+   "flagged_pct": 4.8
+  },
+  {
+   "t": 0.2,
+   "sensitivity": 0.39,
+   "specificity": 0.878,
+   "precision": 0.29,
+   "kappa": 0.233,
+   "flagged": 20496,
+   "flagged_pct": 15.2
+  },
+  {
+   "t": 0.15,
+   "sensitivity": 0.542,
+   "specificity": 0.784,
+   "precision": 0.242,
+   "kappa": 0.212,
+   "flagged": 34070,
+   "flagged_pct": 25.3
+  },
+  {
+   "t": 0.1,
+   "sensitivity": 0.735,
+   "specificity": 0.618,
+   "precision": 0.196,
+   "kappa": 0.16,
+   "flagged": 56950,
+   "flagged_pct": 42.2
+  }
+ ],
+ "design_effect": [
+  {
+   "term": "const",
+   "naive_coef": -3.3622,
+   "naive_se": 0.0537,
+   "design_coef": -3.125,
+   "design_se": 0.09836,
+   "se_ratio": 1.83
+  },
+  {
+   "term": "ALC_PASTMO",
+   "naive_coef": 0.1252,
+   "naive_se": 0.01895,
+   "design_coef": 0.141,
+   "design_se": 0.03575,
+   "se_ratio": 1.89
+  },
+  {
+   "term": "MJ_PASTMO",
+   "naive_coef": 0.5564,
+   "naive_se": 0.02096,
+   "design_coef": 0.617,
+   "design_se": 0.04115,
+   "se_ratio": 1.96
+  },
+  {
+   "term": "CIG_PASTMO",
+   "naive_coef": 0.1558,
+   "naive_se": 0.02448,
+   "design_coef": 0.1432,
+   "design_se": 0.04736,
+   "se_ratio": 1.93
+  },
+  {
+   "term": "IRSEX",
+   "naive_coef": 0.5753,
+   "naive_se": 0.01901,
+   "design_coef": 0.5979,
+   "design_se": 0.03621,
+   "se_ratio": 1.9
+  },
+  {
+   "term": "CATAG6",
+   "naive_coef": -0.4675,
+   "naive_se": 0.00817,
+   "design_coef": -0.5177,
+   "design_se": 0.01514,
+   "se_ratio": 1.85
+  },
+  {
+   "term": "INCOME",
+   "naive_coef": -0.0013,
+   "naive_se": 0.00816,
+   "design_coef": -0.0523,
+   "design_se": 0.01418,
+   "se_ratio": 1.74
+  },
+  {
+   "term": "HEALTH",
+   "naive_coef": 0.6541,
+   "naive_se": 0.01043,
+   "design_coef": 0.6594,
+   "design_se": 0.01836,
+   "se_ratio": 1.76
+  }
+ ],
+ "tree": {
+  "depth": 4,
+  "importance": [
+   {
+    "var": "HEALTH",
+    "importance": 0.5064
+   },
+   {
+    "var": "CATAG6",
+    "importance": 0.3949
+   },
+   {
+    "var": "MJ_PASTMO",
+    "importance": 0.077
+   },
+   {
+    "var": "IRSEX",
+    "importance": 0.0216
+   },
+   {
+    "var": "ALC_PASTMO",
+    "importance": 0.0
+   },
+   {
+    "var": "CIG_PASTMO",
+    "importance": 0.0
+   },
+   {
+    "var": "INCOME",
+    "importance": 0.0
+   }
+  ],
+  "first_split": "HEALTH"
+ }
+}
