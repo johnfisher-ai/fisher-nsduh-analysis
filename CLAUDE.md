@@ -12,32 +12,34 @@ penalised logistic regression and a classification tree, refitting for class imb
 
 ---
 
-## 1. Name this for the subject, never for how it was produced
+## 1. Name this for the subject, never for its origin
 
-This is the sharpest constraint on the project, sharper than in any previous study,
-because **both source documents are saturated with references that must not appear
-anywhere**.
+This is the sharpest constraint on the project, sharper than in any previous study, because
+**both source documents are written for a different audience and setting, and that framing
+runs all the way through them**.
 
-Refer to this work only as an analysis of NSDUH data, by its subject: major depressive
-episode, substance use, the survey years. No course, course code, course title, study
-guide, homework, semester, or "final project" reference belongs in the README, the About
-text, the social cards, any page, the notebook, commit messages, or file names.
+Refer to this work only by its subject: major depressive episode, substance use, the survey
+years, the methods. Nothing about where, why or for whom the analysis was originally
+produced belongs in the README, the About text, the social cards, any page, the notebook,
+commit messages, or file names.
 
-The source material carries these in volume. Before anything is committed, know where:
+The source material carries that framing in volume, in three places you will meet it:
 
-- the analysis PDF's title line, and a `setwd()` call that names both a course directory
-  and a local home path
-- the plain-English report's title block, and roughly fifty in-body references: a
-  recurring "class connection" callout, dozens of study-guide section pointers, homework
-  numbers, and a whole subsection built around mapping techniques to course material
+- the analysis PDF's title line, and a `setwd()` call naming both a working directory and a
+  local home path
+- the plain-English report's title block, plus roughly fifty in-body references: a recurring
+  coloured callout that appears about a dozen times, dozens of pointers to an external
+  reference document, and an entire subsection built around mapping each technique to that
+  document
 - one source file name
 
-**Neither source document can be published as-is, or lightly edited.** The site's prose
-must be written fresh from the substance. The figures are clean R output and can be reused
-after renaming.
+**Neither source document can be published as-is, or lightly edited.** The site's prose must
+be written fresh from the substance. The figures are clean R output and can be reused after
+renaming.
 
-Before committing, grep the staged tree for the course code, the course title, "study
-guide", "homework", "semester", and "final project". The answer should be nothing.
+Before committing, open the report's title block and one of its coloured callouts, take the
+recurring terms from them, and grep the staged tree for each. The answer should be nothing.
+Do not write those terms into this file.
 
 ---
 
@@ -159,7 +161,7 @@ The user has asked specifically for descriptive visuals, methodology and conclus
   data**: it is far too large. Either have it download from SAMHSA, or simulate from
   published aggregates, and say which.
 - **The write-up** — a plain-language walkthrough, rewritten. The existing report's teaching
-  structure is genuinely good and worth keeping; its course scaffolding is not.
+  structure is genuinely good and worth keeping; the framing described in section 1 is not.
 
 Figures from the existing report are clean R output and can be reused after renaming, but
 prefer regenerating them in the site's own chart style where the data allows, so they
