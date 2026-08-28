@@ -124,6 +124,19 @@ bash tools/build.sh --all    # also recompute from the NSDUH files
 Stages marked `[raw]` need the survey files. Everything they produce is written to
 `tools/derived/` as aggregates, and that folder **is** committed, so every page rebuilds on
 a fresh checkout without the data. Random seeds are fixed at 1.
+---
+
+## License
+
+The **code** in this repository is released under the [MIT License](LICENSE): the R
+pipeline, the Python notebook, and everything under `tools/` and `public/`. This is the
+repository with the least attached: essentially all of it is code, so essentially all of it
+is reusable.
+
+Not covered by that licence:
+
+- **The NSDUH survey files**, which are not in this repository. They are distributed by
+  SAMHSA under their own terms. See [Data availability](#data-availability).
 
 ---
 
