@@ -12,7 +12,7 @@
 DATA_DIR <- "path/to/nsduh"
 
 library(tidyverse)
-library(VIM)          # missingness visualisation
+library(VIM)          # missingness visualization
 library(factoextra)   # PCA and clustering plots
 library(caret)        # cross-validation and tuning
 library(rpart)        # classification tree
@@ -77,7 +77,7 @@ nsduh %>% group_by(YEAR) %>%
 # Part 4. PCA and k-means
 # ---------------------------------------------------------------------------
 pca_vars <- c("ALC_PASTMO","MJ_PASTMO","CIG_PASTMO","IRSEX","CATAG6","INCOME","HEALTH")
-X  <- scale(nsduh[, pca_vars])          # standardise: the variables are on different scales
+X  <- scale(nsduh[, pca_vars])          # standardize: the variables are on different scales
 pc <- prcomp(X)
 fviz_eig(pc)                            # scree plot
 scores <- pc$x[, 1:3]

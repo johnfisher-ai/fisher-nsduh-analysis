@@ -1,6 +1,6 @@
 """The analysis behind the site.
 
-Reproduces the existing pipeline (PCA, k-means, penalised logistic regression, a
+Reproduces the existing pipeline (PCA, k-means, penalized logistic regression, a
 classification tree) and adds what the original omitted: the complex survey design.
 NSDUH is a stratified multistage sample, so unweighted percentages describe the sample
 rather than the country, and standard errors that ignore the design are too small.
@@ -197,7 +197,7 @@ def main():
                                                    random_state=SEED).fit(sub).inertia_), 1))
                   for k in range(1, 9)]
 
-    # ---- LASSO against ridge, on standardised predictors ----
+    # ---- LASSO against ridge, on standardized predictors ----
     Xstd = StandardScaler().fit_transform(Xm)
     coefs = {}
     for tag, kw in (("lasso", dict(solver="liblinear", l1_ratio=1)),
@@ -228,7 +228,7 @@ def main():
     json.dump(R, open(DERIVED / "analysis.json", "w"), indent=1)
 
     s = R["sample"]
-    print(f"  pooled {s['pooled']:,} -> analysed {s['analysed']:,}")
+    print(f"  pooled {s['pooled']:,} -> analyzed {s['analysed']:,}")
     print(f"    adolescents never asked the adult question: {s['adolescents_excluded']:,}")
     print(f"    adults with a missing outcome:              {s['adults_missing_outcome']:,}")
     print(f"\n  {'measure':38s} {'unwtd':>7s} {'wtd':>7s}")

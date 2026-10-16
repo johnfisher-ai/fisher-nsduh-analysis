@@ -26,7 +26,7 @@
     <p>Three survey years pooled give {pooled} records, of which {n} adults have a usable
     depression outcome. Weighted to the population, {mde_w}% report a past-year major
     depressive episode; the unweighted figure is {mde_u}%.</p>
-    <p>A penalised logistic regression on seven predictors reaches AUC {auc}. At the default
+    <p>A penalized logistic regression on seven predictors reaches AUC {auc}. At the default
     cut-off it is {acc}% accurate and flags {pos} people out of {n}, which is the clearest
     demonstration on this site of why accuracy alone is not a useful measure.</p>
     <p>Ignoring the survey design also understates standard errors by a factor of roughly
@@ -115,7 +115,7 @@
     </tbody>
   </table></div>
   <p>Depression and marijuana move most, both downward: {mde_u}% to {mde_w}% and {mj_u}% to
-  {mj_w}%. Both are behaviours concentrated in younger adults, and younger adults are
+  {mj_w}%. Both are behaviors concentrated in younger adults, and younger adults are
   over-represented among respondents.</p>
 
   <figure><div class="figbox">{f2}</div>
@@ -169,7 +169,7 @@
   so do the three substances. Principal components analysis rewrites them as a smaller set of
   combined scores that carry most of the same information, which makes the grouping in the
   next step tractable.</p>
-  <p>The variables are on different scales, so they are standardised first. Without that,
+  <p>The variables are on different scales, so they are standardized first. Without that,
   a variable coded 1 to 6 would dominate one coded 0 or 1 purely through its range.</p>
 
   <figure><div class="figbox">{f10}</div>
@@ -259,16 +259,16 @@
   can shrink a coefficient all the way to zero and so drops variables entirely,
   while <strong>ridge</strong> shrinks everything but keeps all of them.</p>
   <figure><div class="figbox">{f13}</div>
-    <figcaption>Figure 11. Standardised coefficients under both penalties. Right of the line raises risk.</figcaption></figure>
+    <figcaption>Figure 11. Standardized coefficients under both penalties. Right of the line raises risk.</figcaption></figure>
   <div class="scroll"><table class="stats">
-    <caption>Standardised coefficients, ordered by size under LASSO.</caption>
+    <caption>Standardized coefficients, ordered by size under LASSO.</caption>
     <thead><tr><th>Predictor</th><th class="num">LASSO</th><th class="num">Ridge</th><th class="num">Kept?</th></tr></thead>
     <tbody>
 {penalised_rows}
     </tbody>
   </table></div>
   <p>The two agree closely on both order and size, which is reassuring: the result is not an
-  artefact of the penalty chosen. <strong>{top_pred}</strong> and <strong>{top_pred2}</strong>
+  artifact of the penalty chosen. <strong>{top_pred}</strong> and <strong>{top_pred2}</strong>
   dominate, both far ahead of any substance measure. Among the substances, marijuana
   ({mj_coef}) is roughly three times alcohol ({alc_coef}), which is the basis for the claim
   that marijuana is the substance most associated with depression.</p>
@@ -276,7 +276,7 @@
   and substance use are known. The gradient in Figure 3 is real, but it appears to run through
   those other variables rather than adding anything of its own.</p>
   <div class="note">
-    <p>These are log-odds on standardised predictors, so they compare like with like. A
+    <p>These are log-odds on standardized predictors, so they compare like with like. A
     coefficient of {mj_coef} does not mean marijuana users are {mj_coef} times more likely to
     be depressed; it means a one standard deviation change in that predictor moves the log-odds
     by that much. The ratio between two coefficients is meaningful; the number on its own is
@@ -295,7 +295,7 @@
   regression missed, which is itself informative: the relationships here are close to additive.</p>
 
   <h3>Then the model is asked to make decisions</h3>
-  <p>A penalised logistic regression on the seven predictors, evaluated by cross-validation,
+  <p>A penalized logistic regression on the seven predictors, evaluated by cross-validation,
   reaches an <strong>AUC of {auc}</strong>. AUC is the probability that a randomly chosen
   person with depression is ranked above a randomly chosen person without it, so {auc} means
   the model carries real signal.</p>
@@ -333,7 +333,7 @@
   <h2>8. Bottom-line findings</h2>
 
   <h3>What the groups look like</h3>
-  <p>Adults fall into four recognisable substance-use profiles. A third are
+  <p>Adults fall into four recognizable substance-use profiles. A third are
   <strong>higher-income drinkers</strong> who drink and do little else, and who have the
   lowest depression rate of the four. A quarter are <strong>younger low-use</strong> adults,
   low on everything. About a fifth are <strong>older cigarette users</strong> with the poorest
@@ -343,7 +343,7 @@
 
   <h3>What predicts depression</h3>
   <p>Self-rated health and age are the strongest predictors by a wide margin, and both a
-  penalised regression and a decision tree agree on that independently. Women report
+  penalized regression and a decision tree agree on that independently. Women report
   substantially higher rates than men. Among substances, marijuana is the strongest signal,
   roughly three times alcohol or cigarettes. Income adds nothing once the rest is known, and
   LASSO shrinks it to near zero on its own.</p>
@@ -362,7 +362,7 @@
   threshold is set, and that is a question about consequences, not about statistics.</p>
 
   <h3>Honest limitations</h3>
-  <p><strong>Self-report.</strong> People under-report behaviour they expect to be judged for,
+  <p><strong>Self-report.</strong> People under-report behavior they expect to be judged for,
   and both the substance and the depression measures rest on what respondents said.</p>
   <p><strong>No causation.</strong> Cross-sectional data. Marijuana use and depression travel
   together; nothing here shows which came first, or whether something else drives both.</p>

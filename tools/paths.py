@@ -72,5 +72,5 @@ def load_pooled():
     return df
 
 def analysis_frame(df):
-    """The modelling sample: complete on outcome and self-rated health."""
+    """The modeling sample: complete on outcome and self-rated health."""
     return df[df.MDE.notna() & df.HEALTH.notna()].copy()

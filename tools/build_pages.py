@@ -122,7 +122,7 @@ CTX = dict(
     bal_no=f'{A["balance"]["no"]:,}', bal_yes=f'{A["balance"]["yes"]:,}',
     bal_pct_no=A["balance"]["pct_no"], bal_pct_yes=A["balance"]["pct_yes"],
     pc1=f'{A["pca"]["explained"][0]:.1f}', pc2=f'{A["pca"]["explained"][1]:.1f}',
-    tree_split=A["tree"]["structure"]["split"],
+    tree_split=e(A["tree"]["structure"]["split"]),
     top_pred=A["penalised"][0]["var"], top_pred2=A["penalised"][1]["var"],
     income_lasso=f'{[p for p in A["penalised"] if p["var"]=="INCOME"][0]["lasso"]:+.3f}',
     mj_coef=f'{[p for p in A["penalised"] if p["var"]=="MJ_PASTMO"][0]["lasso"]:+.3f}',
@@ -152,7 +152,7 @@ CTX = dict(
 
 PAGES = [
  ("index.html","","Depression and Substance Use in the NSDUH",
-  "Three years of the National Survey on Drug Use and Health, 134,897 adults, analysed for the link between substance use and major depressive episode."),
+  "Three years of the National Survey on Drug Use and Health, 134,897 adults, analyzed for the link between substance use and major depressive episode."),
  ("analysis.html","analysis.html","The Statistical Analysis",
   "Descriptives computed weighted and unweighted, PCA and clustering with a stability check, and a classifier whose accuracy hides that it never predicts the outcome."),
  ("code.html","code.html","The Code",

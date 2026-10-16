@@ -108,7 +108,7 @@ else:
 
 Every respondent carries a weight saying how many people they represent. Unweighted, you
 describe the respondents; weighted, you estimate the population. When a survey deliberately
-over-samples a group whose behaviour differs, the two answers differ.""")
+over-samples a group whose behavior differs, the two answers differ.""")
     co("""wm = lambda s, w: float(np.average(s, weights=w))
 
 rows = []
@@ -129,7 +129,7 @@ print("\\nIt is the age MIX that differs, which is why only the overall figure m
 
     md(f"""## Part 3. Reduce, then group
 
-Seven measures on different scales, so standardise first, then take principal components and
+Seven measures on different scales, so standardize first, then take principal components and
 cluster on the leading three.
 
 > **The synthetic data understates this step.** The generator draws each variable
@@ -236,9 +236,9 @@ plt.tight_layout(); plt.show()""")
 
     md("""### LASSO against ridge, and a tree
 
-Two penalties, two different behaviours. LASSO can shrink a coefficient to exactly zero and
+Two penalties, two different behaviors. LASSO can shrink a coefficient to exactly zero and
 so drops variables; ridge shrinks everything but keeps it. If they agree, the result is not
-an artefact of the penalty.""")
+an artifact of the penalty.""")
     co("""from sklearn.tree import DecisionTreeClassifier, plot_tree
 
 Xstd = StandardScaler().fit_transform(df[VARS].astype(float))
@@ -256,7 +256,7 @@ yv = np.arange(len(comp))
 ax[0].barh(yv-0.2, comp.LASSO, 0.4, label="LASSO", color="#2a78d6")
 ax[0].barh(yv+0.2, comp.Ridge, 0.4, label="Ridge", color="#eb6834")
 ax[0].set_yticks(yv); ax[0].set_yticklabels(comp.index, fontsize=8); ax[0].invert_yaxis()
-ax[0].axvline(0, color="#8b95a6", lw=1); ax[0].legend(); ax[0].set_xlabel("standardised coefficient")
+ax[0].axvline(0, color="#8b95a6", lw=1); ax[0].legend(); ax[0].set_xlabel("standardized coefficient")
 ax[0].set_title("What predicts depression")
 
 tree = DecisionTreeClassifier(max_depth=3, min_samples_leaf=500, random_state=SEED).fit(df[VARS], y)
@@ -286,12 +286,13 @@ print(comp.round(5).to_string())
 print("\\nOn the real data these ratios run about 1.7 to 2.0: naive intervals are roughly")
 print("half the width they should be.")""")
 
+    se = [d["se_ratio"] for d in A["design_effect"] if d["term"] != "const"]
     md(f"""## What the real analysis found
 
 On the real files: {A['n']:,} adults, MDE {A['prevalence'][3]['weighted']}% weighted against
 {A['prevalence'][3]['unweighted']}% unweighted, AUC {A['model']['auc']},
 accuracy {A['model']['accuracy']*100:.1f}% with kappa {A['model']['kappa']}, and design-adjusted
-standard errors {A['design_effect'][1]['se_ratio']}x to {max(d['se_ratio'] for d in A['design_effect'])}x
+standard errors {min(se):.2f}x to {max(se):.2f}x
 the naive ones.
 
 Full write-up: [{SITE}/analysis.html]({SITE}/analysis.html)""")

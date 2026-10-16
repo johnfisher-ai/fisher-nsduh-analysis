@@ -74,10 +74,10 @@
       <p>Every prevalence computed with and without the weights, so the difference is
       visible rather than assumed away.</p></div></div>
     <div class="step"><span class="n">4</span><div><strong>Reduce and group</strong>
-      <p>Standardise, principal components, k-means on the leading three, then refit on
+      <p>Standardize, principal components, k-means on the leading three, then refit on
       subsamples to see whether the groups are reproducible.</p></div></div>
     <div class="step"><span class="n">5</span><div><strong>Predict</strong>
-      <p>Penalised logistic regression and a classification tree, cross-validated, then the
+      <p>Penalized logistic regression and a classification tree, cross-validated, then the
       threshold sweep that shows what the default cut-off costs.</p></div></div>
     <div class="step"><span class="n">6</span><div><strong>Apply the design</strong>
       <p>Refit with the weights and the cluster structure, and compare the standard errors
@@ -110,7 +110,7 @@
 DATA_DIR &lt;- <span class="sas-s">&quot;path/to/nsduh&quot;</span>
 
 <span class="sas-k">library</span>(tidyverse)
-<span class="sas-k">library</span>(VIM)          <span class="sas-c"># missingness visualisation</span>
+<span class="sas-k">library</span>(VIM)          <span class="sas-c"># missingness visualization</span>
 <span class="sas-k">library</span>(factoextra)   <span class="sas-c"># PCA and clustering plots</span>
 <span class="sas-k">library</span>(caret)        <span class="sas-c"># cross-validation and tuning</span>
 <span class="sas-k">library</span>(<span class="sas-k">rpart</span>)        <span class="sas-c"># classification tree</span>
@@ -175,7 +175,7 @@ nsduh %&gt;% <span class="sas-k">group_by</span>(YEAR) %&gt;%
 <span class="sas-c"># Part 4. PCA and k-means</span>
 <span class="sas-c"># ---------------------------------------------------------------------------</span>
 pca_vars &lt;- <span class="sas-k">c</span>(<span class="sas-s">&quot;ALC_PASTMO&quot;</span>,<span class="sas-s">&quot;MJ_PASTMO&quot;</span>,<span class="sas-s">&quot;CIG_PASTMO&quot;</span>,<span class="sas-s">&quot;IRSEX&quot;</span>,<span class="sas-s">&quot;CATAG6&quot;</span>,<span class="sas-s">&quot;INCOME&quot;</span>,<span class="sas-s">&quot;HEALTH&quot;</span>)
-X  &lt;- <span class="sas-k">scale</span>(nsduh[, pca_vars])          <span class="sas-c"># standardise: the variables are on different scales</span>
+X  &lt;- <span class="sas-k">scale</span>(nsduh[, pca_vars])          <span class="sas-c"># standardize: the variables are on different scales</span>
 pc &lt;- <span class="sas-k">prcomp</span>(X)
 <span class="sas-p">fviz_eig</span>(pc)                            <span class="sas-c"># scree plot</span>
 scores &lt;- pc$x[, <span class="sas-n">1</span>:<span class="sas-n">3</span>]
@@ -242,7 +242,7 @@ des &lt;- <span class="sas-p">svydesign</span>(ids = ~VEREP, strata = ~VESTR_C, 
     <thead><tr><th>R</th><th>Python</th><th>Note</th></tr></thead>
     <tbody>
       <tr><td><code>read.delim(path)[, vars]</code></td><td><code>pd.read_csv(path, sep="\t", usecols=...)</code></td><td>Read only the needed columns; the files are very wide</td></tr>
-      <tr><td><code>scale(x)</code></td><td><code>StandardScaler().fit_transform(x)</code></td><td>PCA needs standardised inputs</td></tr>
+      <tr><td><code>scale(x)</code></td><td><code>StandardScaler().fit_transform(x)</code></td><td>PCA needs standardized inputs</td></tr>
       <tr><td><code>prcomp(x)</code></td><td><code>sklearn.decomposition.PCA</code></td><td></td></tr>
       <tr><td><code>kmeans(x, centers = 4)</code></td><td><code>KMeans(n_clusters=4)</code></td><td>Set the seed in both; labels are arbitrary</td></tr>
       <tr><td><code>caret::train(method = "glmnet")</code></td><td><code>LogisticRegression(l1_ratio=1)</code></td><td>caret tunes lambda by cross-validation; set C explicitly in Python</td></tr>

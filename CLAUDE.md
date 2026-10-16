@@ -6,7 +6,7 @@ National Survey on Drug Use and Health (NSDUH), 2022 to 2024.
 Three survey years were pooled to give 134,897 respondents with a usable depression
 outcome. The analysis reduces seven substance-use and demographic measures with PCA,
 finds four groups by k-means, then predicts past-year major depressive episode with
-penalised logistic regression and a classification tree, refitting for class imbalance.
+penalized logistic regression and a classification tree, refitting for class imbalance.
 
 **Author: John Fisher.** Repo: `johnfisher-ai/fisher-nsduh-analysis`.
 
@@ -28,7 +28,7 @@ The source material carries that framing in volume, in three places you will mee
 - the analysis PDF's title line, and a `setwd()` call naming both a working directory and a
   local home path
 - the plain-English report's title block, plus roughly fifty in-body references: a recurring
-  coloured callout that appears about a dozen times, dozens of pointers to an external
+  colored callout that appears about a dozen times, dozens of pointers to an external
   reference document, and an entire subsection built around mapping each technique to that
   document
 - one source file name
@@ -37,7 +37,7 @@ The source material carries that framing in volume, in three places you will mee
 be written fresh from the substance. The figures are clean R output and can be reused after
 renaming.
 
-Before committing, open the report's title block and one of its coloured callouts, take the
+Before committing, open the report's title block and one of its colored callouts, take the
 recurring terms from them, and grep the staged tree for each. The answer should be nothing.
 Do not write those terms into this file.
 
@@ -75,7 +75,7 @@ existing analysis selects ten variables and **none of the three is among them**.
 
 That has two different consequences, and conflating them would be a mistake:
 
-**For prediction, it is largely defensible.** The modelling here builds and evaluates a
+**For prediction, it is largely defensible.** The modeling here builds and evaluates a
 classifier. Cross-validated AUC on unweighted data answers "how well does this model rank
 these respondents", which is a coherent question.
 
@@ -102,9 +102,9 @@ most interesting descriptive result the site can offer. Use the `survey` package
 |---|---|
 | Clean | Pool three years, select ten variables, recode to binary indicators, listwise deletion |
 | Explore | Missingness pattern, prevalence by year, MDE rate by sex, income and age |
-| Reduce | PCA on seven standardised variables |
+| Reduce | PCA on seven standardized variables |
 | Group | K-means on the principal component scores, K chosen by elbow plot |
-| Predict | LASSO and ridge penalised logistic regression, and a CART classification tree |
+| Predict | LASSO and ridge penalized logistic regression, and a CART classification tree |
 | Validate | 10-fold cross-validation, accuracy, kappa, ROC and AUC |
 | Refit | Class-weighted models and threshold adjustment for the imbalanced outcome |
 
@@ -135,7 +135,7 @@ Worth establishing before any of it reaches the site:
   never predicts the minority class is a good illustration of why accuracy alone misleads,
   and the site should lead with it rather than bury it.
 - **Cluster interpretation is not a finding.** K-means will return four groups from any
-  data. Whether these are real types of people or an artefact of partitioning a continuum
+  data. Whether these are real types of people or an artifact of partitioning a continuum
   needs a stability check: refit on resamples and see whether the same structure appears.
 - **Listwise deletion dropped about 39,000 records** on the outcome alone. Establish who
   those respondents are. If the depression question was not asked of certain age groups,
@@ -205,6 +205,11 @@ work. It is deliberately outside git. Read from it freely; never commit from it.
 
 - **American English.** If any spelling is deliberately non-standard (a function name, a data
   value, a proper noun), list it here so a later spelling pass does not "fix" it.
+  - `summarise`, the dplyr function that `R/nsduh_mde_analysis.R` calls, which is also in the
+    keyword list in `tools/rhl.py`.
+  - `analysed` and `penalised`, keys that `tools/compute_analysis.py` writes into
+    `tools/derived/analysis.json`, and the code names built on them (`penalised_rows`,
+    `fig_penalised`). Renaming a key means rerunning `bash tools/build.sh --all` on the raw files.
 - **No prose em-dashes.** Use commas or parentheses.
 - **Prose must read human, not AI.** Avoid precious superlatives, aphoristic one-liners, writerly
   meta-flourishes ("doubles as", "earn the right to"), cutesy filler adverbs, and stacked negative
@@ -277,8 +282,8 @@ one-off styles: `.wrap`, `.kicker`, `.lede`, `.figures`, `.cards`, `.card`, `.no
 
 Charts are inline SVG built in `tools/chart.py`, not image files, so they follow the
 reader's light or dark setting. **The palette is validated, not chosen by eye**: the
-three series colours pass colorblind-separation and contrast checks against both
-surfaces. Re-validate before substituting any colour.
+three series colors pass colorblind-separation and contrast checks against both
+surfaces. Re-validate before substituting any color.
 
 Wide tables and charts scroll inside their own container. The page body must never
 scroll horizontally; check at 375px before calling a page done.
@@ -297,7 +302,7 @@ dimensions change, update `og:image:width` and `og:image:height` in every page.
   filter. Attrition is a result.
 - **Many tests on many outcomes is a multiplicity problem.** Either correct, or say
   plainly that the tests are exploratory.
-- **Anything randomised must be seeded**, and the seed recorded. A cross-validated
+- **Anything randomized must be seeded**, and the seed recorded. A cross-validated
   estimate or a bootstrap interval changes if the split changes.
 - **Cross-check anything important in a second tool.** Reimplementing a result
   independently catches errors that reading the code does not.

@@ -1,8 +1,8 @@
 <svg class="fig" viewBox="0 0 800 234" role="img" aria-label="What the survey design changes">
 <text class="ttl" x="0.0" y="16.0" text-anchor="start">What the survey design changes</text>
 <text class="sub" x="0.0" y="33.0" text-anchor="start">Every estimate computed two ways from the same respondents. Weighted is the population estimate.</text>
-<rect x="570" y="7" width="10" height="10" rx="2" class="m2f"/><text class="leg" x="584.0" y="16.0" text-anchor="start">Unweighted (sample)</text>
-<rect x="650" y="7" width="10" height="10" rx="2" class="m1f"/><text class="leg" x="664.0" y="16.0" text-anchor="start">Weighted (population)</text>
+<rect x="460.8" y="7" width="10" height="10" rx="2" class="m2f"/><text class="leg" x="474.8" y="16.0" text-anchor="start">Unweighted (sample)</text>
+<rect x="628.3" y="7" width="10" height="10" rx="2" class="m1f"/><text class="leg" x="642.3" y="16.0" text-anchor="start">Weighted (population)</text>
 <line class="grid" x1="250.0" y1="50" x2="250.0" y2="182"/>
 <text class="ax" x="250.0" y="218.0" text-anchor="middle">0%</text>
 <line class="grid" x1="323.3" y1="50" x2="323.3" y2="182"/>
@@ -21,18 +21,18 @@
 <text class="lab" x="236.0" y="68.0" text-anchor="end">Alcohol</text>
 <rect class="m2f" x="250" y="53" width="386.1" height="10" rx="2"/>
 <rect class="m1f" x="250" y="66" width="379.9" height="10" rx="2"/>
-<text class="val" x="646.1" y="70.0" text-anchor="start">52.6%  /  51.8%</text>
+<text class="val halo" x="646.1" y="70.0" text-anchor="start" paint-order="stroke">52.6%  /  51.8%</text>
 <text class="lab" x="236.0" y="102.0" text-anchor="end">Marijuana</text>
 <rect class="m2f" x="250" y="87" width="141.7" height="10" rx="2"/>
 <rect class="m1f" x="250" y="100" width="118.9" height="10" rx="2"/>
-<text class="val" x="401.7" y="104.0" text-anchor="start">19.3%  /  16.2%</text>
+<text class="val halo" x="401.7" y="104.0" text-anchor="start" paint-order="stroke">19.3%  /  16.2%</text>
 <text class="lab" x="236.0" y="136.0" text-anchor="end">Cigarettes</text>
 <rect class="m2f" x="250" y="121" width="105.2" height="10" rx="2"/>
 <rect class="m1f" x="250" y="134" width="109.0" height="10" rx="2"/>
-<text class="val" x="369.0" y="138.0" text-anchor="start">14.3%  /  14.9%</text>
+<text class="val halo" x="369.0" y="138.0" text-anchor="start" paint-order="stroke">14.3%  /  14.9%</text>
 <text class="lab" x="236.0" y="170.0" text-anchor="end">Major depressive episode</text>
 <rect class="m2f" x="250" y="155" width="82.8" height="10" rx="2"/>
 <rect class="m1f" x="250" y="168" width="61.9" height="10" rx="2"/>
-<text class="val" x="342.8" y="172.0" text-anchor="start">11.3%  /  8.4%</text>
+<text class="val halo" x="342.8" y="172.0" text-anchor="start" paint-order="stroke">11.3%  /  8.4%</text>
 <line class="axis" x1="250" y1="50" x2="250" y2="182"/>
 </svg>

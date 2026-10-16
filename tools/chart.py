@@ -7,7 +7,7 @@ substituting anything, with the dataviz skill's validate_palette.js or an equiva
     light  s1 #2a78d6  s2 #eb6834  s3 #1baf7a
     dark   s1 #3987e5  s2 #d95926  s3 #199e70
 
-Charts emit inline SVG that inherits colour from CSS custom properties defined in
+Charts emit inline SVG that inherits color from CSS custom properties defined in
 public/assets/css/site.css, so a chart follows the reader's light/dark setting instead of
 being baked to one theme. That is why these are hand-built rather than matplotlib PNGs.
 """
@@ -16,6 +16,8 @@ def esc(s):
 
 def T(x, y, t, cls="lab", anchor="start", size=None):
     st = f' font-size="{size}"' if size else ""
+    if "halo" in cls.split():  # the halo's stroke goes under the fill (see .halo in site.css)
+        st += ' paint-order="stroke"'
     return f'<text class="{cls}" x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}"{st}>{esc(t)}</text>'
 
 def dumbbell(rows, title, subtitle, axis_label, lo, hi, legend=("Before", "After"),
@@ -52,7 +54,7 @@ def forest(rows, title, subtitle, axis_label, lo, hi, ticks, ref=0, accent_marks
 
     The fifth element of each row flags a row that starts a group: it draws a rule above
     and bolds the label. Set accent_marks=False when that flag means "group head" rather
-    than "this estimate is special", so the marker colour does not imply significance the
+    than "this estimate is special", so the marker color does not imply significance the
     row does not have.
     """
     H = TOP + ROW * len(rows) + 40

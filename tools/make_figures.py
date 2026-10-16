@@ -16,6 +16,19 @@ def _axis(s, x0, x1, y0, y1, ticks, X, label, H):
         s.append(T(gx, H - 16, lab, "ax", "middle"))
     s.append(T((x0 + x1) / 2, H - 2, label, "ax", "middle"))
 
+def legend_right(items, right, y=7, size=11.5, gap=18):
+    """Legend swatches and labels laid out leftward from `right`, spaced by label length.
+
+    Widths are estimated at 0.62 em a character, wider than the site's fonts set them, so a
+    long label such as "Unweighted (sample)" never runs into the next swatch."""
+    out, x = [], right
+    for label, cls in reversed(items):
+        tx = x - len(label) * size * 0.62
+        out.append(f'<rect x="{tx-14:.1f}" y="{y}" width="10" height="10" rx="2" class="{cls}"/>'
+                   + T(tx, y + 9, label, "leg"))
+        x = tx - 14 - gap
+    return out[::-1]
+
 def paired_bars(rows, title, sub, axis_label, hi, legend, W=800, L=250, R=110, TOP=64, ROW=34):
     """rows: [(label, value_a, value_b)] drawn as two bars per row."""
     H = TOP + ROW * len(rows) + 34
@@ -24,8 +37,7 @@ def paired_bars(rows, title, sub, axis_label, hi, legend, W=800, L=250, R=110, T
     X = lambda v: x0 + v / hi * (x1 - x0)
     s = [f'<svg class="fig" viewBox="0 0 {W} {H}" role="img" aria-label="{esc(title)}">',
          T(0, 16, title, "ttl"), T(0, 33, sub, "sub"),
-         f'<rect x="{x1-120}" y="7" width="10" height="10" rx="2" class="m2f"/>{T(x1-106,16,legend[0],"leg")}',
-         f'<rect x="{x1-40}" y="7" width="10" height="10" rx="2" class="m1f"/>{T(x1-26,16,legend[1],"leg")}']
+         *legend_right([(legend[0], "m2f"), (legend[1], "m1f")], W - 8)]
     step = max(5, int(hi / 5 // 5 * 5))
     _axis(s, x0, x1, y0, y1, [(v, f"{v}%") for v in range(0, int(hi) + 1, step)], X, axis_label, H)
     for i, (lab, u, w) in enumerate(rows):
@@ -33,7 +45,7 @@ def paired_bars(rows, title, sub, axis_label, hi, legend, W=800, L=250, R=110, T
         s.append(T(L - 14, y + 4, lab, "lab", "end"))
         s.append(f'<rect class="m2f" x="{x0}" y="{y-11}" width="{max(X(u)-x0,1):.1f}" height="10" rx="2"/>')
         s.append(f'<rect class="m1f" x="{x0}" y="{y+2}" width="{max(X(w)-x0,1):.1f}" height="10" rx="2"/>')
-        s.append(T(max(X(u), X(w)) + 10, y + 6, f"{u:.1f}%  /  {w:.1f}%", "val"))
+        s.append(T(max(X(u), X(w)) + 10, y + 6, f"{u:.1f}%  /  {w:.1f}%", "val halo"))
     s.append(f'<line class="axis" x1="{x0}" y1="{y1}" x2="{x0}" y2="{y0}"/>')
     return "\n".join(s) + "\n</svg>"
 
@@ -61,6 +73,10 @@ def fig_clusters():
     for j, (k, lab, cls) in enumerate(keys):
         cx = x1 - 250 + j * 88
         s.append(f'<rect x="{cx}" y="7" width="10" height="10" rx="2" class="{cls}"/>{T(cx+14,16,lab,"leg")}')
+    for v in (0, 25, 50, 75, 100):  # gridlines first, so the bars sit on top of them
+        gx = x0 + v / 100 * (x1 - x0)
+        s.append(f'<line class="grid" x1="{gx:.1f}" y1="{TOP-16}" x2="{gx:.1f}" y2="{TOP+ROW*len(C)-30}"/>')
+        s.append(T(gx, H - 16, f"{v}%", "ax", "middle"))
     for i, c in enumerate(C):
         y = TOP + i * ROW
         s.append(T(L - 14, y + 2, f'Cluster {i+1}', "lab bold", "end"))
@@ -69,10 +85,6 @@ def fig_clusters():
             v = c[k]; yy = y - 9 + j * 9
             s.append(f'<rect class="{cls}" x="{x0}" y="{yy}" width="{max(v/100*(x1-x0),1):.1f}" height="7" rx="2"/>')
         s.append(T(x1 + 10, y + 6, f'MDE {c["mde"]}%', "val"))
-    for v in (0, 25, 50, 75, 100):
-        gx = x0 + v / 100 * (x1 - x0)
-        s.append(f'<line class="grid" x1="{gx:.1f}" y1="{TOP-16}" x2="{gx:.1f}" y2="{TOP+ROW*len(C)-30}"/>')
-        s.append(T(gx, H - 16, f"{v}%", "ax", "middle"))
     s.append(T((x0 + x1) / 2, H - 2, "Percent of cluster reporting past-month use", "ax", "middle"))
     return "\n".join(s) + "\n</svg>"
 
@@ -85,16 +97,16 @@ def fig_threshold():
          T(0, 33, "Same model, same AUC. Only the probability at which a case is flagged changes.", "sub"),
          f'<rect x="{x1-186}" y="7" width="10" height="10" rx="2" class="m1f"/>{T(x1-172,16,"Sensitivity","leg")}',
          f'<rect x="{x1-86}" y="7" width="10" height="10" rx="2" class="m2f"/>{T(x1-72,16,"% flagged","leg")}']
+    for v in (0, 25, 50, 75, 100):  # gridlines first, so the bars sit on top of them
+        gx = x0 + v / 100 * (x1 - x0)
+        s.append(f'<line class="grid" x1="{gx:.1f}" y1="{TOP-16}" x2="{gx:.1f}" y2="{TOP+ROW*len(Tt)-22}"/>')
+        s.append(T(gx, H - 16, f"{v}%", "ax", "middle"))
     for i, t in enumerate(Tt):
         y = TOP + i * ROW
         s.append(T(L - 14, y + 4, f'cut at {t["t"]:.2f}', "lab", "end"))
         s.append(f'<rect class="m1f" x="{x0}" y="{y-11}" width="{max(t["sensitivity"]*(x1-x0),1):.1f}" height="10" rx="2"/>')
         s.append(f'<rect class="m2f" x="{x0}" y="{y+2}" width="{max(t["flagged_pct"]/100*(x1-x0),1):.1f}" height="10" rx="2"/>')
         s.append(T(x1 + 10, y + 6, f'sens {t["sensitivity"]*100:.0f}%, flags {t["flagged_pct"]:.0f}%', "val"))
-    for v in (0, 25, 50, 75, 100):
-        gx = x0 + v / 100 * (x1 - x0)
-        s.append(f'<line class="grid" x1="{gx:.1f}" y1="{TOP-16}" x2="{gx:.1f}" y2="{TOP+ROW*len(Tt)-22}"/>')
-        s.append(T(gx, H - 16, f"{v}%", "ax", "middle"))
     s.append(T((x0 + x1) / 2, H - 2, "Percent", "ax", "middle"))
     return "\n".join(s) + "\n</svg>"
 
@@ -107,15 +119,22 @@ def fig_se():
     s = [f'<svg class="fig" viewBox="0 0 {W} {H}" role="img" aria-label="Standard error inflation">',
          T(0, 16, "How far out the standard errors are when the design is ignored", "ttl"),
          T(0, 33, "Ratio of design-adjusted to naive standard error. 1.0 would mean no difference.", "sub")]
+    # Gridlines go behind the bars. The dashed 1.0 reference line is drawn over them, and the
+    # value labels carry a halo, so no line runs through a label.
+    ticks = [(1.0, "1.0 (no effect)"), (1.5, "1.5"), (2.0, "2.0")]
+    for v, lab in ticks[1:]:
+        gx = X(v)
+        s.append(f'<line class="grid" x1="{gx:.1f}" y1="{TOP-16}" x2="{gx:.1f}" y2="{TOP+ROW*len(D)-10}"/>')
     for i, d in enumerate(D):
         y = TOP + i * ROW
         s.append(T(L - 14, y + 4, d["term"], "lab", "end"))
         s.append(f'<rect class="m1f" x="{x0}" y="{y-8}" width="{max(X(d["se_ratio"])-x0,1):.1f}" height="16" rx="3"/>')
-        s.append(T(X(d["se_ratio"]) + 10, y + 5, f'x{d["se_ratio"]:.2f}', "val"))
-    for v, lab in [(1.0, "1.0 (no effect)"), (1.5, "1.5"), (2.0, "2.0")]:
-        gx = X(v)
-        s.append(f'<line class="{"zero" if v==1.0 else "grid"}" x1="{gx:.1f}" y1="{TOP-16}" x2="{gx:.1f}" y2="{TOP+ROW*len(D)-10}"/>')
-        s.append(T(gx, TOP + ROW*len(D) + 8, lab, "ax", "middle"))
+    gx = X(1.0)
+    s.append(f'<line class="zero" x1="{gx:.1f}" y1="{TOP-16}" x2="{gx:.1f}" y2="{TOP+ROW*len(D)-10}"/>')
+    for i, d in enumerate(D):
+        s.append(T(X(d["se_ratio"]) + 10, TOP + i * ROW + 5, f'x{d["se_ratio"]:.2f}', "val halo"))
+    for v, lab in ticks:
+        s.append(T(X(v), TOP + ROW*len(D) + 8, lab, "ax", "middle"))
     s.append(T((x0 + x1) / 2, H - 8, "Standard error, design-adjusted relative to naive", "ax", "middle"))
     return "\n".join(s) + "\n</svg>"
 
@@ -183,6 +202,9 @@ def fig_who():
     s = [f'<svg class="fig" viewBox="0 0 {W} {H}" role="img" aria-label="Depression by sex and income">',
          T(0, 16, "Who reports depression", "ttl"),
          T(0, 33, "Weighted percent with a past-year major depressive episode.", "sub")]
+    for v in range(0, 21, 5):  # gridlines first, so the bars and labels sit on top of them
+        s.append(f'<line class="grid" x1="{X(v):.1f}" y1="{TOP-14}" x2="{X(v):.1f}" y2="{TOP+ROW*rows-16}"/>')
+        s.append(T(X(v), H - 12, f"{v}%", "ax", "middle"))
     i = 0
     for g in groups:
         s.append(T(L - 14, TOP + i * ROW + 4, g["name"], "lab bold", "end")); i += 1
@@ -191,10 +213,7 @@ def fig_who():
             s.append(T(L - 14, y + 4, r["level"], "lab", "end"))
             w = max(X(r["weighted"]) - x0, 1)
             s.append(f'<rect class="m1f" x="{x0}" y="{y-8}" width="{w:.1f}" height="16" rx="2"/>')
-            s.append(T(x0 + w + 10, y + 5, f'{r["weighted"]:.1f}%   n={r["n"]:,}', "val")); i += 1
-    for v in range(0, 21, 5):
-        s.append(f'<line class="grid" x1="{X(v):.1f}" y1="{TOP-14}" x2="{X(v):.1f}" y2="{TOP+ROW*rows-16}"/>')
-        s.append(T(X(v), H - 12, f"{v}%", "ax", "middle"))
+            s.append(T(x0 + w + 10, y + 5, f'{r["weighted"]:.1f}%   n={r["n"]:,}', "val halo")); i += 1
     return "\n".join(s) + "\n</svg>"
 
 def fig_balance():
@@ -233,7 +252,7 @@ def fig_scree():
     for i, v in enumerate(E):
         cx = x0 + i * slot + slot / 2
         s.append(f'<rect class="m1f" x="{cx-16:.1f}" y="{Y(v):.1f}" width="32" height="{y0-Y(v):.1f}" rx="2"/>')
-        s.append(T(cx, Y(v) - 7, f"{v:.0f}%", "val", "middle"))
+        s.append(T(cx, Y(v) - 7, f"{v:.0f}%", "val halo", "middle"))
         s.append(T(cx, y0 + 20, f"PC{i+1}", "ax", "middle"))
         pts.append(f"{cx:.1f},{Y(Cu[i]):.1f}")
     s.append(f'<polyline class="ci" fill="none" points="{" ".join(pts)}"/>')
@@ -301,7 +320,7 @@ def fig_penalised():
     X = lambda v: mid + v / hi * half
     s = [f'<svg class="fig" viewBox="0 0 {W} {H}" role="img" aria-label="LASSO against ridge coefficients">',
          T(0, 16, "What predicts depression, and how the two penalties compare", "ttl"),
-         T(0, 33, "Standardised coefficients. Right of the line raises risk, left lowers it.", "sub"),
+         T(0, 33, "Standardized coefficients. Right of the line raises risk, left lowers it.", "sub"),
          f'<rect x="{W-R+4}" y="7" width="10" height="10" rx="2" class="m1f"/>{T(W-R+18,16,"LASSO","leg")}',
          f'<rect x="{W-R+72}" y="7" width="10" height="10" rx="2" class="m2f"/>{T(W-R+86,16,"Ridge","leg")}']
     for i, p in enumerate(P):
@@ -313,7 +332,7 @@ def fig_penalised():
         s.append(T(X(max(p["lasso"], p["ridge"], key=abs)) + (12 if p["lasso"] >= 0 else -12),
                    y + 5, f'{p["lasso"]:+.2f}', "val", "start" if p["lasso"] >= 0 else "end"))
     s.append(f'<line class="zero" x1="{mid:.1f}" y1="{TOP-16}" x2="{mid:.1f}" y2="{TOP+ROW*len(P)-18}"/>')
-    s.append(T(mid, H - 8, "Standardised coefficient (log-odds)", "ax", "middle"))
+    s.append(T(mid, H - 8, "Standardized coefficient (log-odds)", "ax", "middle"))
     return "\n".join(s) + "\n</svg>"
 
 def fig_tree():

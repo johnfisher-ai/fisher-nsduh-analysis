@@ -1,8 +1,8 @@
 <svg class="fig" viewBox="0 0 800 258" role="img" aria-label="Depression by age, both ways">
 <text class="ttl" x="0.0" y="16.0" text-anchor="start">Depression by age, both ways</text>
 <text class="sub" x="0.0" y="33.0" text-anchor="start">Within an age band the two agree. The overall rate does not, because the sample over-represents the young.</text>
-<rect x="570" y="7" width="10" height="10" rx="2" class="m2f"/><text class="leg" x="584.0" y="16.0" text-anchor="start">Unweighted</text>
-<rect x="650" y="7" width="10" height="10" rx="2" class="m1f"/><text class="leg" x="664.0" y="16.0" text-anchor="start">Weighted</text>
+<rect x="617.7" y="7" width="10" height="10" rx="2" class="m2f"/><text class="leg" x="631.7" y="16.0" text-anchor="start">Unweighted</text>
+<rect x="721.0" y="7" width="10" height="10" rx="2" class="m1f"/><text class="leg" x="735.0" y="16.0" text-anchor="start">Weighted</text>
 <line class="grid" x1="150.0" y1="50" x2="150.0" y2="206"/>
 <text class="ax" x="150.0" y="242.0" text-anchor="middle">0%</text>
 <line class="grid" x1="285.0" y1="50" x2="285.0" y2="206"/>
@@ -17,22 +17,22 @@
 <text class="lab" x="136.0" y="68.0" text-anchor="end">18-25</text>
 <rect class="m2f" x="150" y="53" width="468.2" height="10" rx="2"/>
 <rect class="m1f" x="150" y="66" width="479.5" height="10" rx="2"/>
-<text class="val" x="639.5" y="70.0" text-anchor="start">17.3%  /  17.8%</text>
+<text class="val halo" x="639.5" y="70.0" text-anchor="start" paint-order="stroke">17.3%  /  17.8%</text>
 <text class="lab" x="136.0" y="100.0" text-anchor="end">26-34</text>
 <rect class="m2f" x="150" y="85" width="337.2" height="10" rx="2"/>
 <rect class="m1f" x="150" y="98" width="340.7" height="10" rx="2"/>
-<text class="val" x="500.7" y="102.0" text-anchor="start">12.5%  /  12.6%</text>
+<text class="val halo" x="500.7" y="102.0" text-anchor="start" paint-order="stroke">12.5%  /  12.6%</text>
 <text class="lab" x="136.0" y="132.0" text-anchor="end">35-49</text>
 <rect class="m2f" x="150" y="117" width="247.6" height="10" rx="2"/>
 <rect class="m1f" x="150" y="130" width="221.9" height="10" rx="2"/>
-<text class="val" x="407.6" y="134.0" text-anchor="start">9.2%  /  8.2%</text>
+<text class="val halo" x="407.6" y="134.0" text-anchor="start" paint-order="stroke">9.2%  /  8.2%</text>
 <text class="lab" x="136.0" y="164.0" text-anchor="end">50-64</text>
 <rect class="m2f" x="150" y="149" width="170.1" height="10" rx="2"/>
 <rect class="m1f" x="150" y="162" width="160.4" height="10" rx="2"/>
-<text class="val" x="330.1" y="166.0" text-anchor="start">6.3%  /  5.9%</text>
+<text class="val halo" x="330.1" y="166.0" text-anchor="start" paint-order="stroke">6.3%  /  5.9%</text>
 <text class="lab" x="136.0" y="196.0" text-anchor="end">65+</text>
 <rect class="m2f" x="150" y="181" width="82.9" height="10" rx="2"/>
 <rect class="m1f" x="150" y="194" width="78.6" height="10" rx="2"/>
-<text class="val" x="242.9" y="198.0" text-anchor="start">3.1%  /  2.9%</text>
+<text class="val halo" x="242.9" y="198.0" text-anchor="start" paint-order="stroke">3.1%  /  2.9%</text>
 <line class="axis" x1="150" y1="50" x2="150" y2="206"/>
 </svg>

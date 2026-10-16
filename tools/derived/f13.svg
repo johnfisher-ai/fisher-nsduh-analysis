@@ -1,6 +1,6 @@
 <svg class="fig" viewBox="0 0 800 342" role="img" aria-label="LASSO against ridge coefficients">
 <text class="ttl" x="0.0" y="16.0" text-anchor="start">What predicts depression, and how the two penalties compare</text>
-<text class="sub" x="0.0" y="33.0" text-anchor="start">Standardised coefficients. Right of the line raises risk, left lowers it.</text>
+<text class="sub" x="0.0" y="33.0" text-anchor="start">Standardized coefficients. Right of the line raises risk, left lowers it.</text>
 <rect x="654" y="7" width="10" height="10" rx="2" class="m1f"/><text class="leg" x="668.0" y="16.0" text-anchor="start">LASSO</text>
 <rect x="722" y="7" width="10" height="10" rx="2" class="m2f"/><text class="leg" x="736.0" y="16.0" text-anchor="start">Ridge</text>
 <text class="lab" x="146.0" y="74.0" text-anchor="end">CATAG6</text>
@@ -32,5 +32,5 @@
 <rect class="m2f" x="404.4" y="275" width="0.6" height="10" rx="2"/>
 <text class="val" x="392.4" y="279.0" text-anchor="end">-0.00</text>
 <line class="zero" x1="405.0" y1="54" x2="405.0" y2="290"/>
-<text class="ax" x="405.0" y="334.0" text-anchor="middle">Standardised coefficient (log-odds)</text>
+<text class="ax" x="405.0" y="334.0" text-anchor="middle">Standardized coefficient (log-odds)</text>
 </svg>

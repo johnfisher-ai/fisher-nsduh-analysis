@@ -19,7 +19,7 @@ sample was drawn.
 Seven measures are used: past-month alcohol, marijuana and cigarette use, sex, age band,
 household income, and self-rated health. The outcome is past-year major depressive episode.
 The pipeline reduces the measures by PCA, groups respondents with k-means, then predicts the
-outcome with penalised logistic regression and a classification tree.
+outcome with penalized logistic regression and a classification tree.
 
 **Three findings shape the site:**
 
@@ -47,7 +47,7 @@ over.
 
 | File | What it is |
 |---|---|
-| [R/nsduh_mde_analysis.R](R/nsduh_mde_analysis.R) | The analysis pipeline in R: pooling, recoding, PCA, k-means, penalised regression, a tree, and the survey-design section. |
+| [R/nsduh_mde_analysis.R](R/nsduh_mde_analysis.R) | The analysis pipeline in R: pooling, recoding, PCA, k-means, penalized regression, a tree, and the survey-design section. |
 | [notebooks/nsduh_mde_analysis.ipynb](notebooks/nsduh_mde_analysis.ipynb) | The same analysis in Python, runnable in Colab on synthetic data. |
 | [tools/](tools/) | The rebuild pipeline: analysis, figures, notebook and page builders. |
 
@@ -133,7 +133,7 @@ pipeline, the Python notebook, and everything under `tools/` and `public/`. This
 repository with the least attached: essentially all of it is code, so essentially all of it
 is reusable.
 
-Not covered by that licence:
+Not covered by that license:
 
 - **The NSDUH survey files**, which are not in this repository. They are distributed by
   SAMHSA under their own terms. See [Data availability](#data-availability).
